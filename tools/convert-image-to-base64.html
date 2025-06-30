@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Image to Base64 Converter - Free Online Tool | CSRGO</title>
+  <meta name="description" content="Convert your images to Base64 format online. Free, easy-to-use tool for encoding images to Base64 strings.">
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../styles.min.css">
+  <link rel="icon" href="https://tools.csrgo.com/logo.png" type="image/png" sizes="32x32">
+  <link rel="shortcut icon" href="https://tools.csrgo.com/logo.png" type="image/png">
+  <link rel="apple-touch-icon" href="https://tools.csrgo.com/logo.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://tools.csrgo.com/",
+    "name": "CSRGO Tools",
+    "logo": "https://tools.csrgo.com/logo.png"
+  }
+  </script>
+</head>
+<body class="bg-gradient-to-b from-blue-50 via-white to-gray-50 min-h-screen flex flex-col">
+  <!-- Header Placeholder -->
+  <div id="header-placeholder"></div>
+
+  <!-- Main Content -->
+  <main class="flex-grow">
+    <!-- Hero Section -->
+    <section class="pt-20 pb-8 px-4 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-transparent"></div>
+      <div class="container mx-auto text-center relative z-10" id="heroSection"></div>
+    </section>
+
+    <!-- Tool UI -->
+    <section id="toolUI" class="py-8 px-4">
+      <div class="container mx-auto max-w-4xl">
+        <!-- Upload Area -->
+        <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
+          <div id="dropZone" class="border-2 border-dashed border-gray-200 rounded-xl p-8 text-center cursor-pointer hover:border-blue-500 transition-colors">
+            <div class="flex flex-col items-center gap-4">
+              <div class="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center">
+                <i data-lucide="upload" class="w-8 h-8 text-blue-500"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-gray-900">Drop your image here</h3>
+                <p class="text-gray-500 mt-1">or click to browse</p>
+              </div>
+              <input type="file" id="fileInput" accept="image/*" class="hidden">
+            </div>
+          </div>
+        </div>
+
+        <!-- Preview and Options Area -->
+        <div id="previewArea" class="bg-white rounded-2xl shadow-sm p-6 mb-6 hidden">
+          <div class="grid md:grid-cols-2 gap-6">
+            <!-- Original Image -->
+            <div>
+              <h3 class="text-lg font-semibold mb-4">Original Image</h3>
+              <div class="aspect-square bg-gray-50 rounded-lg overflow-hidden">
+                <img id="originalImage" class="w-full h-full object-contain" alt="Original image">
+              </div>
+            </div>
+            <!-- Conversion Options -->
+            <div>
+              <h3 class="text-lg font-semibold mb-4">Conversion Options</h3>
+              <div class="space-y-6">
+                <!-- Format Selection -->
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Output Format</label>
+                  <select id="outputFormat" class="w-full rounded-lg border-gray-200 focus:border-blue-500 focus:ring-blue-500">
+                    <option value="image/jpeg">JPEG</option>
+                    <option value="image/png">PNG</option>
+                    <option value="image/webp">WebP</option>
+                  </select>
+                </div>
+                <!-- Quality Slider (for JPEG and WebP) -->
+                <div id="qualityContainer">
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Quality</label>
+                  <div class="flex items-center gap-4">
+                    <input type="range" id="quality" min="0" max="100" value="90" class="w-full">
+                    <span id="qualityValue" class="text-sm font-medium text-gray-600">90%</span>
+                  </div>
+                </div>
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap gap-4">
+                  <button id="convertBtn" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                    <i data-lucide="code" class="w-5 h-5 inline-block mr-2"></i>
+                    Convert to Base64
+                  </button>
+                  <button id="clearBtn" class="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors">
+                    <i data-lucide="x" class="w-5 h-5 inline-block mr-2"></i>
+                    Clear
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Base64 Result -->
+        <div id="resultArea" class="bg-white rounded-2xl shadow-sm p-6 mb-6 hidden">
+          <h3 class="text-lg font-semibold mb-4">Base64 Result</h3>
+          <div class="relative">
+            <textarea id="base64Result" class="w-full h-48 p-4 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-blue-500 font-mono text-sm" readonly></textarea>
+            <button id="copyBtn" class="absolute top-2 right-2 p-2 text-gray-500 hover:text-gray-700">
+              <i data-lucide="copy" class="w-5 h-5"></i>
+            </button>
+          </div>
+          <div class="mt-4 flex justify-center">
+            <button id="downloadBtn" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-colors flex items-center justify-center gap-2">
+              <i data-lucide="download" class="w-5 h-5 inline-block mr-2"></i>
+              Download Base64
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Similar Tools Section Placeholder -->
+    <div id="similarToolsSection"></div>
+
+    <!-- What is tool? Section -->
+    <section id="whatIsSection" class="py-16 px-4 bg-white"></section>
+
+    <!-- Why use tool? Section -->
+    <section id="whyUseSection" class="py-16 px-4"></section>
+
+    <!-- How to use tool? Section -->
+    <section id="howToUseSection" class="py-16 px-4 bg-white"></section>
+
+    <!-- Features Section -->
+    <section id="featuresSection" class="py-16 px-4"></section>
+
+    <!-- FAQ Section -->
+    <section id="faqSection" class="py-16 px-4 bg-white"></section>
+  </main>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+  <!-- Floating Buttons Placeholder -->
+  <div id="floating-buttons"></div>
+
+  <!-- Scripts -->
+  <script src="../app.min.js"></script>
+  <script>
+    // Set current tool info automatically by matching URL
+    if (window.tools) {
+      window.CSRGO_TOOL_INFO = window.tools.find(
+        t => t.url === "tools/convert-image-to-base64.html"
+      );
+    }
+  </script>
+  <script src="../components/include.min.js"></script>
+  <script src="../components/similar-tools.min.js"></script>
+  <script src="../tools/data/convert-image-to-base64-data.min.js"></script>
+  <script src="../components/tool-sections.min.js"></script>
+  <script src="../components/floating-buttons.min.js"></script>
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Initialize tool sections
+    document.addEventListener('DOMContentLoaded', () => {
+      renderToolSections('CONVERT_IMAGE_TO_BASE64_DATA');
+    });
+
+    // Elements
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+    const originalImageEl = document.getElementById('originalImage');
+    const previewArea = document.getElementById('previewArea');
+    const outputFormat = document.getElementById('outputFormat');
+    const quality = document.getElementById('quality');
+    const qualityValue = document.getElementById('qualityValue');
+    const qualityContainer = document.getElementById('qualityContainer');
+    const convertBtn = document.getElementById('convertBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const resultArea = document.getElementById('resultArea');
+    const base64Result = document.getElementById('base64Result');
+    const copyBtn = document.getElementById('copyBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    let originalImage = null;
+
+    // Handle file selection
+    function handleFileSelect(file) {
+      if (!file.type.startsWith('image/')) {
+        alert('Please select an image file');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        originalImage = e.target.result;
+        originalImageEl.src = originalImage;
+        previewArea.classList.remove('hidden');
+        convertBtn.classList.remove('hidden');
+        clearBtn.classList.remove('hidden');
+
+        // Scroll to preview area
+        previewArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Event Listeners
+    dropZone.addEventListener('click', () => fileInput.click());
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('border-blue-500');
+    });
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('border-blue-500');
+    });
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('border-blue-500');
+      const file = e.dataTransfer.files[0];
+      if (file) handleFileSelect(file);
+    });
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) handleFileSelect(file);
+    });
+
+    // Format change handler
+    outputFormat.addEventListener('change', () => {
+      const format = outputFormat.value;
+      if (format === 'image/png') {
+        qualityContainer.classList.add('hidden');
+      } else {
+        qualityContainer.classList.remove('hidden');
+      }
+    });
+
+    // Quality slider handler
+    quality.addEventListener('input', () => {
+      qualityValue.textContent = `${quality.value}%`;
+    });
+
+    // Convert button
+    convertBtn.addEventListener('click', () => {
+      if (!originalImage) return;
+
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      
+      img.onload = () => {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        
+        const format = outputFormat.value;
+        const qualityValue = format === 'image/png' ? undefined : parseInt(quality.value) / 100;
+        
+        const base64 = canvas.toDataURL(format, qualityValue);
+        base64Result.value = base64;
+        resultArea.classList.remove('hidden');
+        resultArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      };
+      
+      img.src = originalImage;
+    });
+
+    // Copy button
+    copyBtn.addEventListener('click', () => {
+      base64Result.select();
+      document.execCommand('copy');
+      
+      // Visual feedback
+      const originalIcon = copyBtn.innerHTML;
+      copyBtn.innerHTML = '<i data-lucide="check" class="w-5 h-5"></i>';
+      lucide.createIcons();
+      
+      setTimeout(() => {
+        copyBtn.innerHTML = originalIcon;
+        lucide.createIcons();
+      }, 2000);
+    });
+
+    // Download button
+    downloadBtn.addEventListener('click', () => {
+      const base64 = base64Result.value;
+      if (!base64) return;
+      
+      const link = document.createElement('a');
+      link.download = 'image-base64.txt';
+      link.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(base64);
+      link.click();
+    });
+
+    // Clear button
+    clearBtn.addEventListener('click', () => {
+      originalImage = null;
+      originalImageEl.src = '';
+      previewArea.classList.add('hidden');
+      resultArea.classList.add('hidden');
+      convertBtn.classList.add('hidden');
+      clearBtn.classList.add('hidden');
+      fileInput.value = '';
+      base64Result.value = '';
+    });
+  </script>
+</body>
+</html> 

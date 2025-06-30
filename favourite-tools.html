@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Favourite Tools - CSRGO Tools</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="styles.min.css">
+  <link rel="icon" type="image/png" href="logo.png">
+  <meta property="og:image" content="logo.png">
+  <meta property="og:image:alt" content="CSRGO Tools Logo">
+  <link rel="icon" href="https://tools.csrgo.com/logo.png" type="image/png" sizes="32x32">
+  <link rel="shortcut icon" href="https://tools.csrgo.com/logo.png" type="image/png">
+  <link rel="apple-touch-icon" href="https://tools.csrgo.com/logo.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://tools.csrgo.com/",
+    "name": "CSRGO Tools",
+    "logo": "https://tools.csrgo.com/logo.png"
+  }
+  </script>
+  <style>
+    .gradient-bg {
+      background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+    }
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    .animate-float {
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-b from-blue-50 via-white to-gray-50 min-h-screen flex flex-col">
+  <div id="header-placeholder"></div>
+  <main class="flex-grow">
+    <section class="pt-28 pb-12 px-4">
+      <div class="container mx-auto max-w-7xl text-center">
+        <div class="flex justify-center mb-6">
+          <div class="w-16 h-16 rounded-2xl gradient-bg flex items-center justify-center animate-float">
+            <i data-lucide="star" class="w-8 h-8 text-white"></i>
+          </div>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Your Favourite Tools</h1>
+        <p class="text-lg text-gray-600 mb-8">Quick access to the tools you love most. Favourites are saved in your browser for next time!</p>
+        <div id="favourites-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+        <div id="no-favourites" class="hidden text-gray-500 text-xl mt-12 flex flex-col items-center gap-2">
+          <i data-lucide="heart-off" class="w-10 h-10"></i>
+          <span>No favourite tools yet. Go add some!</span>
+        </div>
+        <div class="flex justify-center mt-10" id="edit-controls-container">
+          <button id="edit-favourites-btn" class="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-[#7c3aed] to-[#2563eb] text-white font-semibold rounded-lg hover:opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 text-lg shadow">
+            <span>Edit</span>
+            <i data-lucide="pencil" class="w-5 h-5 ml-2"></i>
+          </button>
+          <button id="done-editing-btn" class="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-green-500 to-green-700 text-white font-semibold rounded-lg hover:opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 text-lg shadow ml-3 hidden">
+            <span>Done</span>
+            <i data-lucide="check" class="w-5 h-5 ml-2"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="footer-placeholder"></div>
+  <div id="floating-buttons"></div>
+  <script src="app.min.js"></script>
+  <script src="components/include.min.js"></script>
+  <script src="components/floating-buttons.min.js"></script>
+  <script>
+    lucide.createIcons();
+    includeHTML('header-placeholder', 'components/header.html');
+    includeHTML('footer-placeholder', 'components/footer.html');
+
+    function getToolCategoryColor(tool) {
+      // Try to match tool.category to categories
+      if (tool.category && categories.length) {
+        const cat = categories.find(c => c.id === tool.category);
+        if (cat && cat.color) return cat.color;
+      }
+      // Fallback: cycle through palette by name hash
+      let idx = 0;
+      if (tool.name) {
+        idx = Array.from(tool.name).reduce((a, c) => a + c.charCodeAt(0), 0) % colorPalette.length;
+      }
+      return colorPalette[idx];
+    }
+
+    let isEditing = false;
+    function renderFavourites() {
+      const favs = JSON.parse(localStorage.getItem('csrgo_favourites') || '[]');
+      const list = document.getElementById('favourites-list');
+      const none = document.getElementById('no-favourites');
+      list.innerHTML = '';
+      if (!favs.length) {
+        none.classList.remove('hidden');
+        document.getElementById('edit-controls-container').classList.add('hidden');
+        return;
+      }
+      none.classList.add('hidden');
+      document.getElementById('edit-controls-container').classList.remove('hidden');
+      favs.forEach((fav, idx) => {
+        // Try to get icon/desc/category from tools array if available
+        let toolData = fav;
+        if (tools.length) {
+          const match = tools.find(t => t.url === fav.url || t.name === fav.name);
+          if (match) toolData = { ...match, ...fav };
+        }
+        // Always fetch description from tools array if missing
+        let description = toolData.description || '';
+        if ((!description || description === '') && tools.length) {
+          const match = tools.find(t => t.url === fav.url || t.name === fav.name);
+          if (match && match.description) description = match.description;
+        }
+        if (isEditing) {
+          // Edit mode: card + button group
+          const flexRow = document.createElement('div');
+          flexRow.className = 'flex items-stretch';
+          // Card
+          const card = document.createElement('div');
+          card.className = 'bg-white rounded-xl shadow-sm border border-gray-100 p-5 transition-all duration-300 hover:shadow-md hover:border-blue-100 focus:ring-2 focus:ring-blue-200 outline-none flex-1';
+          card.innerHTML = window.renderToolItem({ ...toolData, description }, idx);
+          // Button group
+          const btnGroup = document.createElement('div');
+          btnGroup.className = 'flex flex-col justify-center gap-2 ml-2';
+          btnGroup.innerHTML = `
+            <button type="button" class="text-blue-500 hover:text-blue-700 move-up bg-transparent border-0 shadow-none p-0" title="Move up" ${idx === 0 ? 'disabled' : ''}><i data-lucide="arrow-up" class="w-5 h-5"></i></button>
+            <button type="button" class="text-blue-500 hover:text-blue-700 move-down bg-transparent border-0 shadow-none p-0" title="Move down" ${idx === favs.length-1 ? 'disabled' : ''}><i data-lucide="arrow-down" class="w-5 h-5"></i></button>
+            <button type="button" class="text-red-500 hover:text-red-700 remove-fav mt-2 bg-transparent border-0 shadow-none p-0" title="Remove from favourites"><i data-lucide="x" class="w-5 h-5"></i></button>
+          `;
+          flexRow.appendChild(card);
+          flexRow.appendChild(btnGroup);
+          list.appendChild(flexRow);
+          // Attach event handlers
+          btnGroup.querySelector('.remove-fav').onclick = function(e) {
+            e.preventDefault();
+            const newFavs = favs.filter(f => f.url !== fav.url);
+            localStorage.setItem('csrgo_favourites', JSON.stringify(newFavs));
+            renderFavourites();
+          };
+          btnGroup.querySelector('.move-up').onclick = function(e) {
+            e.preventDefault();
+            if (idx === 0) return;
+            const newFavs = [...favs];
+            [newFavs[idx-1], newFavs[idx]] = [newFavs[idx], newFavs[idx-1]];
+            localStorage.setItem('csrgo_favourites', JSON.stringify(newFavs));
+            renderFavourites();
+          };
+          btnGroup.querySelector('.move-down').onclick = function(e) {
+            e.preventDefault();
+            if (idx === favs.length-1) return;
+            const newFavs = [...favs];
+            [newFavs[idx], newFavs[idx+1]] = [newFavs[idx+1], newFavs[idx]];
+            localStorage.setItem('csrgo_favourites', JSON.stringify(newFavs));
+            renderFavourites();
+          };
+        } else {
+          // Normal mode: just the card
+          const card = document.createElement('div');
+          card.className = 'bg-white rounded-xl shadow-sm border border-gray-100 p-5 transition-all duration-300 hover:shadow-md hover:border-blue-100 focus:ring-2 focus:ring-blue-200 outline-none';
+          card.innerHTML = window.renderToolItem({ ...toolData, description }, idx);
+          list.appendChild(card);
+        }
+      });
+      lucide.createIcons();
+    }
+    // Edit/Done button logic
+    document.getElementById('edit-favourites-btn').onclick = function() {
+      isEditing = true;
+      document.getElementById('edit-favourites-btn').classList.add('hidden');
+      document.getElementById('done-editing-btn').classList.remove('hidden');
+      renderFavourites();
+      lucide.createIcons();
+    };
+    document.getElementById('done-editing-btn').onclick = function() {
+      isEditing = false;
+      document.getElementById('edit-favourites-btn').classList.remove('hidden');
+      document.getElementById('done-editing-btn').classList.add('hidden');
+      renderFavourites();
+      lucide.createIcons();
+    };
+    renderFavourites();
+    window.addEventListener('storage', renderFavourites);
+  </script>
+</body>
+</html> 

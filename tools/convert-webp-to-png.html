@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WebP to PNG Converter - Free Online Tool | CSRGO</title>
+  <meta name="description" content="Convert WebP images to PNG format online. Free, easy-to-use tool for converting WebP to PNG with quality control.">
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../styles.min.css">
+  <link rel="icon" href="https://tools.csrgo.com/logo.png" type="image/png" sizes="32x32">
+  <link rel="shortcut icon" href="https://tools.csrgo.com/logo.png" type="image/png">
+  <link rel="apple-touch-icon" href="https://tools.csrgo.com/logo.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://tools.csrgo.com/",
+    "name": "CSRGO Tools",
+    "logo": "https://tools.csrgo.com/logo.png"
+  }
+  </script>
+</head>
+<body class="bg-gradient-to-b from-blue-50 via-white to-gray-50 min-h-screen flex flex-col">
+  <!-- Header Placeholder -->
+  <div id="header-placeholder"></div>
+
+  <!-- Main Content -->
+  <main class="flex-grow">
+    <!-- Hero Section -->
+    <section class="pt-20 pb-8 px-4 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-transparent"></div>
+      <div class="container mx-auto text-center relative z-10" id="heroSection"></div>
+    </section>
+
+    <!-- Tool UI -->
+    <section id="toolUI" class="py-8 px-4">
+      <div class="container mx-auto max-w-4xl">
+        <!-- Upload Area -->
+        <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
+          <div id="dropZone" class="border-2 border-dashed border-gray-200 rounded-xl p-8 text-center cursor-pointer hover:border-blue-500 transition-colors">
+            <div class="flex flex-col items-center gap-4">
+              <div class="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center">
+                <i data-lucide="upload" class="w-8 h-8 text-blue-500"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-gray-900">Drop your WebP image here</h3>
+                <p class="text-gray-500 mt-1">or click to browse</p>
+              </div>
+              <input type="file" id="fileInput" accept="image/webp" class="hidden">
+            </div>
+          </div>
+        </div>
+
+        <!-- Preview and Options Area -->
+        <div id="previewArea" class="bg-white rounded-2xl shadow-sm p-6 mb-6 hidden">
+          <div class="grid md:grid-cols-2 gap-6">
+            <!-- Original Image -->
+            <div>
+              <h3 class="text-lg font-semibold mb-4">Original WebP</h3>
+              <div class="aspect-square bg-gray-50 rounded-lg overflow-hidden">
+                <img id="originalImage" class="w-full h-full object-contain" alt="Original WebP image">
+              </div>
+            </div>
+            <!-- Conversion Options -->
+            <div>
+              <h3 class="text-lg font-semibold mb-4">Conversion Options</h3>
+              <div class="space-y-6">
+                <!-- Quality Slider -->
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">PNG Quality</label>
+                  <div class="flex items-center gap-4">
+                    <input type="range" id="quality" min="0" max="100" value="100" class="w-full">
+                    <span id="qualityValue" class="text-sm font-medium text-gray-600">100%</span>
+                  </div>
+                </div>
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap gap-4">
+                  <button id="convertBtn" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                    <i data-lucide="image" class="w-5 h-5 inline-block mr-2"></i>
+                    Convert to PNG
+                  </button>
+                  <button id="clearBtn" class="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors">
+                    <i data-lucide="x" class="w-5 h-5 inline-block mr-2"></i>
+                    Clear
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PNG Preview -->
+        <div id="resultArea" class="bg-white rounded-2xl shadow-sm p-6 mb-6 hidden">
+          <h3 class="text-lg font-semibold mb-4">PNG Preview</h3>
+          <div class="aspect-square bg-gray-50 rounded-lg overflow-hidden max-w-md mx-auto mb-6">
+            <img id="pngPreview" class="w-full h-full object-contain" alt="PNG preview">
+          </div>
+          <div class="flex justify-center">
+            <button id="downloadBtn" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-colors flex items-center justify-center gap-2">
+              <i data-lucide="download" class="w-5 h-5 inline-block mr-2"></i>
+              Download PNG
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Similar Tools Section Placeholder -->
+    <div id="similarToolsSection"></div>
+
+    <!-- What is tool? Section -->
+    <section id="whatIsSection" class="py-16 px-4 bg-white"></section>
+
+    <!-- Why use tool? Section -->
+    <section id="whyUseSection" class="py-16 px-4"></section>
+
+    <!-- How to use tool? Section -->
+    <section id="howToUseSection" class="py-16 px-4 bg-white"></section>
+
+    <!-- Features Section -->
+    <section id="featuresSection" class="py-16 px-4"></section>
+
+    <!-- FAQ Section -->
+    <section id="faqSection" class="py-16 px-4 bg-white"></section>
+  </main>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+  <!-- Floating Buttons Placeholder -->
+  <div id="floating-buttons"></div>
+
+  <!-- Scripts -->
+  <script src="../app.min.js"></script>
+  <script>
+    // Set current tool info automatically by matching URL
+    if (window.tools) {
+      window.CSRGO_TOOL_INFO = window.tools.find(
+        t => t.url === "tools/convert-webp-to-png.html"
+      );
+    }
+  </script>
+  <script src="../components/include.min.js"></script>
+  <script src="../components/similar-tools.min.js"></script>
+  <script src="../tools/data/convert-webp-to-png-data.min.js"></script>
+  <script src="../components/tool-sections.min.js"></script>
+  <script src="../components/floating-buttons.min.js"></script>
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Initialize tool sections
+    document.addEventListener('DOMContentLoaded', () => {
+      renderToolSections('CONVERT_WEBP_TO_PNG_DATA');
+    });
+
+    // Elements
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+    const originalImageEl = document.getElementById('originalImage');
+    const pngPreviewEl = document.getElementById('pngPreview');
+    const previewArea = document.getElementById('previewArea');
+    const quality = document.getElementById('quality');
+    const qualityValue = document.getElementById('qualityValue');
+    const convertBtn = document.getElementById('convertBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const resultArea = document.getElementById('resultArea');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    let originalImage = null;
+    let convertedImage = null;
+
+    // Handle file selection
+    function handleFileSelect(file) {
+      if (file.type !== 'image/webp') {
+        alert('Please select a WebP image file');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        originalImage = e.target.result;
+        originalImageEl.src = originalImage;
+        previewArea.classList.remove('hidden');
+        convertBtn.classList.remove('hidden');
+        clearBtn.classList.remove('hidden');
+
+        // Scroll to preview area
+        previewArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Event Listeners
+    dropZone.addEventListener('click', () => fileInput.click());
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('border-blue-500');
+    });
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('border-blue-500');
+    });
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('border-blue-500');
+      const file = e.dataTransfer.files[0];
+      if (file) handleFileSelect(file);
+    });
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) handleFileSelect(file);
+    });
+
+    // Quality slider handler
+    quality.addEventListener('input', () => {
+      qualityValue.textContent = `${quality.value}%`;
+    });
+
+    // Convert button
+    convertBtn.addEventListener('click', () => {
+      if (!originalImage) return;
+
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      
+      img.onload = () => {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        
+        convertedImage = canvas.toDataURL('image/png');
+        pngPreviewEl.src = convertedImage;
+        resultArea.classList.remove('hidden');
+        resultArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      };
+      
+      img.src = originalImage;
+    });
+
+    // Download button
+    downloadBtn.addEventListener('click', () => {
+      if (!convertedImage) return;
+      
+      const link = document.createElement('a');
+      link.download = 'converted-image.png';
+      link.href = convertedImage;
+      link.click();
+    });
+
+    // Clear button
+    clearBtn.addEventListener('click', () => {
+      originalImage = null;
+      convertedImage = null;
+      originalImageEl.src = '';
+      pngPreviewEl.src = '';
+      previewArea.classList.add('hidden');
+      resultArea.classList.add('hidden');
+      convertBtn.classList.add('hidden');
+      clearBtn.classList.add('hidden');
+      fileInput.value = '';
+    });
+  </script>
+</body>
+</html>

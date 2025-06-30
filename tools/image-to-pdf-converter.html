@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Image to PDF Converter - Free Online Tool | CSRGO</title>
+  <meta name="description" content="Convert images to PDF instantly with our free online image to PDF converter. Supports JPG, PNG, BMP, and more. No uploads required.">
+  <link rel="canonical" href="https://tools.csrgo.com/tools/image-to-pdf-converter.html">
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- jsPDF CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- PDF.js CDN for preview -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.min.js"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../styles.min.css">
+  <link rel="icon" href="https://tools.csrgo.com/logo.png" type="image/png" sizes="32x32">
+  <link rel="shortcut icon" href="https://tools.csrgo.com/logo.png" type="image/png">
+  <link rel="apple-touch-icon" href="https://tools.csrgo.com/logo.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://tools.csrgo.com/",
+    "name": "CSRGO Tools",
+    "logo": "https://tools.csrgo.com/logo.png"
+  }
+  </script>
+</head>
+<body class="bg-gradient-to-b from-blue-50 via-white to-gray-50 min-h-screen flex flex-col">
+  <!-- Header Placeholder -->
+  <div id="header-placeholder"></div>
+
+  <!-- Main Content -->
+  <main class="flex-grow">
+    <!-- Hero Section -->
+    <section class="pt-20 pb-8 px-4 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-transparent"></div>
+      <div class="container mx-auto text-center relative z-10" id="heroSection"></div>
+    </section>
+
+    <!-- Tool UI -->
+    <section class="py-8 px-4">
+      <div class="container mx-auto max-w-4xl">
+        <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 card-hover">
+          <div class="space-y-8">
+            <!-- Upload Area -->
+            <div id="dropZone" class="border-2 border-dashed border-gray-200 rounded-xl p-8 text-center cursor-pointer hover:border-blue-500 transition-colors mb-6">
+              <div class="flex flex-col items-center gap-4">
+                <div class="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center">
+                  <i data-lucide="upload" class="w-8 h-8 text-blue-500"></i>
+                </div>
+                <div>
+                  <h3 class="text-lg font-semibold text-gray-900">Drop your images here</h3>
+                  <p class="text-gray-500 mt-1">or click to browse (PNG, JPG, JPEG, BMP, GIF, WebP)</p>
+                </div>
+                <input type="file" id="fileInput" accept="image/*" multiple class="hidden">
+              </div>
+            </div>
+
+            <!-- Preview and Reorder Area -->
+            <div id="previewArea" class="hidden">
+              <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                <i data-lucide="image" class="w-5 h-5 text-indigo-600"></i>
+                Images Preview & Order
+              </h3>
+              <div id="screenshotsList" class="flex flex-wrap gap-4 mb-6"></div>
+              <div class="flex flex-col md:flex-row gap-4">
+                <button id="convertBtn" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-xl font-medium hover:from-blue-700 hover:to-indigo-700 transition-all flex items-center justify-center gap-2 shadow-lg">
+                  <i data-lucide="file-text" class="w-5 h-5"></i>
+                  Convert to PDF
+                </button>
+                <button id="clearBtn" class="w-full bg-gray-600 text-white px-6 py-3 rounded-xl font-medium hover:bg-gray-700 transition-all flex items-center justify-center gap-2">
+                  <i data-lucide="x" class="w-5 h-5"></i>
+                  Clear All
+                </button>
+              </div>
+            </div>
+
+            <!-- Result Area -->
+            <div id="resultArea" class="hidden">
+              <div class="text-center mb-6">
+                <div id="pdfProgress" class="hidden">
+                  <div class="w-full bg-gray-200 rounded-full h-2.5 mb-2">
+                    <div id="progressBar" class="bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
+                  </div>
+                  <p id="progressText" class="text-gray-600">Creating PDF... 0%</p>
+                </div>
+                <div id="pdfReady" class="hidden">
+                  <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-4">
+                    <i data-lucide="check-circle" class="w-8 h-8 text-green-600"></i>
+                  </div>
+                  <p class="text-lg font-medium text-gray-900">PDF Ready!</p>
+                </div>
+              </div>
+              <div class="flex justify-center">
+                <button id="downloadBtn" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-colors flex items-center justify-center gap-2">
+                  <i data-lucide="download" class="w-5 h-5 inline-block mr-2"></i>
+                  Download PDF
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Similar Tools Section Placeholder -->
+    <div id="similarToolsSection"></div>
+
+    <!-- What is tool? Section -->
+    <section id="whatIsSection" class="py-16 px-4 bg-white"></section>
+
+    <!-- Why use tool? Section -->
+    <section id="whyUseSection" class="py-16 px-4"></section>
+
+    <!-- How to use tool? Section -->
+    <section id="howToUseSection" class="py-16 px-4 bg-white"></section>
+
+    <!-- Features Section -->
+    <section id="featuresSection" class="py-16 px-4"></section>
+
+    <!-- FAQ Section -->
+    <section id="faqSection" class="py-16 px-4 bg-white"></section>
+  </main>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+  <!-- Floating Buttons Placeholder -->
+  <div id="floating-buttons"></div>
+
+  <!-- Scripts -->
+  <script src="../app.min.js"></script>
+  <script>
+    // Set current tool info automatically by matching URL
+    if (window.tools) {
+      window.CSRGO_TOOL_INFO = window.tools.find(
+        t => t.url === "tools/image-to-pdf-converter.html"
+      );
+    }
+  </script>
+  <script src="../components/include.min.js"></script>
+  <script src="../components/similar-tools.min.js"></script>
+  <script src="../tools/data/image-to-pdf-converter-data.min.js"></script>
+  <script src="../components/tool-sections.min.js"></script>
+  <script src="../components/floating-buttons.min.js"></script>
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Initialize tool sections
+    document.addEventListener('DOMContentLoaded', () => {
+      renderToolSections('IMAGE_TO_PDF_CONVERTER_DATA');
+    });
+
+    // Elements
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+    const previewArea = document.getElementById('previewArea');
+    const screenshotsList = document.getElementById('screenshotsList');
+    const convertBtn = document.getElementById('convertBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const resultArea = document.getElementById('resultArea');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    let screenshots = [];
+    let pdfBlobUrl = null;
+
+    // Drag and drop events
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, preventDefaults, false);
+    });
+    function preventDefaults(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropZone.addEventListener(eventName, () => dropZone.classList.add('drop-zone-active'), false);
+    });
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, () => dropZone.classList.remove('drop-zone-active'), false);
+    });
+    dropZone.addEventListener('drop', handleDrop, false);
+    dropZone.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', handleFileSelect);
+
+    function handleDrop(e) {
+      const dt = e.dataTransfer;
+      const files = dt.files;
+      handleFiles(files);
+    }
+    function handleFileSelect(e) {
+      const files = e.target.files;
+      handleFiles(files);
+    }
+    function handleFiles(files) {
+      const imageFiles = Array.from(files).filter(file => file.type.startsWith('image/'));
+      if (imageFiles.length === 0) {
+        alert('Please select image files');
+        return;
+      }
+      let loaded = 0;
+      imageFiles.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          screenshots.push({ src: e.target.result, name: file.name });
+          loaded++;
+          if (loaded === imageFiles.length) {
+            showPreview();
+          }
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function showPreview() {
+      if (screenshots.length === 0) {
+        previewArea.classList.add('hidden');
+        return;
+      }
+      screenshotsList.innerHTML = screenshots.map((img, idx) => `
+        <div class="relative group">
+          <img src="${img.src}" alt="Screenshot ${idx + 1}" class="w-32 h-32 object-contain rounded-lg border border-gray-200 shadow-sm">
+          <div class="absolute top-1 right-1 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+            <button onclick="window.moveScreenshot(${idx}, -1)" class="p-1 bg-white rounded hover:bg-blue-100 shadow"><i data-lucide='arrow-up' class='w-4 h-4 text-blue-600'></i></button>
+            <button onclick="window.moveScreenshot(${idx}, 1)" class="p-1 bg-white rounded hover:bg-blue-100 shadow"><i data-lucide='arrow-down' class='w-4 h-4 text-blue-600'></i></button>
+            <button onclick="window.removeScreenshot(${idx})" class="p-1 bg-white rounded hover:bg-red-100 shadow"><i data-lucide='trash-2' class='w-4 h-4 text-red-600'></i></button>
+          </div>
+          <div class="absolute bottom-1 left-1 bg-white bg-opacity-80 text-xs px-2 py-1 rounded shadow">${idx + 1}</div>
+        </div>
+      `).join('');
+      previewArea.classList.remove('hidden');
+      lucide.createIcons();
+      // Auto-scroll to preview area
+      setTimeout(() => {
+        previewArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 100);
+    }
+
+    // Reorder and remove functions
+    window.moveScreenshot = function(idx, dir) {
+      if ((dir === -1 && idx === 0) || (dir === 1 && idx === screenshots.length - 1)) return;
+      const temp = screenshots[idx];
+      screenshots[idx] = screenshots[idx + dir];
+      screenshots[idx + dir] = temp;
+      showPreview();
+    };
+    window.removeScreenshot = function(idx) {
+      screenshots.splice(idx, 1);
+      showPreview();
+    };
+
+    // Convert to PDF
+    convertBtn.addEventListener('click', async () => {
+      if (screenshots.length === 0) return;
+      
+      // Show loading spinner and disable button
+      convertBtn.disabled = true;
+      const originalBtnHTML = convertBtn.innerHTML;
+      convertBtn.innerHTML = '<svg class="animate-spin mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>Creating PDF...';
+      
+      // Show progress area and hide ready message
+      const pdfProgress = document.getElementById('pdfProgress');
+      const pdfReady = document.getElementById('pdfReady');
+      pdfProgress.classList.remove('hidden');
+      pdfReady.classList.add('hidden');
+      
+      // Reset progress
+      document.getElementById('progressBar').style.width = '0%';
+      document.getElementById('progressText').textContent = 'Creating PDF... 0%';
+      
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF({ unit: 'pt', format: 'a4' });
+      
+      // Process images with delay to show progress
+      for (let i = 0; i < screenshots.length; i++) {
+        const img = screenshots[i];
+        const imgProps = pdf.getImageProperties(img.src);
+        
+        // Calculate dimensions to fit A4
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        let width = imgProps.width;
+        let height = imgProps.height;
+        
+        // Scale to fit page
+        const ratio = Math.min(pageWidth / width, pageHeight / height, 1);
+        width *= ratio;
+        height *= ratio;
+        const x = (pageWidth - width) / 2;
+        const y = (pageHeight - height) / 2;
+        
+        // Add image to PDF
+        pdf.addImage(img.src, 'PNG', x, y, width, height);
+        if (i < screenshots.length - 1) pdf.addPage();
+        
+        // Update progress
+        const progress = Math.round(((i + 1) / screenshots.length) * 100);
+        document.getElementById('progressBar').style.width = `${progress}%`;
+        document.getElementById('progressText').textContent = `Creating PDF... ${progress}%`;
+        
+        // Add a small delay to make progress visible
+        await new Promise(resolve => setTimeout(resolve, 100));
+      }
+      
+      // Create blob and show download
+      const pdfBlob = pdf.output('blob');
+      pdfBlobUrl = URL.createObjectURL(pdfBlob);
+      
+      // Show completion message
+      pdfProgress.classList.add('hidden');
+      pdfReady.classList.remove('hidden');
+      resultArea.classList.remove('hidden');
+      resultArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      
+      // Restore button
+      convertBtn.disabled = false;
+      convertBtn.innerHTML = originalBtnHTML;
+      
+      // Reinitialize Lucide icons for the check mark
+      lucide.createIcons();
+    });
+
+    // Download PDF
+    downloadBtn.addEventListener('click', () => {
+      if (!pdfBlobUrl) return;
+      const link = document.createElement('a');
+      link.href = pdfBlobUrl;
+      link.download = 'screenshots.pdf';
+      link.click();
+    });
+
+    // Clear all
+    clearBtn.addEventListener('click', () => {
+      screenshots = [];
+      pdfBlobUrl = null;
+      previewArea.classList.add('hidden');
+      resultArea.classList.add('hidden');
+      screenshotsList.innerHTML = '';
+    });
+  </script>
+</body>
+</html>

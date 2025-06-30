@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CSRGO Tools - Your All-in-One Tool Collection</title>
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles.min.css">
+  <!-- Favicon -->
+  <link rel="icon" href="https://tools.csrgo.com/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="https://tools.csrgo.com/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://tools.csrgo.com/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://tools.csrgo.com/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://tools.csrgo.com/favicon-16x16.png">
+  <link rel="manifest" href="https://tools.csrgo.com/site.webmanifest">
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:image" content="logo.png">
+  <meta property="og:image:alt" content="CSRGO Tools Logo">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": "https://tools.csrgo.com/#organization",
+    "url": "https://tools.csrgo.com",
+    "name": "CSRGO Tools",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://tools.csrgo.com/logo.png",
+      "width": "360",
+      "height": "360"
+    },
+    "sameAs": [
+      "https://tools.csrgo.com/about.html",
+      "https://tools.csrgo.com/contact.html",
+      "https://tools.csrgo.com/blog.html"
+    ],
+    "description": "Your one-stop destination for free online tools",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://tools.csrgo.com/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+</head>
+<body class="bg-gradient-to-b from-blue-50 via-white to-gray-50 min-h-screen flex flex-col">
+  <!-- Header Placeholder -->
+  <div id="header-placeholder"></div>
+
+  <!-- Main Content -->
+  <main class="flex-grow">
+    <!-- Hero Section -->
+    <section class="pt-28 pb-16 px-4">
+      <div class="container mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 animate-fade-in animate-hero-heading" style="animation-delay:0.2s;">
+          <span class="gradient-logo-text">CSRGO Tools</span>
+        </h1>
+        <h2 class="text-xl md:text-2xl font-semibold text-blue-600 mb-2 animate-fade-in animate-hero-subheading" style="animation-delay:0.5s;">Find. Use. Simplify.</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto mb-8 animate-fade-in animate-hero-desc" style="animation-delay:0.7s;">Your one-stop destination for free online tools</p>
+        <div class="animate-fade-in-up animate-hero-search" style="animation-delay:0.9s;">
+          <form id="searchForm" class="w-full max-w-2xl mx-auto relative transition-all duration-300 transform">
+            <div class="absolute left-4 top-4 h-5 w-5 flex items-center justify-center" id="searchIcon">
+              <i data-lucide="search" class="w-5 h-5"></i>
+            </div>
+            <div id="searchTypewriterOverlay" class="absolute left-12 top-1/2 -translate-y-1/2 flex items-center pointer-events-none select-none text-lg w-[calc(100%-3rem)]">
+              <span id="searchTypewriterText" class="font-semibold"></span>
+            </div>
+            <input id="searchInput" type="text" autocomplete="off" class="w-full pl-12 pr-24 py-3 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm transition-all text-lg bg-transparent text-gray-900 relative z-10" />
+            <button type="button" id="micButton" class="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-white rounded-full bg-blue-600 hover:bg-blue-700 transition-colors duration-300 transform-none z-50 cursor-pointer">
+              <i data-lucide="mic" class="w-5 h-5"></i>
+            </button>
+          </form>
+        </div>
+        <!-- Popular Tools Section -->
+        <section id="popularToolsSection" class="mt-10 pb-8 pt-4 rounded-xl">
+          <div class="space-y-6">
+            <div class="flex overflow-x-auto no-scrollbar gap-4" id="popularToolsRow1"></div>
+            <div class="flex overflow-x-auto no-scrollbar gap-4" id="popularToolsRow2"></div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- Search Results -->
+    <section id="searchResults"></section>
+
+    <!-- Categories Section (hidden initially, revealed on scroll) -->
+    <section class="py-16 px-4 transition-opacity duration-700" id="categoriesSection"></section>
+  </main>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Floating Buttons Placeholder -->
+  <div id="floating-buttons"></div>
+
+  <!-- App JS -->
+  <script src="app.min.js"></script>
+  <script src="components/include.min.js"></script>
+  <script src="components/floating-buttons.min.js"></script>
+  <script>
+    // Render Lucide icons
+    document.getElementById('searchIcon').innerHTML = '<i data-lucide="search" class="w-5 h-5"></i>';
+    document.getElementById('micButton').innerHTML = '<i data-lucide="mic" class="w-5 h-5"></i>';
+    lucide.createIcons();
+
+    // Speech Recognition Setup
+    const micButton = document.getElementById('micButton');
+    const searchInput = document.getElementById('searchInput');
+    let isListening = false;
+    let recognition = null;
+
+    // Initialize speech recognition
+    function initSpeechRecognition() {
+      if ('webkitSpeechRecognition' in window) {
+        recognition = new webkitSpeechRecognition();
+      } else if ('SpeechRecognition' in window) {
+        recognition = new SpeechRecognition();
+      } else {
+        micButton.style.display = 'none';
+        return;
+      }
+
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'en-US';
+
+      recognition.onstart = () => {
+        isListening = true;
+        micButton.classList.add('bg-red-600', 'hover:bg-red-700', 'listening');
+        micButton.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+        console.log('Speech recognition started');
+      };
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        console.log('Speech recognized:', transcript);
+        searchInput.value = transcript;
+        
+        // Trigger search
+        const searchEvent = new Event('input', { bubbles: true });
+        searchInput.dispatchEvent(searchEvent);
+        
+        // Optional: Submit the form
+        document.getElementById('searchForm').dispatchEvent(new Event('submit'));
+      };
+
+      recognition.onend = () => {
+        isListening = false;
+        micButton.classList.add('bg-blue-600', 'hover:bg-blue-700');
+        micButton.classList.remove('bg-red-600', 'hover:bg-red-700', 'listening');
+        console.log('Speech recognition ended');
+      };
+
+      recognition.onerror = (event) => {
+        console.error('Speech recognition error:', event.error);
+        isListening = false;
+        micButton.classList.add('bg-blue-600', 'hover:bg-blue-700');
+        micButton.classList.remove('bg-red-600', 'hover:bg-red-700', 'listening');
+      };
+    }
+
+    // Initialize speech recognition
+    initSpeechRecognition();
+
+    // Handle mic button click
+    micButton.addEventListener('click', () => {
+      if (!recognition) return;
+
+      if (!isListening) {
+        try {
+          recognition.start();
+        } catch (error) {
+          console.error('Error starting speech recognition:', error);
+        }
+      } else {
+        recognition.stop();
+      }
+    });
+
+    // Desktop categories dropdown
+    const categoriesDropdownBtn = document.getElementById('categoriesDropdownBtn');
+    const categoriesDropdown = document.getElementById('categoriesDropdown');
+    if (categoriesDropdownBtn && categoriesDropdown) {
+      categoriesDropdownBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        categoriesDropdown.classList.toggle('hidden');
+      });
+      document.addEventListener('click', (e) => {
+        if (!categoriesDropdown.contains(e.target) && !categoriesDropdownBtn.contains(e.target)) {
+          categoriesDropdown.classList.add('hidden');
+        }
+      });
+    }
+  </script>
+</body>
+</html> 

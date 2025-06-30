@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Word Counter - Free Online Tool | CSRGO</title>
+  <meta name="description" content="Count words, characters, sentences, and paragraphs in your text. Free online word counter tool with detailed statistics.">
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../styles.min.css">
+  <link rel="icon" href="https://tools.csrgo.com/logo.png" type="image/png" sizes="32x32">
+  <link rel="shortcut icon" href="https://tools.csrgo.com/logo.png" type="image/png">
+  <link rel="apple-touch-icon" href="https://tools.csrgo.com/logo.png">
+  <link rel="canonical" href="https://tools.csrgo.com/tools/word-counter.html">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://tools.csrgo.com/",
+    "name": "CSRGO Tools",
+    "logo": "https://tools.csrgo.com/logo.png"
+  }
+  </script>
+</head>
+<body class="bg-gradient-to-b from-blue-50 via-white to-gray-50 min-h-screen flex flex-col">
+  <!-- Header Placeholder -->
+  <div id="header-placeholder"></div>
+
+  <!-- Main Content -->
+  <main class="flex-grow">
+    <!-- Hero Section -->
+    <section class="pt-20 pb-8 px-4 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-transparent"></div>
+      <div class="container mx-auto text-center relative z-10" id="heroSection"></div>
+    </section>
+
+    <!-- Tool UI -->
+    <section class="py-8 px-4">
+      <div class="container mx-auto max-w-4xl">
+        <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 card-hover">
+          <div class="space-y-8">
+            <!-- Text Input Area -->
+            <div class="space-y-4">
+              <div class="flex flex-col gap-2 items-start md:flex-row md:items-center md:justify-between">
+                <h3 class="text-lg font-semibold flex items-center gap-2">
+                  <i data-lucide="type" class="w-5 h-5 text-blue-600"></i>
+                  Enter Your Text
+                </h3>
+                <div class="flex gap-2">
+                  <button id="clearBtn" class="px-3 py-1.5 text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-1">
+                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    Clear
+                  </button>
+                  <button id="copyBtn" class="px-3 py-1.5 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors flex items-center gap-1">
+                    <i data-lucide="copy" class="w-4 h-4"></i>
+                    Copy
+                  </button>
+                </div>
+              </div>
+              <textarea id="textInput" class="w-full h-64 p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-200 focus:border-blue-500 outline-none resize-none" placeholder="Type or paste your text here..."></textarea>
+            </div>
+
+            <!-- Statistics Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <!-- Words -->
+              <div class="bg-blue-50 rounded-xl p-4">
+                <div class="flex items-center gap-2 mb-1">
+                  <i data-lucide="whole-word" class="w-5 h-5 text-blue-600"></i>
+                  <span class="text-sm font-medium text-blue-600">Words</span>
+                </div>
+                <div id="wordCount" class="text-2xl font-bold text-gray-900">0</div>
+              </div>
+              <!-- Characters -->
+              <div class="bg-green-50 rounded-xl p-4">
+                <div class="flex items-center gap-2 mb-1">
+                  <i data-lucide="case-sensitive" class="w-5 h-5 text-green-600"></i>
+                  <span class="text-sm font-medium text-green-600">Characters</span>
+                </div>
+                <div id="charCount" class="text-2xl font-bold text-gray-900">0</div>
+              </div>
+              <!-- Sentences -->
+              <div class="bg-purple-50 rounded-xl p-4">
+                <div class="flex items-center gap-2 mb-1">
+                  <i data-lucide="message-square" class="w-5 h-5 text-purple-600"></i>
+                  <span class="text-sm font-medium text-purple-600">Sentences</span>
+                </div>
+                <div id="sentenceCount" class="text-2xl font-bold text-gray-900">0</div>
+              </div>
+              <!-- Paragraphs -->
+              <div class="bg-orange-50 rounded-xl p-4">
+                <div class="flex items-center gap-2 mb-1">
+                  <i data-lucide="align-left" class="w-5 h-5 text-orange-600"></i>
+                  <span class="text-sm font-medium text-orange-600">Paragraphs</span>
+                </div>
+                <div id="paragraphCount" class="text-2xl font-bold text-gray-900">0</div>
+              </div>
+            </div>
+
+            <!-- Additional Statistics -->
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <!-- Reading Time -->
+              <div class="bg-gray-50 rounded-xl p-4">
+                <div class="flex items-center gap-2 mb-1">
+                  <i data-lucide="clock" class="w-5 h-5 text-gray-600"></i>
+                  <span class="text-sm font-medium text-gray-600">Reading Time</span>
+                </div>
+                <div id="readingTime" class="text-lg font-semibold text-gray-900">0 min</div>
+              </div>
+              <!-- Speaking Time -->
+              <div class="bg-gray-50 rounded-xl p-4">
+                <div class="flex items-center gap-2 mb-1">
+                  <i data-lucide="mic" class="w-5 h-5 text-gray-600"></i>
+                  <span class="text-sm font-medium text-gray-600">Speaking Time</span>
+                </div>
+                <div id="speakingTime" class="text-lg font-semibold text-gray-900">0 min</div>
+              </div>
+              <!-- Unique Words -->
+              <div class="bg-gray-50 rounded-xl p-4">
+                <div class="flex items-center gap-2 mb-1">
+                  <i data-lucide="hash" class="w-5 h-5 text-gray-600"></i>
+                  <span class="text-sm font-medium text-gray-600">Unique Words</span>
+                </div>
+                <div id="uniqueWords" class="text-lg font-semibold text-gray-900">0</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Similar Tools Section Placeholder -->
+    <div id="similarToolsSection"></div>
+
+    <!-- What is tool? Section -->
+    <section id="whatIsSection" class="py-16 px-4 bg-white"></section>
+
+    <!-- Why use tool? Section -->
+    <section id="whyUseSection" class="py-16 px-4"></section>
+
+    <!-- How to use tool? Section -->
+    <section id="howToUseSection" class="py-16 px-4 bg-white"></section>
+
+    <!-- Features Section -->
+    <section id="featuresSection" class="py-16 px-4"></section>
+
+    <!-- FAQ Section -->
+    <section id="faqSection" class="py-16 px-4 bg-white"></section>
+  </main>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+  <!-- Floating Buttons Placeholder -->
+  <div id="floating-buttons"></div>
+
+  <!-- Scripts -->
+  <script src="../app.min.js"></script>
+  <script>
+    // Set current tool info automatically by matching URL
+    if (window.tools) {
+      window.CSRGO_TOOL_INFO = window.tools.find(
+        t => t.url === "tools/word-counter.html"
+      );
+    }
+  </script>
+  <script src="../components/include.min.js"></script>
+  <script src="../components/similar-tools.min.js"></script>
+  <script src="../tools/data/word-counter-data.min.js"></script>
+  <script src="../components/tool-sections.min.js"></script>
+  <script src="../components/floating-buttons.min.js"></script>
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Initialize tool sections
+    document.addEventListener('DOMContentLoaded', () => {
+      renderToolSections('WORD_COUNTER_DATA');
+    });
+
+    // Elements
+    const textInput = document.getElementById('textInput');
+    const clearBtn = document.getElementById('clearBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const wordCount = document.getElementById('wordCount');
+    const charCount = document.getElementById('charCount');
+    const sentenceCount = document.getElementById('sentenceCount');
+    const paragraphCount = document.getElementById('paragraphCount');
+    const readingTime = document.getElementById('readingTime');
+    const speakingTime = document.getElementById('speakingTime');
+    const uniqueWords = document.getElementById('uniqueWords');
+
+    // Constants
+    const WORDS_PER_MINUTE = 200;
+    const SPEAKING_WORDS_PER_MINUTE = 130;
+
+    // Update statistics
+    function updateStats() {
+      const text = textInput.value;
+      
+      // Word count
+      const words = text.trim() ? text.trim().split(/\s+/) : [];
+      wordCount.textContent = words.length;
+      
+      // Character count
+      charCount.textContent = text.length;
+      
+      // Sentence count
+      const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
+      sentenceCount.textContent = sentences.length;
+      
+      // Paragraph count
+      const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim().length > 0);
+      paragraphCount.textContent = paragraphs.length;
+      
+      // Reading time
+      const readingMinutes = Math.ceil(words.length / WORDS_PER_MINUTE);
+      readingTime.textContent = `${readingMinutes} min`;
+      
+      // Speaking time
+      const speakingMinutes = Math.ceil(words.length / SPEAKING_WORDS_PER_MINUTE);
+      speakingTime.textContent = `${speakingMinutes} min`;
+      
+      // Unique words
+      const uniqueWordsSet = new Set(words.map(w => w.toLowerCase()));
+      uniqueWords.textContent = uniqueWordsSet.size;
+    }
+
+    // Event listeners
+    textInput.addEventListener('input', updateStats);
+    
+    clearBtn.addEventListener('click', () => {
+      textInput.value = '';
+      updateStats();
+    });
+    
+    copyBtn.addEventListener('click', () => {
+      textInput.select();
+      document.execCommand('copy');
+      
+      // Show copied feedback
+      const originalText = copyBtn.innerHTML;
+      copyBtn.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i> Copied';
+      lucide.createIcons();
+      
+      setTimeout(() => {
+        copyBtn.innerHTML = originalText;
+        lucide.createIcons();
+      }, 2000);
+    });
+
+    // Initial stats update
+    updateStats();
+  </script>
+</body>
+</html>

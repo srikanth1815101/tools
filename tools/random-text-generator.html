@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Random Text Generator - Free Online Tool | CSRGO Tools</title>
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../styles.min.css">
+  <link rel="icon" href="https://tools.csrgo.com/logo.png" type="image/png" sizes="32x32">
+  <link rel="shortcut icon" href="https://tools.csrgo.com/logo.png" type="image/png">
+  <link rel="apple-touch-icon" href="https://tools.csrgo.com/logo.png">
+  <meta name="description" content="Generate random text for your projects with our free online random text generator. Customize length, type, and more instantly.">
+  <link rel="canonical" href="https://tools.csrgo.com/tools/random-text-generator.html">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://tools.csrgo.com/",
+    "name": "CSRGO Tools",
+    "logo": "https://tools.csrgo.com/logo.png"
+  }
+  </script>
+</head>
+<body class="bg-gradient-to-b from-blue-50 via-white to-gray-50 min-h-screen flex flex-col">
+  <!-- Header Placeholder -->
+  <div id="header-placeholder"></div>
+
+  <!-- Main Content -->
+  <main class="flex-grow">
+    <!-- Hero Section -->
+    <section class="pt-20 pb-8 px-4 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-transparent"></div>
+      <div class="container mx-auto text-center relative z-10" id="heroSection"></div>
+    </section>
+
+    <!-- Tool Section -->
+    <section class="py-8 px-4">
+      <div class="container mx-auto max-w-4xl">
+        <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 card-hover">
+          <div class="space-y-6">
+            <!-- Input Area -->
+            <form id="randomTextForm" class="flex flex-col md:flex-row gap-4 items-end">
+              <div class="flex-1 w-full">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Amount</label>
+                <input type="number" id="amountInput" class="w-full border rounded-lg px-3 py-2" min="1" max="100" value="5" required>
+              </div>
+              <div class="flex-1 w-full">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Type</label>
+                <select id="typeSelect" class="w-full border rounded-lg px-3 py-2">
+                  <option value="words">Words</option>
+                  <option value="sentences">Sentences</option>
+                  <option value="paragraphs">Paragraphs</option>
+                </select>
+              </div>
+              <button type="submit" id="generateBtn" class="w-full md:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-xl font-medium hover:from-blue-700 hover:to-indigo-700 transition-all flex items-center gap-2 shadow-lg">
+                <i data-lucide="wand-2" class="w-5 h-5"></i>
+                Generate
+              </button>
+            </form>
+
+            <!-- Preview Area -->
+            <div id="previewArea" class="hidden">
+              <label class="block text-sm font-medium text-gray-700 mb-2">Preview</label>
+              <div class="border rounded-lg p-4 bg-gray-50 min-h-[100px] break-words" id="previewText"></div>
+              <div class="flex flex-wrap gap-4 mt-4">
+                <button id="copyBtn" class="flex-1 min-w-[140px] bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-3 rounded-xl font-medium hover:from-blue-700 hover:to-indigo-700 transition-all flex items-center justify-center gap-2 shadow-lg whitespace-nowrap">
+                  <i data-lucide="copy" class="w-5 h-5 flex-shrink-0"></i>
+                  <span>Copy Text</span>
+                </button>
+                <button id="downloadBtn" class="flex-1 min-w-[140px] bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-3 rounded-xl font-medium hover:from-blue-700 hover:to-indigo-700 transition-all flex items-center justify-center gap-2 shadow-lg whitespace-nowrap">
+                  <i data-lucide="download" class="w-5 h-5 flex-shrink-0"></i>
+                  <span>Download</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Similar Tools Section Placeholder -->
+    <div id="similarToolsSection"></div>
+
+    <!-- What is tool? Section -->
+    <section id="whatIsSection" class="py-16 px-4 bg-white"></section>
+
+    <!-- Why use tool? Section -->
+    <section id="whyUseSection" class="py-16 px-4"></section>
+
+    <!-- How to use tool? Section -->
+    <section id="howToUseSection" class="py-16 px-4 bg-white"></section>
+
+    <!-- Features Section -->
+    <section id="featuresSection" class="py-16 px-4"></section>
+
+    <!-- FAQ Section -->
+    <section id="faqSection" class="py-16 px-4 bg-white"></section>
+  </main>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+  <!-- Floating Buttons Placeholder -->
+  <div id="floating-buttons"></div>
+
+  <!-- Scripts -->
+  <script src="../app.min.js"></script>
+  <script>
+    // Set current tool info automatically by matching URL
+    if (window.tools) {
+      window.CSRGO_TOOL_INFO = window.tools.find(
+        t => t.url === "tools/random-text-generator.html"
+      );
+    }
+  </script>
+  <script src="../components/include.min.js"></script>
+  <script src="../components/similar-tools.min.js"></script>
+  <script src="../tools/data/random-text-generator-data.min.js"></script>
+  <script src="../components/tool-sections.min.js"></script>
+  <script src="../components/floating-buttons.min.js"></script>
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+    // Initialize tool sections
+    document.addEventListener('DOMContentLoaded', () => {
+      renderToolSections('RANDOM_TEXT_GENERATOR_DATA');
+    });
+
+    // Random Text Generator functionality
+    const form = document.getElementById('randomTextForm');
+    const amountInput = document.getElementById('amountInput');
+    const typeSelect = document.getElementById('typeSelect');
+    const previewArea = document.getElementById('previewArea');
+    const previewText = document.getElementById('previewText');
+    const copyBtn = document.getElementById('copyBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    // Simple lorem ipsum word list
+    const loremWords = [
+      'lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur', 'adipiscing', 'elit', 'sed', 'do',
+      'eiusmod', 'tempor', 'incididunt', 'ut', 'labore', 'et', 'dolore', 'magna', 'aliqua', 'ut',
+      'enim', 'ad', 'minim', 'veniam', 'quis', 'nostrud', 'exercitation', 'ullamco', 'laboris', 'nisi',
+      'ut', 'aliquip', 'ex', 'ea', 'commodo', 'consequat', 'duis', 'aute', 'irure', 'dolor',
+      'in', 'reprehenderit', 'in', 'voluptate', 'velit', 'esse', 'cillum', 'dolore', 'eu', 'fugiat',
+      'nulla', 'pariatur', 'excepteur', 'sint', 'occaecat', 'cupidatat', 'non', 'proident', 'sunt', 'in',
+      'culpa', 'qui', 'officia', 'deserunt', 'mollit', 'anim', 'id', 'est', 'laborum'
+    ];
+
+    function getRandomWord() {
+      return loremWords[Math.floor(Math.random() * loremWords.length)];
+    }
+
+    function generateWords(n) {
+      let words = [];
+      for (let i = 0; i < n; i++) {
+        words.push(getRandomWord());
+      }
+      return words.join(' ');
+    }
+
+    function capitalize(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    function generateSentence() {
+      const len = Math.floor(Math.random() * 8) + 6; // 6-13 words
+      let sentence = [];
+      for (let i = 0; i < len; i++) {
+        sentence.push(getRandomWord());
+      }
+      return capitalize(sentence.join(' ')) + '.';
+    }
+
+    function generateSentences(n) {
+      let sentences = [];
+      for (let i = 0; i < n; i++) {
+        sentences.push(generateSentence());
+      }
+      return sentences.join(' ');
+    }
+
+    function generateParagraph() {
+      const len = Math.floor(Math.random() * 3) + 3; // 3-5 sentences
+      let paragraph = [];
+      for (let i = 0; i < len; i++) {
+        paragraph.push(generateSentence());
+      }
+      return paragraph.join(' ');
+    }
+
+    function generateParagraphs(n) {
+      let paragraphs = [];
+      for (let i = 0; i < n; i++) {
+        paragraphs.push(generateParagraph());
+      }
+      return paragraphs.join('\n\n');
+    }
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const amount = parseInt(amountInput.value, 10);
+      const type = typeSelect.value;
+      let result = '';
+      if (type === 'words') {
+        result = generateWords(amount);
+      } else if (type === 'sentences') {
+        result = generateSentences(amount);
+      } else {
+        // For paragraphs, display each as a separate <p> for better formatting
+        const paragraphs = generateParagraphs(amount).split(/\n\n/);
+        result = paragraphs.map(p => `<p class='mb-4'>${p}</p>`).join('');
+      }
+      if (type === 'paragraphs') {
+        previewText.innerHTML = result;
+      } else {
+        previewText.textContent = result;
+      }
+      previewArea.classList.remove('hidden');
+    });
+
+    copyBtn.addEventListener('click', () => {
+      if (!previewText.textContent && !previewText.innerHTML) return;
+      let type = typeSelect.value;
+      let textToCopy = '';
+      if (type === 'paragraphs') {
+        // Get all <p> elements and join their text with two newlines
+        const ps = previewText.querySelectorAll('p');
+        textToCopy = Array.from(ps).map(p => p.textContent).join('\n\n');
+      } else {
+        textToCopy = previewText.textContent;
+      }
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        const originalIcon = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<i data-lucide="check" class="w-5 h-5"></i><span>Copied!</span>';
+        lucide.createIcons();
+        setTimeout(() => {
+          copyBtn.innerHTML = originalIcon;
+          lucide.createIcons();
+        }, 2000);
+      });
+    });
+
+    downloadBtn.addEventListener('click', () => {
+      if (!previewText.textContent) return;
+      const blob = new Blob([previewText.textContent], { type: 'text/plain' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'random-text.txt';
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    });
+  </script>
+</body>
+</html>

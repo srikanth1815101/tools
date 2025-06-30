@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pressure Converter - Free Online Tool | CSRGO Tools</title>
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../styles.min.css">
+  <link rel="icon" href="https://tools.csrgo.com/logo.png" type="image/png" sizes="32x32">
+  <link rel="shortcut icon" href="https://tools.csrgo.com/logo.png" type="image/png">
+  <link rel="apple-touch-icon" href="https://tools.csrgo.com/logo.png">
+  <meta name="description" content="Convert between pascals, bars, atmospheres, and more with our free online pressure converter. Fast, accurate, and easy to use.">
+  <link rel="canonical" href="https://tools.csrgo.com/tools/pressure-converter.html">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://tools.csrgo.com/",
+    "name": "CSRGO Tools",
+    "logo": "https://tools.csrgo.com/logo.png"
+  }
+  </script>
+</head>
+<body class="bg-gradient-to-b from-blue-50 via-white to-gray-50 min-h-screen flex flex-col">
+  <!-- Header Placeholder -->
+  <div id="header-placeholder"></div>
+
+  <!-- Main Content -->
+  <main class="flex-grow">
+    <!-- Hero Section -->
+    <section class="pt-20 pb-8 px-4 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-transparent"></div>
+      <div class="container mx-auto text-center relative z-10" id="heroSection"></div>
+    </section>
+
+    <!-- Converter Tool Section -->
+    <section class="py-12 px-4">
+      <div class="container mx-auto max-w-4xl">
+        <div class="bg-white rounded-2xl shadow-lg p-4 sm:p-6 md:p-8">
+          <div class="grid grid-cols-1 gap-6">
+            <!-- Input Section -->
+            <div class="space-y-4">
+              <label class="block text-sm font-medium text-gray-700">From</label>
+              <div class="flex flex-col sm:flex-row gap-3">
+                <input type="number" id="fromValue" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all" placeholder="Enter value">
+                <select id="fromUnit" class="w-full sm:w-48 rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all">
+                  <option value="pa">Pascals (Pa)</option>
+                  <option value="kpa">Kilopascals (kPa)</option>
+                  <option value="mpa">Megapascals (MPa)</option>
+                  <option value="bar">Bars (bar)</option>
+                  <option value="atm">Atmospheres (atm)</option>
+                  <option value="mmhg">Millimeters of Mercury (mmHg)</option>
+                  <option value="psi">Pounds per Square Inch (psi)</option>
+                  <option value="torr">Torr</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Output Section -->
+            <div class="space-y-4">
+              <label class="block text-sm font-medium text-gray-700">To</label>
+              <div class="flex flex-col sm:flex-row gap-3">
+                <input type="number" id="toValue" class="w-full rounded-lg border border-gray-300 px-4 py-2 bg-gray-50" readonly>
+                <select id="toUnit" class="w-full sm:w-48 rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all">
+                  <option value="pa">Pascals (Pa)</option>
+                  <option value="kpa">Kilopascals (kPa)</option>
+                  <option value="mpa">Megapascals (MPa)</option>
+                  <option value="bar">Bars (bar)</option>
+                  <option value="atm">Atmospheres (atm)</option>
+                  <option value="mmhg">Millimeters of Mercury (mmHg)</option>
+                  <option value="psi">Pounds per Square Inch (psi)</option>
+                  <option value="torr">Torr</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Conversion Buttons -->
+          <div class="mt-8">
+            <h3 class="text-sm font-medium text-gray-700 mb-4">Common Pressure Conversions</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
+              <button class="quick-convert px-3 sm:px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm font-medium transition-colors" data-from="bar" data-to="psi">bar → psi</button>
+              <button class="quick-convert px-3 sm:px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm font-medium transition-colors" data-from="atm" data-to="bar">atm → bar</button>
+              <button class="quick-convert px-3 sm:px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm font-medium transition-colors" data-from="kpa" data-to="psi">kPa → psi</button>
+              <button class="quick-convert px-3 sm:px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm font-medium transition-colors" data-from="mmhg" data-to="kpa">mmHg → kPa</button>
+            </div>
+          </div>
+
+          <!-- Pressure Reference Table -->
+          <div class="mt-8">
+            <h3 class="text-sm font-medium text-gray-700 mb-4">Common Pressure References</h3>
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="bg-gray-50">
+                    <th class="px-4 py-2 text-left font-medium text-gray-700">Pressure Type</th>
+                    <th class="px-4 py-2 text-left font-medium text-gray-700">Value</th>
+                    <th class="px-4 py-2 text-left font-medium text-gray-700">Description</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                  <tr>
+                    <td class="px-4 py-2">Standard Atmosphere</td>
+                    <td class="px-4 py-2">1 atm</td>
+                    <td class="px-4 py-2">Average atmospheric pressure at sea level</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-2">Car Tire</td>
+                    <td class="px-4 py-2">~32 psi</td>
+                    <td class="px-4 py-2">Typical car tire pressure</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-2">Scuba Tank</td>
+                    <td class="px-4 py-2">~3000 psi</td>
+                    <td class="px-4 py-2">Standard scuba diving tank pressure</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-2">Blood Pressure</td>
+                    <td class="px-4 py-2">~120/80 mmHg</td>
+                    <td class="px-4 py-2">Normal human blood pressure</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Similar Tools Section Placeholder -->
+    <div id="similarToolsSection"></div>
+
+    <!-- What is tool? Section -->
+    <section id="whatIsSection" class="py-16 px-4 bg-white"></section>
+
+    <!-- Why use tool? Section -->
+    <section id="whyUseSection" class="py-16 px-4"></section>
+
+    <!-- How to use tool? Section -->
+    <section id="howToUseSection" class="py-16 px-4 bg-white"></section>
+
+    <!-- Features Section -->
+    <section id="featuresSection" class="py-16 px-4"></section>
+
+    <!-- FAQ Section -->
+    <section id="faqSection" class="py-16 px-4 bg-white"></section>
+  </main>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+  <!-- Floating Buttons Placeholder -->
+  <div id="floating-buttons"></div>
+
+  <!-- Scripts -->
+  <script src="../app.min.js"></script>
+  <script>
+    // Set current tool info automatically by matching URL
+    if (window.tools) {
+      window.CSRGO_TOOL_INFO = window.tools.find(
+        t => t.url === "tools/pressure-converter.html"
+      );
+    }
+  </script>
+  <script src="../components/include.min.js"></script>
+  <script src="../components/similar-tools.min.js"></script>
+  <script src="../tools/data/pressure-converter-data.min.js"></script>
+  <script src="../components/tool-sections.min.js"></script>
+  <script src="../components/floating-buttons.min.js"></script>
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Initialize tool sections
+    document.addEventListener('DOMContentLoaded', () => {
+      renderToolSections('PRESSURE_CONVERTER_DATA');
+    });
+
+    // Elements
+    const fromValue = document.getElementById('fromValue');
+    const fromUnit = document.getElementById('fromUnit');
+    const toValue = document.getElementById('toValue');
+    const toUnit = document.getElementById('toUnit');
+    const quickConvertButtons = document.querySelectorAll('.quick-convert');
+
+    // Conversion factors (to pascals)
+    const CONVERSION_FACTORS = {
+      pa: 1,
+      kpa: 1000,
+      mpa: 1000000,
+      bar: 100000,
+      atm: 101325,
+      mmhg: 133.322,
+      psi: 6894.76,
+      torr: 133.322
+    };
+
+    // Convert function
+    function convert() {
+      const value = parseFloat(fromValue.value);
+      if (isNaN(value)) {
+        toValue.value = '';
+        return;
+      }
+
+      const from = fromUnit.value;
+      const to = toUnit.value;
+
+      // Convert to pascals first
+      const pascals = value * CONVERSION_FACTORS[from];
+      
+      // Convert from pascals to target unit
+      const result = pascals / CONVERSION_FACTORS[to];
+      
+      // Format result to avoid scientific notation and limit decimal places
+      toValue.value = result.toFixed(6).replace(/\.?0+$/, '');
+    }
+
+    // Event listeners
+    fromValue.addEventListener('input', convert);
+    fromUnit.addEventListener('change', convert);
+    toUnit.addEventListener('change', convert);
+
+    // Quick conversion buttons
+    quickConvertButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        fromUnit.value = button.dataset.from;
+        toUnit.value = button.dataset.to;
+        convert();
+      });
+    });
+
+    // Initialize with default values
+    fromValue.value = '1';
+    convert();
+  </script>
+</body>
+</html>

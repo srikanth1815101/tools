@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Speed Converter - Free Online Tool | CSRGO Tools</title>
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../styles.min.css">
+  <link rel="icon" href="https://tools.csrgo.com/logo.png" type="image/png" sizes="32x32">
+  <link rel="shortcut icon" href="https://tools.csrgo.com/logo.png" type="image/png">
+  <link rel="apple-touch-icon" href="https://tools.csrgo.com/logo.png">
+  <meta name="description" content="Convert between kilometers per hour, miles per hour, meters per second, and more with our free online speed converter.">
+  <link rel="canonical" href="https://tools.csrgo.com/tools/speed-converter.html">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://tools.csrgo.com/",
+    "name": "CSRGO Tools",
+    "logo": "https://tools.csrgo.com/logo.png"
+  }
+  </script>
+</head>
+<body class="bg-gradient-to-b from-blue-50 via-white to-gray-50 min-h-screen flex flex-col">
+  <!-- Header Placeholder -->
+  <div id="header-placeholder"></div>
+
+  <!-- Main Content -->
+  <main class="flex-grow">
+    <!-- Hero Section -->
+    <section class="pt-20 pb-8 px-4 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-transparent"></div>
+      <div class="container mx-auto text-center relative z-10" id="heroSection"></div>
+    </section>
+
+    <!-- Converter Tool Section -->
+    <section class="py-12 px-4">
+      <div class="container mx-auto max-w-4xl">
+        <div class="bg-white rounded-2xl shadow-lg p-4 sm:p-6 md:p-8">
+          <div class="grid grid-cols-1 gap-6">
+            <!-- Input Section -->
+            <div class="space-y-4">
+              <label class="block text-sm font-medium text-gray-700">From</label>
+              <div class="flex flex-col sm:flex-row gap-3">
+                <input type="number" id="fromValue" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all" placeholder="Enter value">
+                <select id="fromUnit" class="w-full sm:w-48 rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all">
+                  <option value="kmh">Kilometers per hour (km/h)</option>
+                  <option value="ms">Meters per second (m/s)</option>
+                  <option value="mph">Miles per hour (mph)</option>
+                  <option value="fts">Feet per second (ft/s)</option>
+                  <option value="knots">Knots (kn)</option>
+                  <option value="mach">Mach (M)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Output Section -->
+            <div class="space-y-4">
+              <label class="block text-sm font-medium text-gray-700">To</label>
+              <div class="flex flex-col sm:flex-row gap-3">
+                <input type="number" id="toValue" class="w-full rounded-lg border border-gray-300 px-4 py-2 bg-gray-50" readonly>
+                <select id="toUnit" class="w-full sm:w-48 rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all">
+                  <option value="kmh">Kilometers per hour (km/h)</option>
+                  <option value="ms">Meters per second (m/s)</option>
+                  <option value="mph">Miles per hour (mph)</option>
+                  <option value="fts">Feet per second (ft/s)</option>
+                  <option value="knots">Knots (kn)</option>
+                  <option value="mach">Mach (M)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Conversion Buttons -->
+          <div class="mt-8">
+            <h3 class="text-sm font-medium text-gray-700 mb-4">Common Speed Conversions</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
+              <button class="quick-convert px-3 sm:px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm font-medium transition-colors" data-from="kmh" data-to="mph">km/h → mph</button>
+              <button class="quick-convert px-3 sm:px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm font-medium transition-colors" data-from="mph" data-to="kmh">mph → km/h</button>
+              <button class="quick-convert px-3 sm:px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm font-medium transition-colors" data-from="ms" data-to="kmh">m/s → km/h</button>
+              <button class="quick-convert px-3 sm:px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm font-medium transition-colors" data-from="knots" data-to="kmh">knots → km/h</button>
+            </div>
+          </div>
+
+          <!-- Speed Reference Table -->
+          <div class="mt-8">
+            <h3 class="text-sm font-medium text-gray-700 mb-4">Common Speed References</h3>
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="bg-gray-50">
+                    <th class="px-4 py-2 text-left font-medium text-gray-700">Speed</th>
+                    <th class="px-4 py-2 text-left font-medium text-gray-700">km/h</th>
+                    <th class="px-4 py-2 text-left font-medium text-gray-700">mph</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                  <tr>
+                    <td class="px-4 py-2">Walking pace</td>
+                    <td class="px-4 py-2">5</td>
+                    <td class="px-4 py-2">3.1</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-2">Running pace</td>
+                    <td class="px-4 py-2">12</td>
+                    <td class="px-4 py-2">7.5</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-2">City speed limit</td>
+                    <td class="px-4 py-2">50</td>
+                    <td class="px-4 py-2">31</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-2">Highway speed limit</td>
+                    <td class="px-4 py-2">120</td>
+                    <td class="px-4 py-2">75</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Similar Tools Section Placeholder -->
+    <div id="similarToolsSection"></div>
+
+    <!-- What is tool? Section -->
+    <section id="whatIsSection" class="py-16 px-4 bg-white"></section>
+
+    <!-- Why use tool? Section -->
+    <section id="whyUseSection" class="py-16 px-4"></section>
+
+    <!-- How to use tool? Section -->
+    <section id="howToUseSection" class="py-16 px-4 bg-white"></section>
+
+    <!-- Features Section -->
+    <section id="featuresSection" class="py-16 px-4"></section>
+
+    <!-- FAQ Section -->
+    <section id="faqSection" class="py-16 px-4 bg-white"></section>
+  </main>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+  <!-- Floating Buttons Placeholder -->
+  <div id="floating-buttons"></div>
+
+  <!-- Scripts -->
+  <script src="../app.min.js"></script>
+  <script>
+    // Set current tool info automatically by matching URL
+    if (window.tools) {
+      window.CSRGO_TOOL_INFO = window.tools.find(
+        t => t.url === "tools/speed-converter.html"
+      );
+    }
+  </script>
+  <script src="../components/include.min.js"></script>
+  <script src="../components/similar-tools.min.js"></script>
+  <script src="../tools/data/speed-converter-data.min.js"></script>
+  <script src="../components/tool-sections.min.js"></script>
+  <script src="../components/floating-buttons.min.js"></script>
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Initialize tool sections
+    document.addEventListener('DOMContentLoaded', () => {
+      renderToolSections('SPEED_CONVERTER_DATA');
+    });
+
+    // Conversion factors (to m/s)
+    const conversionFactors = {
+      kmh: 0.277778,  // km/h to m/s
+      ms: 1,          // m/s to m/s
+      mph: 0.44704,   // mph to m/s
+      fts: 0.3048,    // ft/s to m/s
+      knots: 0.514444, // knots to m/s
+      mach: 340.3     // mach to m/s (at sea level)
+    };
+
+    // Elements
+    const fromValue = document.getElementById('fromValue');
+    const fromUnit = document.getElementById('fromUnit');
+    const toValue = document.getElementById('toValue');
+    const toUnit = document.getElementById('toUnit');
+    const quickConvertButtons = document.querySelectorAll('.quick-convert');
+
+    // Convert function
+    function convert() {
+      const value = parseFloat(fromValue.value);
+      if (isNaN(value)) {
+        toValue.value = '';
+        return;
+      }
+
+      // Convert to m/s first, then to target unit
+      const metersPerSecond = value * conversionFactors[fromUnit.value];
+      const result = metersPerSecond / conversionFactors[toUnit.value];
+      
+      // Format result to avoid scientific notation and limit decimal places
+      toValue.value = result.toFixed(6).replace(/\.?0+$/, '');
+    }
+
+    // Event listeners
+    fromValue.addEventListener('input', convert);
+    fromUnit.addEventListener('change', convert);
+    toUnit.addEventListener('change', convert);
+
+    // Quick conversion buttons
+    quickConvertButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        fromUnit.value = button.dataset.from;
+        toUnit.value = button.dataset.to;
+        convert();
+      });
+    });
+
+    // Initialize with default values
+    fromValue.value = '1';
+    convert();
+  </script>
+</body>
+</html>

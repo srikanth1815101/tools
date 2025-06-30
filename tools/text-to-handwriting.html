@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Text to Handwriting Converter - Free Online Tool | CSRGO Tools</title>
+  <meta name="description" content="Convert your text into realistic handwriting online. Free, fast, and customizable text-to-handwriting tool. Download as image or PDF.">
+  <link rel="canonical" href="https://tools.csrgo.com/tools/text-to-handwriting.html">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Great+Vibes&family=Satisfy&family=Sacramento&family=Architects+Daughter&family=Caveat&family=Indie+Flower&family=Shadows+Into+Light&family=Pacifico&family=Homemade+Apple&family=Kalam&family=Permanent+Marker&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../styles.min.css">
+  <link rel="icon" href="https://tools.csrgo.com/logo.png" type="image/png" sizes="32x32">
+  <link rel="shortcut icon" href="https://tools.csrgo.com/logo.png" type="image/png">
+  <link rel="apple-touch-icon" href="https://tools.csrgo.com/logo.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://tools.csrgo.com/",
+    "name": "CSRGO Tools",
+    "logo": "https://tools.csrgo.com/logo.png"
+  }
+  </script>
+  <style>
+    /* Custom styles for select options */
+    .handwriting-option {
+      font-size: 18px;
+      padding: 8px;
+    }
+    .handwriting-option.dancing-script { font-family: 'Dancing Script', cursive; }
+    .handwriting-option.great-vibes { font-family: 'Great Vibes', cursive; }
+    .handwriting-option.satisfy { font-family: 'Satisfy', cursive; }
+    .handwriting-option.sacramento { font-family: 'Sacramento', cursive; }
+    .handwriting-option.architects-daughter { font-family: 'Architects Daughter', cursive; }
+    .handwriting-option.caveat { font-family: 'Caveat', cursive; }
+    .handwriting-option.indie-flower { font-family: 'Indie Flower', cursive; }
+    .handwriting-option.shadows-into-light { font-family: 'Shadows Into Light', cursive; }
+    .handwriting-option.pacifico { font-family: 'Pacifico', cursive; }
+    .handwriting-option.homemade-apple { font-family: 'Homemade Apple', cursive; }
+    .handwriting-option.kalam { font-family: 'Kalam', cursive; }
+    .handwriting-option.permanent-marker { font-family: 'Permanent Marker', cursive; }
+
+    /* Paper style previews */
+    .paper-preview {
+      width: 24px;
+      height: 24px;
+      display: inline-block;
+      margin-left: 8px;
+      border: 1px solid #e5e7eb;
+      border-radius: 4px;
+    }
+    .paper-preview.blank { background: white; }
+    .paper-preview.lined { background-image: repeating-linear-gradient(0deg, #eee 0px, #eee 1px, transparent 1px, transparent 24px); }
+    .paper-preview.grid { background-image: repeating-linear-gradient(0deg, #eee 0px, #eee 1px, transparent 1px, transparent 24px), repeating-linear-gradient(90deg, #eee 0px, #eee 1px, transparent 1px, transparent 24px); }
+    .paper-preview.dotted { background-image: radial-gradient(circle, #eee 1px, transparent 1px); }
+    .paper-preview.music { background-image: repeating-linear-gradient(0deg, #eee 0px, #eee 1px, transparent 1px, transparent 12px), repeating-linear-gradient(0deg, #eee 0px, #eee 1px, transparent 1px, transparent 24px); }
+    .paper-preview.calligraphy { background-image: repeating-linear-gradient(45deg, #eee 0px, #eee 1px, transparent 1px, transparent 24px); }
+    .paper-preview.graph { background-image: repeating-linear-gradient(0deg, #eee 0px, #eee 1px, transparent 1px, transparent 24px), repeating-linear-gradient(90deg, #eee 0px, #eee 1px, transparent 1px, transparent 24px), repeating-linear-gradient(0deg, #ddd 0px, #ddd 1px, transparent 1px, transparent 96px), repeating-linear-gradient(90deg, #ddd 0px, #ddd 1px, transparent 1px, transparent 96px); }
+  </style>
+</head>
+<body class="bg-gradient-to-b from-blue-50 via-white to-gray-50 min-h-screen flex flex-col">
+  <!-- Header Placeholder -->
+  <div id="header-placeholder"></div>
+
+  <!-- Main Content -->
+  <main class="flex-grow">
+    <!-- Hero Section -->
+    <section class="pt-20 pb-8 px-4 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-transparent"></div>
+      <div class="container mx-auto text-center relative z-10" id="heroSection"></div>
+    </section>
+
+    <!-- Tool UI -->
+    <section class="py-8 px-4">
+      <div class="container mx-auto max-w-4xl">
+        <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 card-hover">
+          <div class="space-y-8">
+            <!-- Text Input Area -->
+            <div class="space-y-4">
+              <div class="flex flex-col gap-2 items-start md:flex-row md:items-center md:justify-between">
+                <h3 class="text-lg font-semibold flex items-center gap-2">
+                  <i data-lucide="type" class="w-5 h-5 text-blue-600"></i>
+                  Enter Your Text
+                </h3>
+                <div class="flex gap-2">
+                  <button id="clearBtn" class="px-3 py-1.5 text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-1">
+                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    Clear
+                  </button>
+                  <button id="copyBtn" class="px-3 py-1.5 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors flex items-center gap-1">
+                    <i data-lucide="copy" class="w-4 h-4"></i>
+                    Copy
+                  </button>
+                </div>
+              </div>
+              <textarea id="textInput" class="w-full h-64 p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-200 focus:border-blue-500 outline-none resize-none" placeholder="Type or paste your text here to convert to handwriting..."></textarea>
+            </div>
+
+            <!-- Conversion Options -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="space-y-2">
+                <label class="text-sm font-medium text-gray-700">Handwriting Style</label>
+                <select id="handwritingStyle" class="w-full p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-500 outline-none">
+                  <optgroup label="Cursive Styles">
+                    <option value="dancing-script" class="handwriting-option dancing-script">Dancing Script - Flowing Cursive</option>
+                    <option value="great-vibes" class="handwriting-option great-vibes">Great Vibes - Elegant Cursive</option>
+                    <option value="satisfy" class="handwriting-option satisfy">Satisfy - Casual Cursive</option>
+                    <option value="sacramento" class="handwriting-option sacramento">Sacramento - Artistic Cursive</option>
+                  </optgroup>
+                  <optgroup label="Print Styles">
+                    <option value="architects-daughter" class="handwriting-option architects-daughter">Architects Daughter - Neat Print</option>
+                    <option value="caveat" class="handwriting-option caveat">Caveat - Casual Print</option>
+                    <option value="indie-flower" class="handwriting-option indie-flower">Indie Flower - Playful Print</option>
+                    <option value="shadows-into-light" class="handwriting-option shadows-into-light">Shadows Into Light - Light Print</option>
+                  </optgroup>
+                  <optgroup label="Special Styles">
+                    <option value="pacifico" class="handwriting-option pacifico">Pacifico - Modern Style</option>
+                    <option value="homemade-apple" class="handwriting-option homemade-apple">Homemade Apple - Natural Style</option>
+                    <option value="kalam" class="handwriting-option kalam">Kalam - Handwritten Style</option>
+                    <option value="permanent-marker" class="handwriting-option permanent-marker">Permanent Marker - Marker Style</option>
+                  </optgroup>
+                </select>
+                <div id="handwritingStylePreview" class="mt-2 px-3 py-2 rounded bg-gray-50 border border-gray-200 text-base text-gray-700" style="min-height: 2.5em;">
+                  <span id="handwritingStylePreviewText">The quick brown fox jumps over the lazy dog</span>
+                </div>
+              </div>
+              <div class="space-y-2">
+                <label class="text-sm font-medium text-gray-700">Paper Style</label>
+                <select id="paperStyle" class="w-full p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-500 outline-none">
+                  <optgroup label="Basic Papers">
+                    <option value="blank">Blank Paper <span class="paper-preview blank"></span></option>
+                    <option value="lined">Lined Paper <span class="paper-preview lined"></span></option>
+                    <option value="grid">Grid Paper <span class="paper-preview grid"></span></option>
+                  </optgroup>
+                  <optgroup label="Special Papers">
+                    <option value="dotted">Dotted Paper <span class="paper-preview dotted"></span></option>
+                    <option value="music">Music Sheet <span class="paper-preview music"></span></option>
+                    <option value="calligraphy">Calligraphy Paper <span class="paper-preview calligraphy"></span></option>
+                    <option value="graph">Graph Paper <span class="paper-preview graph"></span></option>
+                  </optgroup>
+                </select>
+              </div>
+            </div>
+
+            <!-- Additional Options -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="space-y-2">
+                <label class="text-sm font-medium text-gray-700">Font Size</label>
+                <input type="range" id="fontSize" min="12" max="36" value="24" class="w-full">
+                <div class="text-center text-sm text-gray-600" id="fontSizeValue">24px</div>
+                    </div>
+              <div class="space-y-2">
+                <label class="text-sm font-medium text-gray-700">Line Spacing</label>
+                <input type="range" id="lineSpacing" min="1" max="3" step="0.1" value="1.5" class="w-full">
+                <div class="text-center text-sm text-gray-600" id="lineSpacingValue">1.5</div>
+                    </div>
+              <div class="space-y-2">
+                <label class="text-sm font-medium text-gray-700">Ink Color</label>
+                <input type="color" id="inkColor" value="#000000" class="w-full h-10 rounded-lg cursor-pointer">
+              </div>
+            </div>
+
+            <!-- Convert Button -->
+            <button id="convertBtn" class="w-full py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
+              <i data-lucide="pen-tool" class="w-5 h-5"></i>
+              Convert to Handwriting
+            </button>
+
+            <!-- Preview Section -->
+            <div id="previewSection" class="hidden space-y-6">
+              <div class="bg-gray-50 rounded-xl p-6">
+                <h4 class="text-lg font-semibold mb-4">Preview</h4>
+                <div id="handwritingPreview" class="min-h-[200px] p-4 bg-white border border-gray-200 rounded-lg"></div>
+                <div class="mt-4 flex flex-col gap-2 w-full">
+                  <button id="downloadImageBtn" class="w-full px-4 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-medium text-base hover:from-blue-700 hover:to-indigo-700 transition-colors flex items-center justify-center gap-2 shadow">
+                    <i data-lucide="image" class="w-5 h-5"></i>
+                    Download as Image
+                  </button>
+                  <button id="downloadWordBtn" class="w-full px-4 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-medium text-base hover:from-blue-700 hover:to-indigo-700 transition-colors flex items-center justify-center gap-2 shadow">
+                    <i data-lucide="file-text" class="w-5 h-5"></i>
+                    Export as Word
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Similar Tools Section Placeholder -->
+    <div id="similarToolsSection"></div>
+
+    <!-- What is tool? Section -->
+    <section id="whatIsSection" class="py-16 px-4 bg-white"></section>
+
+    <!-- Why use tool? Section -->
+    <section id="whyUseSection" class="py-16 px-4"></section>
+
+    <!-- How to use tool? Section -->
+    <section id="howToUseSection" class="py-16 px-4 bg-white"></section>
+
+    <!-- Features Section -->
+    <section id="featuresSection" class="py-16 px-4"></section>
+
+    <!-- FAQ Section -->
+    <section id="faqSection" class="py-16 px-4 bg-white"></section>
+  </main>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+  <!-- Floating Buttons Placeholder -->
+  <div id="floating-buttons"></div>
+
+  <!-- Scripts -->
+  <script src="../app.min.js"></script>
+  <script>
+    // Set current tool info automatically by matching URL
+    if (window.tools) {
+      window.CSRGO_TOOL_INFO = window.tools.find(
+        t => t.url === "tools/text-to-handwriting.html"
+      );
+    }
+  </script>
+  <script src="../components/include.min.js"></script>
+  <script src="../components/similar-tools.min.js"></script>
+  <script src="../tools/data/text-to-handwriting-data.min.js"></script>
+  <script src="../components/tool-sections.min.js"></script>
+  <script src="../components/floating-buttons.min.js"></script>
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Initialize tool sections
+    document.addEventListener('DOMContentLoaded', () => {
+      renderToolSections('TEXT_TO_HANDWRITING_DATA');
+    });
+
+    // Elements
+    const textInput = document.getElementById('textInput');
+    const clearBtn = document.getElementById('clearBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const convertBtn = document.getElementById('convertBtn');
+    const previewSection = document.getElementById('previewSection');
+    const handwritingPreview = document.getElementById('handwritingPreview');
+    const downloadImageBtn = document.getElementById('downloadImageBtn');
+    const downloadWordBtn = document.getElementById('downloadWordBtn');
+    const handwritingStyle = document.getElementById('handwritingStyle');
+    const paperStyle = document.getElementById('paperStyle');
+    const fontSize = document.getElementById('fontSize');
+    const fontSizeValue = document.getElementById('fontSizeValue');
+    const lineSpacing = document.getElementById('lineSpacing');
+    const lineSpacingValue = document.getElementById('lineSpacingValue');
+    const inkColor = document.getElementById('inkColor');
+
+    // Update font size display
+    fontSize.addEventListener('input', () => {
+      fontSizeValue.textContent = `${fontSize.value}px`;
+      updatePreview();
+    });
+
+    // Update line spacing display
+    lineSpacing.addEventListener('input', () => {
+      lineSpacingValue.textContent = lineSpacing.value;
+      updatePreview();
+    });
+
+    // Get handwriting font based on style
+    function getHandwritingFont(style) {
+      const fonts = {
+        'dancing-script': '"Dancing Script", cursive',
+        'great-vibes': '"Great Vibes", cursive',
+        'satisfy': '"Satisfy", cursive',
+        'sacramento': '"Sacramento", cursive',
+        'architects-daughter': '"Architects Daughter", cursive',
+        'caveat': '"Caveat", cursive',
+        'indie-flower': '"Indie Flower", cursive',
+        'shadows-into-light': '"Shadows Into Light", cursive',
+        'pacifico': '"Pacifico", cursive',
+        'homemade-apple': '"Homemade Apple", cursive',
+        'kalam': '"Kalam", cursive',
+        'permanent-marker': '"Permanent Marker", cursive'
+      };
+      return fonts[style] || fonts['dancing-script'];
+    }
+
+    // Get paper style background
+    function getPaperStyle(style) {
+      const styles = {
+        blank: 'none',
+        lined: 'repeating-linear-gradient(0deg, #eee 0px, #eee 1px, transparent 1px, transparent 24px)',
+        grid: 'repeating-linear-gradient(0deg, #eee 0px, #eee 1px, transparent 1px, transparent 24px), repeating-linear-gradient(90deg, #eee 0px, #eee 1px, transparent 1px, transparent 24px)',
+        dotted: 'radial-gradient(circle, #eee 1px, transparent 1px)',
+        music: 'repeating-linear-gradient(0deg, #eee 0px, #eee 1px, transparent 1px, transparent 12px), repeating-linear-gradient(0deg, #eee 0px, #eee 1px, transparent 1px, transparent 24px)',
+        calligraphy: 'repeating-linear-gradient(45deg, #eee 0px, #eee 1px, transparent 1px, transparent 24px)',
+        graph: 'repeating-linear-gradient(0deg, #eee 0px, #eee 1px, transparent 1px, transparent 24px), repeating-linear-gradient(90deg, #eee 0px, #eee 1px, transparent 1px, transparent 24px), repeating-linear-gradient(0deg, #ddd 0px, #ddd 1px, transparent 1px, transparent 96px), repeating-linear-gradient(90deg, #ddd 0px, #ddd 1px, transparent 1px, transparent 96px)'
+      };
+      return styles[style] || styles.blank;
+    }
+
+    // Update preview function
+    function updatePreview() {
+      const text = textInput.value.trim();
+      if (!text) return;
+
+      // Apply styles to preview
+      handwritingPreview.style.fontFamily = getHandwritingFont(handwritingStyle.value);
+      handwritingPreview.style.fontSize = `${fontSize.value}px`;
+      handwritingPreview.style.lineHeight = lineSpacing.value;
+      handwritingPreview.style.color = inkColor.value;
+      handwritingPreview.style.backgroundColor = '#fff';
+      handwritingPreview.style.backgroundImage = getPaperStyle(paperStyle.value);
+      handwritingPreview.style.padding = '20px';
+      handwritingPreview.style.whiteSpace = 'pre-wrap';
+      handwritingPreview.style.wordBreak = 'break-word';
+      handwritingPreview.style.minHeight = '200px';
+      handwritingPreview.style.border = '1px solid #e5e7eb';
+      handwritingPreview.style.borderRadius = '0.5rem';
+
+      // Set the text
+      handwritingPreview.textContent = text;
+    }
+
+    // Update preview when text changes
+    textInput.addEventListener('input', updatePreview);
+
+    // Update preview when settings change
+    handwritingStyle.addEventListener('change', updatePreview);
+    paperStyle.addEventListener('change', updatePreview);
+    inkColor.addEventListener('input', updatePreview);
+
+    // Live preview for handwriting style
+    const handwritingStylePreview = document.getElementById('handwritingStylePreview');
+    const handwritingStylePreviewText = document.getElementById('handwritingStylePreviewText');
+    function updateHandwritingStylePreview() {
+      handwritingStylePreviewText.style.fontFamily = getHandwritingFont(handwritingStyle.value);
+    }
+    handwritingStyle.addEventListener('change', updateHandwritingStylePreview);
+    // Initialize preview on load
+    updateHandwritingStylePreview();
+
+    // Convert text to handwriting
+    function convertToHandwriting() {
+      const text = textInput.value.trim();
+      if (!text) {
+        alert('Please enter some text to convert.');
+        return;
+      }
+
+      // Show processing state
+      convertBtn.disabled = true;
+      convertBtn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Converting...';
+      lucide.createIcons();
+
+      // Update preview
+      updatePreview();
+
+      // Show preview
+      previewSection.classList.remove('hidden');
+      lucide.createIcons();
+
+      // Auto-scroll to preview
+      previewSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      // Reset button state
+      convertBtn.disabled = false;
+      convertBtn.innerHTML = '<i data-lucide="pen-tool" class="w-5 h-5"></i> Convert to Handwriting';
+      lucide.createIcons();
+    }
+
+    // Download handwriting as image
+    function downloadHandwriting() {
+      // Create a canvas element
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      
+      // Set canvas size
+      canvas.width = handwritingPreview.offsetWidth;
+      canvas.height = handwritingPreview.offsetHeight;
+      
+      // Draw background
+      context.fillStyle = '#fff';
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // Draw paper style
+      if (paperStyle.value === 'lined') {
+        for (let y = 0; y < canvas.height; y += 24) {
+          context.beginPath();
+          context.moveTo(0, y);
+          context.lineTo(canvas.width, y);
+          context.strokeStyle = '#eee';
+          context.stroke();
+        }
+      } else if (paperStyle.value === 'grid') {
+        for (let y = 0; y < canvas.height; y += 24) {
+          context.beginPath();
+          context.moveTo(0, y);
+          context.lineTo(canvas.width, y);
+          context.strokeStyle = '#eee';
+          context.stroke();
+        }
+        for (let x = 0; x < canvas.width; x += 24) {
+          context.beginPath();
+          context.moveTo(x, 0);
+          context.lineTo(x, canvas.height);
+          context.strokeStyle = '#eee';
+          context.stroke();
+        }
+      }
+      
+      // Draw text
+      context.font = `${fontSize.value}px ${getHandwritingFont(handwritingStyle.value)}`;
+      context.fillStyle = inkColor.value;
+      context.fillText(handwritingPreview.textContent, 20, 40);
+      
+      // Convert to image and download
+      const link = document.createElement('a');
+      link.download = 'handwriting.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+
+    // Export as Word document (with paper background as image)
+    function exportAsWord() {
+      // Create a canvas and draw the preview (same as downloadHandwriting)
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      canvas.width = handwritingPreview.offsetWidth;
+      canvas.height = handwritingPreview.offsetHeight;
+      // Draw background
+      context.fillStyle = '#fff';
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      // Draw paper style (only lined/grid for now)
+      if (paperStyle.value === 'lined') {
+        for (let y = 0; y < canvas.height; y += 24) {
+          context.beginPath();
+          context.moveTo(0, y);
+          context.lineTo(canvas.width, y);
+          context.strokeStyle = '#eee';
+          context.stroke();
+        }
+      } else if (paperStyle.value === 'grid') {
+        for (let y = 0; y < canvas.height; y += 24) {
+          context.beginPath();
+          context.moveTo(0, y);
+          context.lineTo(canvas.width, y);
+          context.strokeStyle = '#eee';
+          context.stroke();
+        }
+        for (let x = 0; x < canvas.width; x += 24) {
+          context.beginPath();
+          context.moveTo(x, 0);
+          context.lineTo(x, canvas.height);
+          context.strokeStyle = '#eee';
+          context.stroke();
+        }
+      }
+      // Draw text
+      context.font = `${fontSize.value}px ${getHandwritingFont(handwritingStyle.value)}`;
+      context.fillStyle = inkColor.value;
+      context.textBaseline = 'top';
+      context.textAlign = 'left';
+      // Support multi-line text
+      const lines = handwritingPreview.textContent.split('\n');
+      let y = 20;
+      for (const line of lines) {
+        context.fillText(line, 20, y);
+        y += fontSize.value * lineSpacing.value;
+      }
+      // Convert canvas to data URL
+      const imgData = canvas.toDataURL('image/png');
+      // Create the Word document content with the image
+      const content = `
+        <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+        <head>
+          <meta charset='utf-8'>
+          <title>Handwriting Document</title>
+        </head>
+        <body style="margin:0;padding:0;">
+          <img src="${imgData}" style="max-width:100%;height:auto;display:block;"/>
+        </body>
+        </html>
+      `;
+      // Create a Blob with the content
+      const blob = new Blob([content], { type: 'application/msword' });
+      // Create download link
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'handwriting.doc';
+      link.click();
+      // Clean up
+      URL.revokeObjectURL(link.href);
+    }
+
+    // Event listeners
+    convertBtn.addEventListener('click', convertToHandwriting);
+    document.getElementById('downloadImageBtn').addEventListener('click', downloadHandwriting);
+    document.getElementById('downloadWordBtn').addEventListener('click', exportAsWord);
+    
+    clearBtn.addEventListener('click', () => {
+      textInput.value = '';
+      previewSection.classList.add('hidden');
+    });
+    
+    copyBtn.addEventListener('click', () => {
+      textInput.select();
+      document.execCommand('copy');
+      
+      // Show copied feedback
+      const originalText = copyBtn.innerHTML;
+      copyBtn.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i> Copied';
+      lucide.createIcons();
+      
+      setTimeout(() => {
+        copyBtn.innerHTML = originalText;
+        lucide.createIcons();
+      }, 2000);
+    });
+  </script>
+</body>
+</html>

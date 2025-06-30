@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Scientific Calculator - Free Online Tool | CSRGO Tools</title>
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../styles.min.css">
+  <link rel="icon" href="https://tools.csrgo.com/logo.png" type="image/png" sizes="32x32">
+  <link rel="shortcut icon" href="https://tools.csrgo.com/logo.png" type="image/png">
+  <link rel="apple-touch-icon" href="https://tools.csrgo.com/logo.png">
+  <meta name="description" content="Perform advanced mathematical calculations with our free online scientific calculator. Supports trigonometry, logarithms, and more.">
+  <link rel="canonical" href="https://tools.csrgo.com/tools/scientific-calculator.html">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://tools.csrgo.com/",
+    "name": "CSRGO Tools",
+    "logo": "https://tools.csrgo.com/logo.png"
+  }
+  </script>
+</head>
+<body class="bg-gradient-to-b from-blue-50 via-white to-gray-50 min-h-screen flex flex-col">
+  <!-- Header Placeholder -->
+  <div id="header-placeholder"></div>
+
+  <!-- Main Content -->
+  <main class="flex-grow">
+    <!-- Hero Section -->
+    <section class="pt-20 pb-8 px-4 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-transparent"></div>
+      <div class="container mx-auto text-center relative z-10" id="heroSection"></div>
+    </section>
+
+    <!-- Tool Section -->
+    <section class="py-8 px-4">
+      <div class="container mx-auto max-w-2xl">
+        <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 card-hover">
+          <div class="space-y-6">
+            <!-- Calculator Display -->
+            <div class="mb-2">
+              <input id="calcDisplay" type="text" class="w-full text-right text-2xl font-mono border rounded-lg px-4 py-3 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500" value="0" readonly />
+            </div>
+            <!-- Calculator Buttons -->
+            <div class="grid grid-cols-5 gap-3">
+              <button class="calc-btn" data-value="C">C</button>
+              <button class="calc-btn" data-value="(">(</button>
+              <button class="calc-btn" data-value=")">)</button>
+              <button class="calc-btn" data-value="%">%</button>
+              <button class="calc-btn" data-value="/">÷</button>
+
+              <button class="calc-btn" data-value="7">7</button>
+              <button class="calc-btn" data-value="8">8</button>
+              <button class="calc-btn" data-value="9">9</button>
+              <button class="calc-btn" data-value="*">×</button>
+              <button class="calc-btn" data-value="^">xʸ</button>
+
+              <button class="calc-btn" data-value="4">4</button>
+              <button class="calc-btn" data-value="5">5</button>
+              <button class="calc-btn" data-value="6">6</button>
+              <button class="calc-btn" data-value="-">−</button>
+              <button class="calc-btn" data-value="sqrt">√</button>
+
+              <button class="calc-btn" data-value="1">1</button>
+              <button class="calc-btn" data-value="2">2</button>
+              <button class="calc-btn" data-value="3">3</button>
+              <button class="calc-btn" data-value="+">+</button>
+              <button class="calc-btn" data-value="pi">π</button>
+
+              <button class="calc-btn" data-value="0">0</button>
+              <button class="calc-btn" data-value=".">.</button>
+              <button class="calc-btn" data-value="e">e</button>
+              <button class="calc-btn" data-value="ans">Ans</button>
+              <button class="calc-btn calc-eval bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold" data-value="=">=</button>
+
+              <button class="calc-btn" data-value="sin">sin</button>
+              <button class="calc-btn" data-value="cos">cos</button>
+              <button class="calc-btn" data-value="tan">tan</button>
+              <button class="calc-btn" data-value="log">log</button>
+              <button class="calc-btn" data-value="ln">ln</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Similar Tools Section Placeholder -->
+    <div id="similarToolsSection"></div>
+
+    <!-- What is tool? Section -->
+    <section id="whatIsSection" class="py-16 px-4 bg-white"></section>
+
+    <!-- Why use tool? Section -->
+    <section id="whyUseSection" class="py-16 px-4"></section>
+
+    <!-- How to use tool? Section -->
+    <section id="howToUseSection" class="py-16 px-4 bg-white"></section>
+
+    <!-- Features Section -->
+    <section id="featuresSection" class="py-16 px-4"></section>
+
+    <!-- FAQ Section -->
+    <section id="faqSection" class="py-16 px-4 bg-white"></section>
+  </main>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+  <!-- Floating Buttons Placeholder -->
+  <div id="floating-buttons"></div>
+
+  <!-- Scripts -->
+  <script src="../app.min.js"></script>
+  <script>
+    // Set current tool info automatically by matching URL
+    if (window.tools) {
+      window.CSRGO_TOOL_INFO = window.tools.find(
+        t => t.url === "tools/scientific-calculator.html"
+      );
+    }
+  </script>
+  <script src="../components/include.min.js"></script>
+  <script src="../components/similar-tools.min.js"></script>
+  <script src="../tools/data/scientific-calculator-data.min.js"></script>
+  <script src="../components/tool-sections.min.js"></script>
+  <script src="../components/floating-buttons.min.js"></script>
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+    // Initialize tool sections
+    document.addEventListener('DOMContentLoaded', () => {
+      renderToolSections('SCIENTIFIC_CALCULATOR_DATA');
+    });
+
+    // Scientific Calculator functionality
+    const display = document.getElementById('calcDisplay');
+    const buttons = document.querySelectorAll('.calc-btn');
+    let current = '';
+    let lastAns = 0;
+
+    function updateDisplay(val) {
+      display.value = val;
+    }
+
+    function safeEval(expr) {
+      // Replace constants and functions
+      expr = expr.replace(/π/g, Math.PI)
+                 .replace(/e/g, Math.E)
+                 .replace(/√/g, 'Math.sqrt')
+                 .replace(/sin\(/g, 'Math.sin(')
+                 .replace(/cos\(/g, 'Math.cos(')
+                 .replace(/tan\(/g, 'Math.tan(')
+                 .replace(/log\(/g, 'Math.log10(')
+                 .replace(/ln\(/g, 'Math.log(')
+                 .replace(/Ans/g, lastAns)
+                 .replace(/\^/g, '**');
+      // For degrees: convert input to radians for trig functions
+      expr = expr.replace(/Math\.(sin|cos|tan)\(([^)]+)\)/g, (m, fn, arg) => `Math.${fn}((${arg})*Math.PI/180)`);
+      try {
+        // eslint-disable-next-line no-eval
+        let result = eval(expr);
+        if (typeof result === 'number' && isFinite(result)) {
+          lastAns = result;
+          return result;
+        }
+        return 'Error';
+      } catch {
+        return 'Error';
+      }
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const val = btn.getAttribute('data-value');
+        if (val === 'C') {
+          current = '';
+          updateDisplay('0');
+        } else if (val === '=') {
+          const result = safeEval(current);
+          updateDisplay(result);
+          current = '' + result;
+        } else if (val === 'sqrt') {
+          current += '√(';
+          updateDisplay(current);
+        } else if (val === 'pi') {
+          current += 'π';
+          updateDisplay(current);
+        } else if (val === 'e') {
+          current += 'e';
+          updateDisplay(current);
+        } else if (val === 'ans') {
+          current += 'Ans';
+          updateDisplay(current);
+        } else if (['sin','cos','tan','log','ln'].includes(val)) {
+          current += val + '(';
+          updateDisplay(current);
+        } else {
+          current += val;
+          updateDisplay(current);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

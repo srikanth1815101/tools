@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QR Code Generator - Free Online Tool | CSRGO</title>
+  <meta name="description" content="Generate QR codes for URLs, text, and more with our free online QR code generator. Download high-quality QR codes instantly.">
+  <link rel="canonical" href="https://tools.csrgo.com/tools/qr-code-generator.html">
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../styles.min.css">
+  <link rel="icon" href="https://tools.csrgo.com/logo.png" type="image/png" sizes="32x32">
+  <link rel="shortcut icon" href="https://tools.csrgo.com/logo.png" type="image/png">
+  <link rel="apple-touch-icon" href="https://tools.csrgo.com/logo.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://tools.csrgo.com/",
+    "name": "CSRGO Tools",
+    "logo": "https://tools.csrgo.com/logo.png"
+  }
+  </script>
+</head>
+<body class="bg-gradient-to-b from-blue-50 via-white to-gray-50 min-h-screen flex flex-col">
+  <!-- Header Placeholder -->
+  <div id="header-placeholder"></div>
+
+  <!-- Main Content -->
+  <main class="flex-grow">
+    <!-- Hero Section -->
+    <section class="pt-20 pb-8 px-4 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-transparent"></div>
+      <div class="container mx-auto text-center relative z-10" id="heroSection"></div>
+    </section>
+
+    <!-- Tool UI -->
+    <section class="py-8 px-4">
+      <div class="container mx-auto max-w-4xl">
+        <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 card-hover">
+          <div class="space-y-8">
+            <!-- Input and Options -->
+            <div class="flex flex-col gap-6">
+              <div>
+                <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                  <i data-lucide="qr-code" class="w-5 h-5 text-blue-600"></i>
+                  QR Code Content
+                </h3>
+                <div class="flex flex-col md:flex-row gap-4">
+                  <div class="flex-1">
+                    <textarea id="qrInput" rows="4" class="w-full rounded-lg border-2 border-gray-200 focus:border-blue-500 focus:ring-blue-500 text-lg p-4" placeholder="Enter text or URL to generate QR code..."></textarea>
+                    <div class="mt-4 flex flex-col gap-2">
+                      <input id="qrTextAbove" type="text" class="w-full rounded-lg border-2 border-gray-200 focus:border-blue-500 focus:ring-blue-500 text-base p-2" placeholder="Text above QR code (optional)">
+                      <input id="qrTextBelow" type="text" class="w-full rounded-lg border-2 border-gray-200 focus:border-blue-500 focus:ring-blue-500 text-base p-2" placeholder="Text below QR code (optional)">
+                    </div>
+                  </div>
+                  <div class="flex flex-col gap-4 md:w-64">
+                    <div>
+                      <label for="qrSize" class="block text-sm font-medium text-gray-700 mb-2">Size (pixels)</label>
+                      <input type="number" id="qrSize" value="200" min="50" max="1000" class="w-full rounded-lg border-gray-200 focus:border-blue-500 focus:ring-blue-500">
+                    </div>
+                    <div>
+                      <label for="qrErrorCorrection" class="block text-sm font-medium text-gray-700 mb-2">Error Correction</label>
+                      <select id="qrErrorCorrection" class="w-full rounded-lg border-gray-200 focus:border-blue-500 focus:ring-blue-500">
+                        <option value="L">Low (7%)</option>
+                        <option value="M">Medium (15%)</option>
+                        <option value="Q">Quartile (25%)</option>
+                        <option value="H">High (30%)</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-6 flex">
+                  <button id="generateBtn" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-xl font-medium hover:from-blue-700 hover:to-indigo-700 transition-all flex items-center justify-center gap-2 shadow-lg">
+                    <i data-lucide="wand-2" class="w-5 h-5"></i>
+                    Generate QR Code
+                  </button>
+                </div>
+              </div>
+              <!-- QR Code Display and Download -->
+              <div id="previewSection" class="hidden">
+                <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                  <i data-lucide="image" class="w-5 h-5 text-indigo-600"></i>
+                  QR Code Preview
+                </h3>
+                <div id="qrcode" class="flex justify-center items-center bg-gray-50 rounded-lg p-4 min-h-[200px] mb-4">
+                  <!-- QR code will be generated here -->
+                </div>
+                <div id="downloadArea" class="hidden">
+                  <button id="downloadBtn" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-xl font-medium hover:from-blue-700 hover:to-indigo-700 transition-all flex items-center justify-center gap-2 shadow-lg">
+                    <i data-lucide="download" class="w-5 h-5"></i>
+                    Download QR Code
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Similar Tools Section Placeholder -->
+    <div id="similarToolsSection"></div>
+
+    <!-- What is tool? Section -->
+    <section id="whatIsSection" class="py-16 px-4 bg-white"></section>
+
+    <!-- Why use tool? Section -->
+    <section id="whyUseSection" class="py-16 px-4"></section>
+
+    <!-- How to use tool? Section -->
+    <section id="howToUseSection" class="py-16 px-4 bg-white"></section>
+
+    <!-- Features Section -->
+    <section id="featuresSection" class="py-16 px-4"></section>
+
+    <!-- FAQ Section -->
+    <section id="faqSection" class="py-16 px-4 bg-white"></section>
+  </main>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+  <!-- Floating Buttons Placeholder -->
+  <div id="floating-buttons"></div>
+
+  <!-- Scripts -->
+  <script src="../app.min.js"></script>
+  <!-- qrcodejs library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    // Set current tool info automatically by matching URL
+    if (window.tools) {
+      window.CSRGO_TOOL_INFO = window.tools.find(
+        t => t.url === "tools/qr-code-generator.html"
+      );
+    }
+  </script>
+  <script src="../components/include.min.js"></script>
+  <script src="../components/similar-tools.min.js"></script>
+  <script src="../tools/data/qr-code-generator-data.min.js"></script>
+  <script src="../components/tool-sections.min.js"></script>
+  <script src="../components/floating-buttons.min.js"></script>
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Initialize tool sections
+    document.addEventListener('DOMContentLoaded', () => {
+      renderToolSections('QR_CODE_GENERATOR_DATA');
+    });
+
+    // Elements
+    const qrInput = document.getElementById('qrInput');
+    const qrTextAbove = document.getElementById('qrTextAbove');
+    const qrTextBelow = document.getElementById('qrTextBelow');
+    const qrSize = document.getElementById('qrSize');
+    const qrErrorCorrection = document.getElementById('qrErrorCorrection');
+    const generateBtn = document.getElementById('generateBtn');
+    const qrcodeDiv = document.getElementById('qrcode');
+    const downloadArea = document.getElementById('downloadArea');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const previewSection = document.getElementById('previewSection');
+
+    let qrCode = null; // To store the QRCode object
+    let previewCanvas = null; // To store the preview canvas for download
+
+    // Generate QR Code
+    function generateQRCode() {
+        const text = qrInput.value.trim();
+        const textAbove = qrTextAbove.value.trim();
+        const textBelow = qrTextBelow.value.trim();
+        const size = parseInt(qrSize.value);
+        const errorCorrection = qrErrorCorrection.value;
+        const font = '16px Inter, Arial, sans-serif';
+        const padding = 16;
+
+        if (!text) {
+            alert('Please enter text or a URL to generate a QR code.');
+            return;
+        }
+
+        // Clear previous QR code
+        qrcodeDiv.innerHTML = '';
+        downloadArea.classList.add('hidden');
+
+        // Create a temporary div to generate QR code with qrcodejs
+        const tempDiv = document.createElement('div');
+        document.body.appendChild(tempDiv);
+        try {
+            qrCode = new QRCode(tempDiv, {
+                text: text,
+                width: size,
+                height: size,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel[errorCorrection]
+            });
+            setTimeout(() => {
+                // Get QR code image data
+                let qrImg = tempDiv.querySelector('canvas') || tempDiv.querySelector('img');
+                if (!qrImg) {
+                    alert('Could not generate QR code image.');
+                    document.body.removeChild(tempDiv);
+                    return;
+                }
+                // Draw to canvas for preview
+                // --- Calculate text wrapping and dynamic height ---
+                function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+                    if (!text) return 0;
+                    const words = text.split(' ');
+                    let line = '';
+                    let lines = [];
+                    for (let n = 0; n < words.length; n++) {
+                        let testLine = line + words[n] + ' ';
+                        let metrics = ctx.measureText(testLine);
+                        let testWidth = metrics.width;
+                        if (testWidth > maxWidth && n > 0) {
+                            lines.push(line);
+                            line = words[n] + ' ';
+                        } else {
+                            line = testLine;
+                        }
+                    }
+                    lines.push(line);
+                    for (let i = 0; i < lines.length; i++) {
+                        ctx.fillText(lines[i].trim(), x, y + i * lineHeight);
+                    }
+                    return lines.length * lineHeight;
+                }
+                // ---
+                let maxTextWidth = size + padding * 1.5; // a bit wider than QR
+                let lineHeight = 20;
+                // Measure above/below text height
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                ctx.font = font;
+                let aboveLines = textAbove ? Math.ceil(ctx.measureText(textAbove).width / maxTextWidth) : 0;
+                let belowLines = textBelow ? Math.ceil(ctx.measureText(textBelow).width / maxTextWidth) : 0;
+                let aboveHeight = textAbove ? aboveLines * lineHeight : 0;
+                let belowHeight = textBelow ? belowLines * lineHeight : 0;
+                // Add extra spacing between text and QR
+                let textQRGap = textAbove ? 12 : 0;
+                let qrTextGap = textBelow ? 12 : 0;
+                let totalHeight = aboveHeight + textQRGap + size + qrTextGap + belowHeight + padding * 2;
+                let totalWidth = size + padding * 2;
+                canvas.width = totalWidth;
+                canvas.height = totalHeight;
+                // Fill white background
+                ctx.fillStyle = '#fff';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                // Draw text above (wrapped)
+                ctx.font = font;
+                ctx.fillStyle = '#222';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'top';
+                let aboveY = padding;
+                if (textAbove) {
+                    aboveHeight = wrapText(ctx, textAbove, totalWidth / 2, aboveY, maxTextWidth, lineHeight);
+                }
+                // Draw QR code
+                let qrImage = new window.Image();
+                qrImage.onload = function() {
+                    let qrY = padding + aboveHeight + (textAbove ? textQRGap : 0);
+                    ctx.drawImage(qrImage, padding, qrY, size, size);
+                    // Draw text below (wrapped)
+                    if (textBelow) {
+                        let belowY = qrY + size + qrTextGap;
+                        wrapText(ctx, textBelow, totalWidth / 2, belowY, maxTextWidth, lineHeight);
+                    }
+                    // Show preview
+                    qrcodeDiv.innerHTML = '';
+                    canvas.style.maxWidth = '100%';
+                    canvas.style.height = 'auto';
+                    qrcodeDiv.appendChild(canvas);
+                    previewCanvas = canvas;
+                    // Show download button
+                    downloadArea.classList.remove('hidden');
+                };
+                if (qrImg.tagName.toLowerCase() === 'canvas') {
+                    qrImage.src = qrImg.toDataURL('image/png');
+                } else {
+                    qrImage.src = qrImg.src;
+                }
+                document.body.removeChild(tempDiv);
+            }, 100);
+            // Show preview section and scroll to it
+            previewSection.classList.remove('hidden');
+            previewSection.scrollIntoView({ behavior: 'smooth' });
+        } catch (error) {
+            console.error('QR code generation error:', error);
+            alert('Error generating QR code: ' + error.message);
+            document.body.removeChild(tempDiv);
+        }
+    }
+
+    // Download QR Code
+    function downloadQRCode() {
+        if (!previewCanvas) {
+            alert('Please generate a QR code first.');
+            return;
+        }
+        const jpgUrl = previewCanvas.toDataURL('image/jpeg', 0.95);
+        const link = document.createElement('a');
+        link.download = 'qrcode.jpg';
+        link.href = jpgUrl;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    // Event Listeners
+    generateBtn.addEventListener('click', generateQRCode);
+    downloadBtn.addEventListener('click', downloadQRCode);
+
+    // Optional: Generate on Enter key press in textarea
+    qrInput.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault(); // Prevent newline
+            generateQRCode();
+        }
+    });
+  </script>
+</body>
+</html>

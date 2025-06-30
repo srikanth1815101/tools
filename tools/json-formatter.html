@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JSON Formatter - Free Online Tool | CSRGO Tools</title>
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Highlight.js for syntax highlighting -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../styles.min.css">
+  <link rel="icon" href="https://tools.csrgo.com/logo.png" type="image/png" sizes="32x32">
+  <link rel="shortcut icon" href="https://tools.csrgo.com/logo.png" type="image/png">
+  <link rel="apple-touch-icon" href="https://tools.csrgo.com/logo.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://tools.csrgo.com/",
+    "name": "CSRGO Tools",
+    "logo": "https://tools.csrgo.com/logo.png"
+  }
+  </script>
+  <meta name="description" content="Format and beautify your JSON data instantly with our free online JSON formatter. Supports large files and error checking.">
+  <link rel="canonical" href="https://tools.csrgo.com/tools/json-formatter.html">
+  <style>
+    .hljs {
+      padding: 0 !important;
+      background: transparent !important;
+    }
+    /* Specific override for VS2015 theme if it appears pale */
+    body[data-theme="vs2015"] .hljs {
+      color: #333 !important; /* Ensure dark text for readability on light background */
+    }
+    body[data-theme="vs2015"] .hljs-keyword,
+    body[data-theme="vs2015"] .hljs-built_in,
+    body[data-theme="vs2015"] .hljs-type,
+    body[data-theme="vs2015"] .hljs-literal,
+    body[data-theme="vs2015"] .hljs-number,
+    body[data-theme="vs2015"] .hljs-regexp,
+    body[data-theme="vs2015"] .hljs-string,
+    body[data-theme="vs2015"] .hljs-subst,
+    body[data-theme="vs2015"] .hljs-symbol,
+    body[data-theme="vs2015"] .hljs-class .hljs-title,
+    body[data-theme="vs2015"] .hljs-title.class_,
+    body[data-theme="vs2015"] .hljs-variable {
+      color: #000 !important; /* Force black for key syntax elements */
+    }
+    body[data-theme="vs2015"] .hljs-comment,
+    body[data-theme="vs2015"] .hljs-quote {
+      color: #666 !important; /* Slightly lighter for comments */
+    }
+    /* Aggressive override for VS2015 text color within output areas to ensure readability */
+    body[data-theme="vs2015"] #jsonOutput *,
+    body[data-theme="vs2015"] #jsonOutputMobile * {
+      color: #000 !important; /* Force all text to black */
+      text-shadow: none !important; /* Remove any potential text shadows making it pale */
+    }
+    .json-editor {
+      font-family: 'Fira Code', monospace;
+      tab-size: 2;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-b from-blue-50 via-white to-gray-50 min-h-screen flex flex-col">
+  <!-- Header Placeholder -->
+  <div id="header-placeholder"></div>
+
+  <!-- Main Content -->
+  <main class="flex-grow">
+    <!-- Hero Section -->
+    <section class="pt-20 pb-8 px-4 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-transparent"></div>
+      <div class="container mx-auto text-center relative z-10" id="heroSection"></div>
+    </section>
+
+    <!-- Tool Section -->
+    <section class="py-8 px-4">
+      <div class="container mx-auto max-w-6xl">
+        <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 card-hover">
+          <div class="space-y-6">
+            <!-- Options -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6 items-end">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Indentation</label>
+                <select id="indentSize" class="w-full border rounded-lg px-3 py-2 bg-white">
+                  <option value="2">2 Spaces</option>
+                  <option value="4">4 Spaces</option>
+                  <option value="tab">Tab</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Theme</label>
+                <select id="theme" class="w-full border rounded-lg px-3 py-2 bg-white">
+                  <option value="github">GitHub</option>
+                  <option value="monokai">Monokai</option>
+                  <option value="vs">VS (Visual Studio)</option>
+                  <option value="atom-one-dark">Atom One Dark</option>
+                </select>
+              </div>
+              <div class="flex gap-2 lg:justify-end flex-col lg:flex-row w-full">
+                <button class="sample-json w-full lg:w-auto min-w-[140px] px-4 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 rounded-lg text-sm font-medium text-blue-700 transition-colors flex items-center justify-center gap-2">
+                  <i data-lucide="file-text" class="w-4 h-4"></i>
+                  Simple JSON
+                </button>
+                <button class="sample-json w-full lg:w-auto min-w-[140px] px-4 py-2 bg-gradient-to-r from-purple-50 to-pink-50 hover:from-purple-100 hover:to-pink-100 rounded-lg text-sm font-medium text-purple-700 transition-colors flex items-center justify-center gap-2">
+                  <i data-lucide="file-code" class="w-4 h-4"></i>
+                  Complex JSON
+                </button>
+              </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <!-- Left Column: Input -->
+              <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                  <h3 class="text-lg font-semibold flex items-center gap-2">
+                    <i data-lucide="file-input" class="w-5 h-5 text-blue-600"></i>
+                    Input JSON
+                  </h3>
+                  <div class="flex gap-2">
+                    <button id="clearInput" class="text-sm text-gray-600 hover:text-gray-900 flex items-center gap-1">
+                      <i data-lucide="trash-2" class="w-4 h-4"></i>
+                      Clear
+                    </button>
+                  </div>
+                </div>
+                <div class="relative">
+                  <textarea id="jsonInput" class="w-full h-[400px] p-4 border rounded-xl font-mono text-sm bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Paste your JSON here..."></textarea>
+                </div>
+                <!-- Error message: below input on mobile, hidden on desktop -->
+                <div id="errorMessageMobile" class="hidden lg:hidden p-4 bg-red-50 text-red-700 rounded-lg text-sm"></div>
+              </div>
+
+              <!-- Right Column: Output (Desktop) -->
+              <div class="space-y-4 hidden lg:block">
+                <div class="flex items-center justify-between">
+                  <h3 class="text-lg font-semibold flex items-center gap-2">
+                    <i data-lucide="file-output" class="w-5 h-5 text-green-600"></i>
+                    Formatted Output
+                  </h3>
+                  <div class="flex gap-2">
+                    <button id="copyOutput" class="text-sm text-gray-600 hover:text-gray-900 flex items-center gap-1">
+                      <i data-lucide="copy" class="w-4 h-4"></i>
+                      Copy
+                    </button>
+                  </div>
+                </div>
+                <div class="relative">
+                  <pre id="jsonOutput" class="w-full h-[400px] p-4 border rounded-xl font-mono text-sm overflow-auto"></pre>
+                </div>
+              </div>
+            </div>
+            <!-- Error message: full width on desktop, hidden on mobile -->
+            <div id="errorMessage" class="hidden p-4 bg-red-50 text-red-700 rounded-lg text-sm w-full mt-4 mx-auto"></div>
+
+            <!-- Action Buttons (Mobile) -->
+            <div class="flex gap-4 lg:hidden">
+              <button id="formatBtnMobile" class="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:from-blue-700 hover:to-indigo-700 transition-all flex items-center justify-center gap-2">
+                <i data-lucide="wand-2" class="w-4 h-4"></i>
+                Format
+              </button>
+              <button id="minifyBtnMobile" class="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg font-medium hover:from-purple-700 hover:to-pink-700 transition-all flex items-center justify-center gap-2">
+                <i data-lucide="minimize-2" class="w-4 h-4"></i>
+                Minify
+              </button>
+            </div>
+
+            <!-- Output Area (Mobile) -->
+            <div class="space-y-4 lg:hidden">
+              <div class="flex items-center justify-between">
+                <h3 class="text-lg font-semibold flex items-center gap-2">
+                  <i data-lucide="file-output" class="w-5 h-5 text-green-600"></i>
+                  Formatted Output
+                </h3>
+                <div class="flex gap-2">
+                  <button id="copyOutputMobile" class="text-sm text-gray-600 hover:text-gray-900 flex items-center gap-1">
+                    <i data-lucide="copy" class="w-4 h-4"></i>
+                    Copy
+                  </button>
+                </div>
+              </div>
+              <div class="relative">
+                <pre id="jsonOutputMobile" class="w-full h-[400px] p-4 border rounded-xl font-mono text-sm overflow-auto"></pre>
+              </div>
+            </div>
+
+            <!-- Action Buttons (Desktop) -->
+            <div class="hidden lg:flex gap-4 justify-center">
+              <button id="formatBtn" class="w-48 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:from-blue-700 hover:to-indigo-700 transition-all flex items-center justify-center gap-2">
+                <i data-lucide="wand-2" class="w-4 h-4"></i>
+                Format
+              </button>
+              <button id="minifyBtn" class="w-48 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg font-medium hover:from-purple-700 hover:to-pink-700 transition-all flex items-center justify-center gap-2">
+                <i data-lucide="minimize-2" class="w-4 h-4"></i>
+                Minify
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Similar Tools Section Placeholder -->
+    <div id="similarToolsSection"></div>
+
+    <!-- What is tool? Section -->
+    <section id="whatIsSection" class="py-16 px-4 bg-white"></section>
+
+    <!-- Why use tool? Section -->
+    <section id="whyUseSection" class="py-16 px-4"></section>
+
+    <!-- How to use tool? Section -->
+    <section id="howToUseSection" class="py-16 px-4 bg-white"></section>
+
+    <!-- Features Section -->
+    <section id="featuresSection" class="py-16 px-4"></section>
+
+    <!-- FAQ Section -->
+    <section id="faqSection" class="py-16 px-4 bg-white"></section>
+  </main>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+  <!-- Floating Buttons Placeholder -->
+  <div id="floating-buttons"></div>
+
+  <!-- Scripts -->
+  <script src="../app.min.js"></script>
+  <script>
+    // Set current tool info automatically by matching URL
+    if (window.tools) {
+      window.CSRGO_TOOL_INFO = window.tools.find(
+        t => t.url === "tools/json-formatter.html"
+      );
+    }
+  </script>
+  <script src="../components/include.min.js"></script>
+  <script src="../components/similar-tools.min.js"></script>
+  <script src="../tools/data/json-formatter-data.min.js"></script>
+  <script src="../components/tool-sections.min.js"></script>
+  <script src="../components/floating-buttons.min.js"></script>
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Initialize tool sections
+    document.addEventListener('DOMContentLoaded', () => {
+      renderToolSections('JSON_FORMATTER_DATA');
+    });
+
+    // Elements
+    const jsonInput = document.getElementById('jsonInput');
+    const jsonOutput = document.getElementById('jsonOutput');
+    const jsonOutputMobile = document.getElementById('jsonOutputMobile');
+    const formatBtn = document.getElementById('formatBtn');
+    const minifyBtn = document.getElementById('minifyBtn');
+    const formatBtnMobile = document.getElementById('formatBtnMobile');
+    const minifyBtnMobile = document.getElementById('minifyBtnMobile');
+    const clearInput = document.getElementById('clearInput');
+    const copyOutput = document.getElementById('copyOutput');
+    const copyOutputMobile = document.getElementById('copyOutputMobile');
+    const errorMessage = document.getElementById('errorMessage');
+    const errorMessageMobile = document.getElementById('errorMessageMobile');
+    const indentSize = document.getElementById('indentSize');
+    const theme = document.getElementById('theme');
+    const sampleJsonButtons = document.querySelectorAll('.sample-json');
+
+    // Sample JSON data
+    const sampleJson = {
+      simple: {
+        name: "John Doe",
+        age: 30,
+        email: "john@example.com",
+        active: true,
+        hobbies: ["reading", "gaming", "coding"]
+      },
+      complex: {
+        users: [
+          {
+            id: 1,
+            name: "Alice",
+            address: {
+              street: "123 Main St",
+              city: "Boston",
+              country: "USA"
+            },
+            orders: [
+              {
+                id: "A123",
+                items: ["laptop", "mouse"],
+                total: 1299.99
+              }
+            ]
+          }
+        ],
+        metadata: {
+          version: "1.0",
+          timestamp: "2024-03-20T12:00:00Z"
+        }
+      }
+    };
+
+    // Format JSON
+    function formatJSON(json, indent) {
+      try {
+        const parsed = typeof json === 'string' ? JSON.parse(json) : json;
+        return JSON.stringify(parsed, null, indent);
+      } catch (e) {
+        throw new Error('Invalid JSON: ' + e.message);
+      }
+    }
+
+    // Minify JSON
+    function minifyJSON(json) {
+      try {
+        const parsed = typeof json === 'string' ? JSON.parse(json) : json;
+        return JSON.stringify(parsed);
+      } catch (e) {
+        throw new Error('Invalid JSON: ' + e.message);
+      }
+    }
+
+    // Update syntax highlighting
+    function updateHighlighting() {
+      const code = jsonOutput.textContent;
+      jsonOutput.innerHTML = code;
+      jsonOutputMobile.innerHTML = code;
+      hljs.highlightElement(jsonOutput);
+      hljs.highlightElement(jsonOutputMobile);
+    }
+
+    // Initialize with empty state
+    jsonOutput.textContent = '';
+    jsonOutputMobile.textContent = '';
+    errorMessage.classList.add('hidden'); // Hide error on desktop at load
+    errorMessageMobile.classList.add('hidden'); // Hide error on mobile at load
+
+    // Format button click
+    function handleFormat() {
+      if (window.innerWidth < 1024) {
+        // Mobile: always hide desktop error
+        errorMessage.classList.add('hidden');
+        errorMessage.classList.remove('lg:block'); // Ensure desktop block display is removed
+      } else {
+        // Desktop: always hide mobile error
+        errorMessageMobile.classList.add('hidden');
+      }
+      try {
+        const indent = indentSize.value === 'tab' ? '\t' : parseInt(indentSize.value);
+        const formatted = formatJSON(jsonInput.value, indent);
+        jsonOutput.textContent = formatted;
+        jsonOutputMobile.textContent = formatted;
+        updateHighlighting();
+        errorMessage.classList.add('hidden');
+        errorMessage.classList.remove('lg:block'); // Ensure desktop block display is removed when no error
+        errorMessageMobile.classList.add('hidden');
+        // Auto scroll to output on mobile with offset for nav bar, only if no error
+        if (window.innerWidth < 1024) {
+          const outputSection = jsonOutputMobile.parentElement.parentElement; // More robust selection
+          const navHeight = 80; // Approximate height of nav bar
+          const outputPosition = outputSection.getBoundingClientRect().top + window.pageYOffset;
+          window.scrollTo({
+            top: outputPosition - navHeight,
+            behavior: 'smooth'
+          });
+        }
+      } catch (e) {
+        if (window.innerWidth < 1024) {
+          errorMessage.classList.add('hidden');
+          errorMessageMobile.textContent = e.message;
+          errorMessageMobile.classList.remove('hidden');
+        } else {
+          errorMessageMobile.classList.add('hidden');
+          errorMessage.textContent = e.message;
+          errorMessage.classList.remove('hidden');
+          errorMessage.classList.add('lg:block'); // Explicitly add block display for desktop error
+        }
+      }
+    }
+
+    // Minify button click
+    function handleMinify() {
+      if (window.innerWidth < 1024) {
+        // Mobile: always hide desktop error
+        errorMessage.classList.add('hidden');
+        errorMessage.classList.remove('lg:block'); // Ensure desktop block display is removed
+      } else {
+        // Desktop: always hide mobile error
+        errorMessageMobile.classList.add('hidden');
+      }
+      try {
+        const minified = minifyJSON(jsonInput.value);
+        jsonOutput.textContent = minified;
+        jsonOutputMobile.textContent = minified;
+        updateHighlighting();
+        errorMessage.classList.add('hidden');
+        errorMessage.classList.remove('lg:block'); // Ensure desktop block display is removed when no error
+        errorMessageMobile.classList.add('hidden');
+        // Auto scroll to output on mobile with offset for nav bar, only if no error
+        if (window.innerWidth < 1024) {
+          const outputSection = jsonOutputMobile.parentElement.parentElement; // More robust selection
+          const navHeight = 80; // Approximate height of nav bar
+          const outputPosition = outputSection.getBoundingClientRect().top + window.pageYOffset;
+          window.scrollTo({
+            top: outputPosition - navHeight,
+            behavior: 'smooth'
+          });
+        }
+      } catch (e) {
+        if (window.innerWidth < 1024) {
+          errorMessage.classList.add('hidden');
+          errorMessageMobile.textContent = e.message;
+          errorMessageMobile.classList.remove('hidden');
+        } else {
+          errorMessageMobile.classList.add('hidden');
+          errorMessage.textContent = e.message;
+          errorMessage.classList.remove('hidden');
+          errorMessage.classList.add('lg:block'); // Explicitly add block display for desktop error
+        }
+      }
+    }
+
+    // Add event listeners for both desktop and mobile buttons
+    formatBtn.addEventListener('click', handleFormat);
+    minifyBtn.addEventListener('click', handleMinify);
+    formatBtnMobile.addEventListener('click', handleFormat);
+    minifyBtnMobile.addEventListener('click', handleMinify);
+
+    // Clear input
+    clearInput.addEventListener('click', () => {
+      jsonInput.value = '';
+      jsonOutput.textContent = '';
+      jsonOutputMobile.textContent = '';
+      errorMessage.classList.add('hidden');
+      errorMessage.classList.remove('lg:block');
+      errorMessageMobile.classList.add('hidden');
+    });
+
+    // Copy output (Desktop)
+    copyOutput.addEventListener('click', () => {
+      const text = jsonOutput.textContent;
+      if (text) {
+        navigator.clipboard.writeText(text).then(() => {
+          const originalText = copyOutput.innerHTML;
+          copyOutput.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i> Copied!';
+          lucide.createIcons();
+          setTimeout(() => {
+            copyOutput.innerHTML = originalText;
+            lucide.createIcons();
+          }, 2000);
+        });
+      }
+    });
+
+    // Copy output (Mobile)
+    copyOutputMobile.addEventListener('click', () => {
+      const text = jsonOutputMobile.textContent;
+      if (text) {
+        navigator.clipboard.writeText(text).then(() => {
+          const originalText = copyOutputMobile.innerHTML;
+          copyOutputMobile.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i> Copied!';
+          lucide.createIcons();
+          setTimeout(() => {
+            copyOutputMobile.innerHTML = originalText;
+            lucide.createIcons();
+          }, 2000);
+        });
+      }
+    });
+
+    // Theme change
+    theme.addEventListener('change', () => {
+      const link = document.querySelector('link[href*="highlight.js"]');
+      link.href = `https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/${theme.value}.min.css`;
+      
+      // Set background color based on theme for readability
+      const currentTheme = theme.value;
+      let bgColor = '';
+      let textColor = ''; // New variable for text color
+
+      if (currentTheme === 'monokai' || currentTheme === 'atom-one-dark') {
+        bgColor = '#282c34'; // Dark background for dark themes
+        textColor = '#f8f8f2'; // Light text for dark themes (Monokai default)
+      } else if (currentTheme === 'vs') {
+        bgColor = '#ffffff'; // White background for light themes
+        textColor = '#000000'; // Force black text for VS
+      } else {
+        bgColor = '#ffffff'; // White background for other light themes
+        textColor = '#333333'; // Default dark text for other light themes
+      }
+
+      // Apply background to the <pre> tags forcefully, overriding any other background styles
+      jsonOutput.style.setProperty('background-color', bgColor, 'important');
+      jsonOutputMobile.style.setProperty('background-color', bgColor, 'important');
+      
+      // Apply text color to the <pre> tags forcefully
+      jsonOutput.style.setProperty('color', textColor, 'important');
+      jsonOutputMobile.style.setProperty('color', textColor, 'important');
+
+      // Update body data-theme attribute for CSS targeting
+      document.body.setAttribute('data-theme', currentTheme);
+
+      updateHighlighting();
+    });
+
+    // Sample JSON buttons
+    sampleJsonButtons.forEach((button, index) => {
+      button.addEventListener('click', () => {
+        const sample = index === 0 ? sampleJson.simple : sampleJson.complex;
+        jsonInput.value = JSON.stringify(sample, null, 2);
+        formatBtn.click();
+      });
+    });
+
+    // Clear output and hide errors when input changes
+    jsonInput.addEventListener('input', () => {
+      jsonOutput.textContent = '';
+      jsonOutputMobile.textContent = '';
+      errorMessage.classList.add('hidden');
+      errorMessage.classList.remove('lg:block');
+      errorMessageMobile.classList.add('hidden');
+    });
+  </script>
+</body>
+</html>

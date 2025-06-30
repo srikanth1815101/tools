@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JavaScript Minifier - Free Online Tool | CSRGO Tools</title>
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../styles.min.css">
+  <link rel="icon" href="https://tools.csrgo.com/logo.png" type="image/png" sizes="32x32">
+  <link rel="shortcut icon" href="https://tools.csrgo.com/logo.png" type="image/png">
+  <link rel="apple-touch-icon" href="https://tools.csrgo.com/logo.png">
+  <meta name="description" content="Minify your JavaScript code instantly with our free online JavaScript minifier. Reduce file size and improve website performance.">
+  <link rel="canonical" href="https://tools.csrgo.com/tools/javascript-minifier.html">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://tools.csrgo.com/",
+    "name": "CSRGO Tools",
+    "logo": "https://tools.csrgo.com/logo.png"
+  }
+  </script>
+</head>
+<body class="bg-gradient-to-b from-blue-50 via-white to-gray-50 min-h-screen flex flex-col">
+  <!-- Header Placeholder -->
+  <div id="header-placeholder"></div>
+
+  <!-- Main Content -->
+  <main class="flex-grow">
+    <!-- Hero Section -->
+    <section class="pt-20 pb-8 px-4 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-transparent"></div>
+      <div class="container mx-auto text-center relative z-10" id="heroSection"></div>
+    </section>
+
+    <!-- Tool Section -->
+    <section class="py-8 px-4">
+      <div class="container mx-auto max-w-6xl">
+        <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 card-hover">
+          <div class="space-y-6">
+            <!-- Options -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6 items-end">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Remove Comments</label>
+                <select id="removeComments" class="w-full border rounded-lg px-3 py-2 bg-white">
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Keep Last Semicolon</label>
+                <select id="keepLastSemicolon" class="w-full border rounded-lg px-3 py-2 bg-white">
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Line Break After Statements</label>
+                <select id="lineBreak" class="w-full border rounded-lg px-3 py-2 bg-white">
+                  <option value="no">No</option>
+                  <option value="yes">Yes</option>
+                </select>
+              </div>
+            </div>
+            <!-- Input/Output Area -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <!-- Left Column: Input -->
+              <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                  <h3 class="text-lg font-semibold flex items-center gap-2">
+                    <i data-lucide="file-input" class="w-5 h-5 text-blue-600"></i>
+                    Input JavaScript
+                  </h3>
+                  <div class="flex gap-2">
+                    <button id="clearInput" class="text-sm text-gray-600 hover:text-gray-900 flex items-center gap-1">
+                      <i data-lucide="trash-2" class="w-4 h-4"></i>
+                      Clear
+                    </button>
+                  </div>
+                </div>
+                <div class="relative">
+                  <textarea id="jsInput" class="w-full h-[400px] p-4 border rounded-xl font-mono text-sm bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Paste your JavaScript here..."></textarea>
+                </div>
+                <div class="flex gap-2">
+                  <button class="sample-js w-full lg:w-auto min-w-[140px] px-4 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 rounded-lg text-sm font-medium text-blue-700 transition-colors flex items-center justify-center gap-2">
+                    <i data-lucide="file-text" class="w-4 h-4"></i>
+                    Simple JS
+                  </button>
+                  <button class="sample-js w-full lg:w-auto min-w-[140px] px-4 py-2 bg-gradient-to-r from-purple-50 to-pink-50 hover:from-purple-100 hover:to-pink-100 rounded-lg text-sm font-medium text-purple-700 transition-colors flex items-center justify-center gap-2">
+                    <i data-lucide="file-code" class="w-4 h-4"></i>
+                    Complex JS
+                  </button>
+                </div>
+                <div id="errorMessageMobile" class="hidden lg:hidden p-4 bg-red-50 text-red-700 rounded-lg text-sm"></div>
+              </div>
+              <!-- Right Column: Output (Desktop) -->
+              <div class="space-y-4 hidden lg:block">
+                <div class="flex items-center justify-between">
+                  <h3 class="text-lg font-semibold flex items-center gap-2">
+                    <i data-lucide="file-output" class="w-5 h-5 text-green-600"></i>
+                    Minified Output
+                  </h3>
+                  <div class="flex gap-2">
+                    <button id="copyOutput" class="text-sm text-gray-600 hover:text-gray-900 flex items-center gap-1">
+                      <i data-lucide="copy" class="w-4 h-4"></i>
+                      Copy
+                    </button>
+                  </div>
+                </div>
+                <div class="relative">
+                  <pre id="jsOutput" class="w-full h-[400px] p-4 border rounded-xl font-mono text-sm overflow-auto bg-gray-50"></pre>
+                </div>
+              </div>
+            </div>
+            <div id="errorMessage" class="hidden p-4 bg-red-50 text-red-700 rounded-lg text-sm w-full mt-4 mx-auto"></div>
+            <!-- Action Buttons (Mobile) -->
+            <div class="flex gap-4 lg:hidden">
+              <button id="minifyBtnMobile" class="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:from-blue-700 hover:to-indigo-700 transition-all flex items-center justify-center gap-2">
+                <i data-lucide="minimize-2" class="w-4 h-4"></i>
+                Minify
+              </button>
+            </div>
+            <!-- Output Area (Mobile) -->
+            <div class="space-y-4 lg:hidden">
+              <div class="flex items-center justify-between">
+                <h3 class="text-lg font-semibold flex items-center gap-2">
+                  <i data-lucide="file-output" class="w-5 h-5 text-green-600"></i>
+                  Minified Output
+                </h3>
+                <div class="flex gap-2">
+                  <button id="copyOutputMobile" class="text-sm text-gray-600 hover:text-gray-900 flex items-center gap-1">
+                    <i data-lucide="copy" class="w-4 h-4"></i>
+                    Copy
+                  </button>
+                </div>
+              </div>
+              <div class="relative">
+                <pre id="jsOutputMobile" class="w-full h-[400px] p-4 border rounded-xl font-mono text-sm overflow-auto bg-gray-50"></pre>
+              </div>
+            </div>
+            <!-- Action Buttons (Desktop) -->
+            <div class="hidden lg:flex gap-4 justify-center">
+              <button id="minifyBtn" class="w-48 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:from-blue-700 hover:to-indigo-700 transition-all flex items-center justify-center gap-2">
+                <i data-lucide="minimize-2" class="w-4 h-4"></i>
+                Minify
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Similar Tools Section Placeholder -->
+    <div id="similarToolsSection"></div>
+    <!-- What is tool? Section -->
+    <section id="whatIsSection" class="py-16 px-4 bg-white"></section>
+    <!-- Why use tool? Section -->
+    <section id="whyUseSection" class="py-16 px-4"></section>
+    <!-- How to use tool? Section -->
+    <section id="howToUseSection" class="py-16 px-4 bg-white"></section>
+    <!-- Features Section -->
+    <section id="featuresSection" class="py-16 px-4"></section>
+    <!-- FAQ Section -->
+    <section id="faqSection" class="py-16 px-4 bg-white"></section>
+  </main>
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+  <!-- Floating Buttons Placeholder -->
+  <div id="floating-buttons"></div>
+  <!-- Scripts -->
+  <script src="../app.min.js"></script>
+  <script>
+    // Set current tool info automatically by matching URL
+    if (window.tools) {
+      window.CSRGO_TOOL_INFO = window.tools.find(
+        t => t.url === "tools/javascript-minifier.html"
+      );
+    }
+  </script>
+  <script src="../components/include.min.js"></script>
+  <script src="../components/similar-tools.min.js"></script>
+  <script src="../tools/data/javascript-minifier-data.min.js"></script>
+  <script src="../components/tool-sections.min.js"></script>
+  <script src="../components/floating-buttons.min.js"></script>
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+    // Initialize tool sections
+    document.addEventListener('DOMContentLoaded', () => {
+      renderToolSections('JAVASCRIPT_MINIFIER_DATA');
+    });
+    // Elements
+    const jsInput = document.getElementById('jsInput');
+    const jsOutput = document.getElementById('jsOutput');
+    const jsOutputMobile = document.getElementById('jsOutputMobile');
+    const minifyBtn = document.getElementById('minifyBtn');
+    const minifyBtnMobile = document.getElementById('minifyBtnMobile');
+    const clearInput = document.getElementById('clearInput');
+    const copyOutput = document.getElementById('copyOutput');
+    const copyOutputMobile = document.getElementById('copyOutputMobile');
+    const errorMessage = document.getElementById('errorMessage');
+    const errorMessageMobile = document.getElementById('errorMessageMobile');
+    const removeComments = document.getElementById('removeComments');
+    const keepLastSemicolon = document.getElementById('keepLastSemicolon');
+    const lineBreak = document.getElementById('lineBreak');
+    const sampleJsButtons = document.querySelectorAll('.sample-js');
+    // Sample JS data
+    const sampleJs = {
+      simple: `function greet(name) {\n  return 'Hello, ' + name + '!';\n}\n\nconsole.log(greet('World'));`,
+      complex: `// Math utilities\nfunction sum(a, b) {\n  return a + b;\n}\n\nfunction multiply(a, b) {\n  return a * b;\n}\n\n/* Calculate factorial */\nfunction factorial(n) {\n  if (n <= 1) return 1;\n  return n * factorial(n - 1);\n}\n\nconsole.log('Sum:', sum(2, 3));\nconsole.log('Multiply:', multiply(2, 3));\nconsole.log('Factorial:', factorial(5));`
+    };
+    // JavaScript Minification logic
+    function minifyJS(js, options) {
+      let min = js;
+      if (options.removeComments === 'yes') {
+        // Remove single-line and multi-line comments
+        min = min.replace(/\/\/.*(?=[\n\r])/g, '');
+        min = min.replace(/\/\*[\s\S]*?\*\//g, '');
+      }
+      min = min.replace(/\s*([{}:;,=\(\)\[\]\+\-\*\/<>\|&!\?])\s*/g, '$1'); // Remove space around symbols
+      min = min.replace(/;}/g, options.keepLastSemicolon === 'yes' ? ';}' : '}');
+      min = min.replace(/\s+/g, ' '); // Collapse whitespace
+      min = min.trim();
+      if (options.lineBreak === 'yes') {
+        min = min.replace(/;/g, ';\n');
+      }
+      return min;
+    }
+    // Minify button click
+    function handleMinify() {
+      errorMessage.classList.add('hidden');
+      errorMessageMobile.classList.add('hidden');
+      try {
+        const options = {
+          removeComments: removeComments.value,
+          keepLastSemicolon: keepLastSemicolon.value,
+          lineBreak: lineBreak.value
+        };
+        const js = jsInput.value;
+        if (!js.trim()) throw new Error('Please enter JavaScript to minify.');
+        const minified = minifyJS(js, options);
+        jsOutput.textContent = minified;
+        jsOutputMobile.textContent = minified;
+        errorMessage.classList.add('hidden');
+        errorMessageMobile.classList.add('hidden');
+        // Auto scroll to output on mobile
+        if (window.innerWidth < 1024) {
+          const outputSection = jsOutputMobile.parentElement.parentElement;
+          const navHeight = 80;
+          const outputPosition = outputSection.getBoundingClientRect().top + window.pageYOffset;
+          window.scrollTo({
+            top: outputPosition - navHeight,
+            behavior: 'smooth'
+          });
+        }
+      } catch (e) {
+        if (window.innerWidth < 1024) {
+          errorMessage.classList.add('hidden');
+          errorMessageMobile.textContent = e.message;
+          errorMessageMobile.classList.remove('hidden');
+        } else {
+          errorMessageMobile.classList.add('hidden');
+          errorMessage.textContent = e.message;
+          errorMessage.classList.remove('hidden');
+        }
+      }
+    }
+    // Event listeners
+    minifyBtn && minifyBtn.addEventListener('click', handleMinify);
+    minifyBtnMobile && minifyBtnMobile.addEventListener('click', handleMinify);
+    clearInput.addEventListener('click', () => {
+      jsInput.value = '';
+      jsOutput.textContent = '';
+      jsOutputMobile.textContent = '';
+      errorMessage.classList.add('hidden');
+      errorMessageMobile.classList.add('hidden');
+    });
+    copyOutput.addEventListener('click', () => {
+      const text = jsOutput.textContent;
+      if (text) {
+        navigator.clipboard.writeText(text).then(() => {
+          const originalText = copyOutput.innerHTML;
+          copyOutput.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i> Copied!';
+          lucide.createIcons();
+          setTimeout(() => {
+            copyOutput.innerHTML = originalText;
+            lucide.createIcons();
+          }, 2000);
+        });
+      }
+    });
+    copyOutputMobile.addEventListener('click', () => {
+      const text = jsOutputMobile.textContent;
+      if (text) {
+        navigator.clipboard.writeText(text).then(() => {
+          const originalText = copyOutputMobile.innerHTML;
+          copyOutputMobile.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i> Copied!';
+          lucide.createIcons();
+          setTimeout(() => {
+            copyOutputMobile.innerHTML = originalText;
+            lucide.createIcons();
+          }, 2000);
+        });
+      }
+    });
+    sampleJsButtons.forEach((button, index) => {
+      button.addEventListener('click', () => {
+        const sample = index === 0 ? sampleJs.simple : sampleJs.complex;
+        jsInput.value = sample;
+        handleMinify();
+      });
+    });
+    jsInput.addEventListener('input', () => {
+      jsOutput.textContent = '';
+      jsOutputMobile.textContent = '';
+      errorMessage.classList.add('hidden');
+      errorMessageMobile.classList.add('hidden');
+    });
+  </script>
+</body>
+</html>

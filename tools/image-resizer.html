@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Image Resizer - Free Online Tool | CSRGO Tools</title>
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../styles.min.css">
+  <link rel="icon" href="https://tools.csrgo.com/logo.png" type="image/png" sizes="32x32">
+  <link rel="shortcut icon" href="https://tools.csrgo.com/logo.png" type="image/png">
+  <link rel="apple-touch-icon" href="https://tools.csrgo.com/logo.png">
+  <meta name="description" content="Resize your images online for free with our fast and easy image resizer. Supports JPG, PNG, GIF, and more. No uploads required.">
+  <link rel="canonical" href="https://tools.csrgo.com/tools/image-resizer.html">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://tools.csrgo.com/",
+    "name": "CSRGO Tools",
+    "logo": "https://tools.csrgo.com/logo.png"
+  }
+  </script>
+</head>
+<body class="bg-gradient-to-b from-blue-50 via-white to-gray-50 min-h-screen flex flex-col">
+  <!-- Header Placeholder -->
+  <div id="header-placeholder"></div>
+
+  <!-- Main Content -->
+  <main class="flex-grow">
+    <!-- Hero Section -->
+    <section class="pt-20 pb-8 px-4 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-transparent"></div>
+      <div class="container mx-auto text-center relative z-10" id="heroSection"></div>
+    </section>
+
+
+    <!-- Image Resizer Section -->
+    <section class="py-8 px-4">
+      <div class="container mx-auto max-w-4xl">
+        <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 card-hover">
+          <div class="space-y-8">
+            <!-- Upload Area -->
+            <div id="dropZone" class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center cursor-pointer hover:border-blue-500 transition-colors">
+              <div class="space-y-4">
+                <div class="flex justify-center">
+                  <div class="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center">
+                    <i data-lucide="upload" class="w-8 h-8 text-blue-600"></i>
+                  </div>
+                </div>
+                <div>
+                  <p class="text-lg font-medium text-gray-700">Drag and drop your image here</p>
+                  <p class="text-sm text-gray-500 mt-1">or click to browse files</p>
+                </div>
+                <input type="file" id="fileInput" class="hidden" accept="image/*">
+              </div>
+            </div>
+            <!-- Preview Area -->
+            <div id="previewArea" class="hidden">
+              <div class="flex flex-col md:flex-row gap-6">
+                <div class="flex-1" id="originalImageSection">
+                  <h3 class="text-lg font-semibold mb-2 flex items-center gap-2">
+                    <i data-lucide="image" class="w-5 h-5 text-blue-600"></i>
+                    Original Image
+                  </h3>
+                  <div class="aspect-video bg-gray-100 rounded-lg overflow-hidden shadow-sm">
+                    <img id="originalPreview" class="w-full h-full object-contain" alt="Original image preview">
+                  </div>
+                </div>
+                <div class="flex-1 flex flex-col gap-4">
+                  <h3 class="text-lg font-semibold mb-2 flex items-center gap-2">
+                    <i data-lucide="settings" class="w-5 h-5 text-indigo-600"></i>
+                    Resize Options
+                  </h3>
+                  <form id="resizeOptions" class="space-y-4">
+                    <div class="flex gap-4">
+                      <div class="flex-1">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Width</label>
+                        <div class="flex gap-2">
+                          <input type="number" id="resizeWidth" class="w-full border rounded-lg px-3 py-2" min="1" placeholder="Auto">
+                          <select id="widthUnit" class="border rounded-lg px-2 py-2">
+                            <option value="px">px</option>
+                            <option value="%">%</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="flex-1">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Height</label>
+                        <div class="flex gap-2">
+                          <input type="number" id="resizeHeight" class="w-full border rounded-lg px-3 py-2" min="1" placeholder="Auto">
+                          <select id="heightUnit" class="border rounded-lg px-2 py-2">
+                            <option value="px">px</option>
+                            <option value="%">%</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                      <label class="inline-flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" id="lockAspectRatio" checked class="form-checkbox">
+                        <span class="text-sm text-gray-700">Lock aspect ratio</span>
+                      </label>
+                      <select id="presetSizes" class="border rounded-lg px-2 py-2">
+                        <option value="">Preset Sizes</option>
+                        <option value="1:1">1:1 (Square)</option>
+                        <option value="4:3">4:3</option>
+                        <option value="16:9">16:9</option>
+                        <option value="instagram">Instagram (1080x1080)</option>
+                        <option value="facebook">Facebook (1200x630)</option>
+                        <option value="twitter">Twitter (1200x675)</option>
+                        <option value="story">Story (1080x1920)</option>
+                      </select>
+                    </div>
+                    <div class="flex gap-4">
+                      <div class="flex-1">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Output Format</label>
+                        <select id="outputFormat" class="w-full border rounded-lg px-3 py-2">
+                          <option value="png">PNG</option>
+                          <option value="jpg">JPG</option>
+                          <option value="webp">WebP</option>
+                        </select>
+                      </div>
+                      <div class="flex-1">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Quality</label>
+                        <input type="range" id="quality" min="1" max="100" value="90" class="w-full">
+                        <span id="qualityValue" class="text-xs text-gray-500">90</span>
+                      </div>
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Background Color (for JPG/WebP)</label>
+                      <input type="color" id="bgColor" value="#ffffff" class="w-10 h-10 p-0 border rounded-lg align-middle">
+                    </div>
+                    <div class="flex gap-4 mt-4">
+                      <button type="button" id="resizeBtn" class="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-xl font-medium hover:from-blue-700 hover:to-indigo-700 transition-all flex items-center justify-center gap-2 shadow-lg">
+                        <i data-lucide="wand-2" class="w-5 h-5"></i>
+                        Resize & Preview
+                      </button>
+                      <button type="button" id="clearBtn" class="flex-1 bg-gray-200 text-gray-700 px-6 py-3 rounded-xl font-medium hover:bg-gray-300 transition-all flex items-center justify-center gap-2">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                        Clear
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div id="resizedResult" class="hidden mt-8">
+                <h3 class="text-lg font-semibold mb-2 flex items-center gap-2">
+                  <i data-lucide="image" class="w-5 h-5 text-green-600"></i>
+                  Resized Image Preview
+                </h3>
+                <div class="aspect-video bg-gray-100 rounded-lg overflow-hidden shadow-sm mb-6" id="resizedPreviewSection">
+                  <img id="resizedPreview" class="w-full h-full object-contain" alt="Resized image preview">
+                </div>
+                <div class="flex justify-center">
+                  <button id="downloadBtn" class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-xl font-medium hover:from-blue-700 hover:to-indigo-700 transition-all transform hover:scale-105 flex items-center gap-2 shadow-lg">
+                    <i data-lucide="download" class="w-5 h-5"></i>
+                    Download
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+        <!-- Similar Tools Section Placeholder -->
+        <div id="similarToolsSection"></div>
+
+        <!-- What is tool? Section -->
+        <section id="whatIsSection" class="py-16 px-4 bg-white"></section>
+    
+        <!-- Why use tool? Section -->
+        <section id="whyUseSection" class="py-16 px-4"></section>
+    
+        <!-- How to use tool? Section -->
+        <section id="howToUseSection" class="py-16 px-4 bg-white"></section>
+    
+        <!-- Features Section -->
+        <section id="featuresSection" class="py-16 px-4"></section>
+    
+        <!-- FAQ Section -->
+        <section id="faqSection" class="py-16 px-4 bg-white"></section>
+  </main>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+  <!-- Floating Buttons Placeholder -->
+  <div id="floating-buttons"></div>
+
+  <!-- Scripts -->
+  <script src="../app.min.js"></script>
+  <script>
+    // Set current tool info automatically by matching URL
+    if (window.tools) {
+      window.CSRGO_TOOL_INFO = window.tools.find(
+        t => t.url === "tools/image-resizer.html"
+      );
+    }
+  </script>
+  <script src="../components/include.min.js"></script>
+  <script src="../components/similar-tools.min.js"></script>
+  <script src="../tools/data/image-resizer-data.min.js"></script>
+  <script src="../components/tool-sections.min.js"></script>
+  <script src="../components/floating-buttons.min.js"></script>
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+    // Initialize tool sections
+    document.addEventListener('DOMContentLoaded', () => {
+      renderToolSections('IMAGE_RESIZER_DATA');
+    });
+
+    // Image Resizer Logic
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+    const previewArea = document.getElementById('previewArea');
+    const originalPreview = document.getElementById('originalPreview');
+    const resizeBtn = document.getElementById('resizeBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const resizedResult = document.getElementById('resizedResult');
+    const resizedPreview = document.getElementById('resizedPreview');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const resizeWidth = document.getElementById('resizeWidth');
+    const resizeHeight = document.getElementById('resizeHeight');
+    const widthUnit = document.getElementById('widthUnit');
+    const heightUnit = document.getElementById('heightUnit');
+    const lockAspectRatio = document.getElementById('lockAspectRatio');
+    const presetSizes = document.getElementById('presetSizes');
+    const outputFormat = document.getElementById('outputFormat');
+    const quality = document.getElementById('quality');
+    const qualityValue = document.getElementById('qualityValue');
+    const bgColor = document.getElementById('bgColor');
+
+    let originalImage = null;
+    let originalAspect = 1;
+
+    // Drag and drop events
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, preventDefaults, false);
+    });
+    function preventDefaults(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropZone.addEventListener(eventName, () => dropZone.classList.add('drop-zone-active'), false);
+    });
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, () => dropZone.classList.remove('drop-zone-active'), false);
+    });
+    dropZone.addEventListener('drop', handleDrop, false);
+    dropZone.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', handleFileSelect);
+
+    function handleDrop(e) {
+      const dt = e.dataTransfer;
+      const files = dt.files;
+      handleFiles(files);
+    }
+    function handleFileSelect(e) {
+      const files = e.target.files;
+      handleFiles(files);
+    }
+    function handleFiles(files) {
+      if (files.length > 0) {
+        const file = files[0];
+        if (file.type.startsWith('image/')) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            originalPreview.src = e.target.result;
+            previewArea.classList.remove('hidden');
+            resizedResult.classList.add('hidden');
+            // Load image for aspect ratio
+            originalImage = new window.Image();
+            originalImage.onload = function() {
+              originalAspect = originalImage.width / originalImage.height;
+              if (lockAspectRatio.checked) {
+                resizeWidth.value = originalImage.width;
+                resizeHeight.value = originalImage.height;
+              }
+            };
+            originalImage.src = e.target.result;
+            setTimeout(() => {
+              document.getElementById('originalImageSection').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+          };
+          reader.readAsDataURL(file);
+        }
+      }
+    }
+
+    // Aspect ratio lock
+    function updateHeightFromWidth() {
+      if (lockAspectRatio.checked && originalImage) {
+        let w = parseFloat(resizeWidth.value);
+        if (w && originalAspect) {
+          resizeHeight.value = Math.round(w / originalAspect);
+        }
+      }
+    }
+    function updateWidthFromHeight() {
+      if (lockAspectRatio.checked && originalImage) {
+        let h = parseFloat(resizeHeight.value);
+        if (h && originalAspect) {
+          resizeWidth.value = Math.round(h * originalAspect);
+        }
+      }
+    }
+    resizeWidth.addEventListener('input', updateHeightFromWidth);
+    resizeHeight.addEventListener('input', updateWidthFromHeight);
+    lockAspectRatio.addEventListener('change', () => {
+      if (lockAspectRatio.checked && originalImage) {
+        resizeWidth.value = originalImage.width;
+        resizeHeight.value = originalImage.height;
+      }
+    });
+
+    // Preset sizes
+    presetSizes.addEventListener('change', () => {
+      if (!originalImage) return;
+      switch (presetSizes.value) {
+        case '1:1':
+          resizeWidth.value = 1000;
+          resizeHeight.value = 1000;
+          break;
+        case '4:3':
+          resizeWidth.value = 1200;
+          resizeHeight.value = 900;
+          break;
+        case '16:9':
+          resizeWidth.value = 1600;
+          resizeHeight.value = 900;
+          break;
+        case 'instagram':
+          resizeWidth.value = 1080;
+          resizeHeight.value = 1080;
+          break;
+        case 'facebook':
+          resizeWidth.value = 1200;
+          resizeHeight.value = 630;
+          break;
+        case 'twitter':
+          resizeWidth.value = 1200;
+          resizeHeight.value = 675;
+          break;
+        case 'story':
+          resizeWidth.value = 1080;
+          resizeHeight.value = 1920;
+          break;
+        default:
+          break;
+      }
+    });
+
+    // Quality slider
+    quality.addEventListener('input', () => {
+      qualityValue.textContent = quality.value;
+    });
+
+    // Resize & Preview
+    resizeBtn.addEventListener('click', () => {
+      if (!originalImage) return;
+      let w = parseInt(resizeWidth.value);
+      let h = parseInt(resizeHeight.value);
+      if (!w || !h) {
+        alert('Please enter valid width and height.');
+        return;
+      }
+      // Support % units
+      if (widthUnit.value === '%') w = Math.round(originalImage.width * w / 100);
+      if (heightUnit.value === '%') h = Math.round(originalImage.height * h / 100);
+      // Create canvas
+      const canvas = document.createElement('canvas');
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      // Fill background if needed
+      let format = outputFormat.value;
+      if (format === 'jpg' || format === 'webp') {
+        ctx.fillStyle = bgColor.value;
+        ctx.fillRect(0, 0, w, h);
+      }
+      ctx.drawImage(originalImage, 0, 0, w, h);
+      // Show result
+      resizedPreview.src = canvas.toDataURL('image/' + (format === 'jpg' ? 'jpeg' : format), parseInt(quality.value) / 100);
+      resizedResult.classList.remove('hidden');
+      setTimeout(() => {
+        document.getElementById('resizedPreviewSection').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 100);
+    });
+
+    // Download
+    downloadBtn.addEventListener('click', () => {
+      let format = outputFormat.value;
+      let ext = format === 'jpg' ? 'jpeg' : format;
+      const link = document.createElement('a');
+      link.download = `resized-image.${ext}`;
+      link.href = resizedPreview.src;
+      link.click();
+    });
+
+    // Clear
+    clearBtn.addEventListener('click', () => {
+      fileInput.value = '';
+      previewArea.classList.add('hidden');
+      resizedResult.classList.add('hidden');
+      originalPreview.src = '';
+      resizedPreview.src = '';
+      originalImage = null;
+      resizeWidth.value = '';
+      resizeHeight.value = '';
+      presetSizes.value = '';
+    });
+  </script>
+</body>
+</html>

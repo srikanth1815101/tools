@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Data Storage Converter - Free Online Tool | CSRGO Tools</title>
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../styles.min.css">
+  <link rel="icon" href="https://tools.csrgo.com/logo.png" type="image/png" sizes="32x32">
+  <link rel="shortcut icon" href="https://tools.csrgo.com/logo.png" type="image/png">
+  <link rel="apple-touch-icon" href="https://tools.csrgo.com/logo.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://tools.csrgo.com/",
+    "name": "CSRGO Tools",
+    "logo": "https://tools.csrgo.com/logo.png"
+  }
+  </script>
+</head>
+<body class="bg-gradient-to-b from-blue-50 via-white to-gray-50 min-h-screen flex flex-col">
+  <!-- Header Placeholder -->
+  <div id="header-placeholder"></div>
+
+  <!-- Main Content -->
+  <main class="flex-grow">
+    <!-- Hero Section -->
+    <section class="pt-20 pb-8 px-4 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-transparent"></div>
+      <div class="container mx-auto text-center relative z-10" id="heroSection"></div>
+    </section>
+
+    <!-- Converter Tool Section -->
+    <section class="py-12 px-4">
+      <div class="container mx-auto max-w-4xl">
+        <div class="bg-white rounded-2xl shadow-lg p-4 sm:p-6 md:p-8">
+          <!-- Calculation Mode Toggle -->
+          <div class="mb-6">
+            <label class="text-sm font-medium text-gray-700 mb-2 block">Calculation Mode</label>
+            <div class="flex gap-4">
+              <label class="inline-flex items-center">
+                <input type="radio" name="calculationMode" value="binary" class="form-radio text-blue-600" checked>
+                <span class="ml-2">Binary (1024)</span>
+              </label>
+              <label class="inline-flex items-center">
+                <input type="radio" name="calculationMode" value="decimal" class="form-radio text-blue-600">
+                <span class="ml-2">Decimal (1000)</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 gap-6">
+            <!-- Input Section -->
+            <div class="space-y-4">
+              <label class="block text-sm font-medium text-gray-700">From</label>
+              <div class="flex flex-col sm:flex-row gap-3">
+                <input type="number" id="fromValue" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all" placeholder="Enter value">
+                <select id="fromUnit" class="w-full sm:w-48 rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all">
+                  <option value="bit">Bits (bit)</option>
+                  <option value="byte">Bytes (B)</option>
+                  <option value="kb">Kilobytes (KB)</option>
+                  <option value="mb">Megabytes (MB)</option>
+                  <option value="gb">Gigabytes (GB)</option>
+                  <option value="tb">Terabytes (TB)</option>
+                  <option value="pb">Petabytes (PB)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Output Section -->
+            <div class="space-y-4">
+              <label class="block text-sm font-medium text-gray-700">To</label>
+              <div class="flex flex-col sm:flex-row gap-3">
+                <input type="number" id="toValue" class="w-full rounded-lg border border-gray-300 px-4 py-2 bg-gray-50" readonly>
+                <select id="toUnit" class="w-full sm:w-48 rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all">
+                  <option value="bit">Bits (bit)</option>
+                  <option value="byte">Bytes (B)</option>
+                  <option value="kb">Kilobytes (KB)</option>
+                  <option value="mb">Megabytes (MB)</option>
+                  <option value="gb">Gigabytes (GB)</option>
+                  <option value="tb">Terabytes (TB)</option>
+                  <option value="pb">Petabytes (PB)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Conversion Buttons -->
+          <div class="mt-8">
+            <h3 class="text-sm font-medium text-gray-700 mb-4">Common Storage Conversions</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
+              <button class="quick-convert px-3 sm:px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm font-medium transition-colors" data-from="gb" data-to="mb">GB → MB</button>
+              <button class="quick-convert px-3 sm:px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm font-medium transition-colors" data-from="mb" data-to="gb">MB → GB</button>
+              <button class="quick-convert px-3 sm:px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm font-medium transition-colors" data-from="tb" data-to="gb">TB → GB</button>
+              <button class="quick-convert px-3 sm:px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm font-medium transition-colors" data-from="gb" data-to="tb">GB → TB</button>
+            </div>
+          </div>
+
+          <!-- Storage Reference Table -->
+          <div class="mt-8">
+            <h3 class="text-sm font-medium text-gray-700 mb-4">Common Storage References</h3>
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="bg-gray-50">
+                    <th class="px-4 py-2 text-left font-medium text-gray-700">Storage Type</th>
+                    <th class="px-4 py-2 text-left font-medium text-gray-700">Size</th>
+                    <th class="px-4 py-2 text-left font-medium text-gray-700">Description</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                  <tr>
+                    <td class="px-4 py-2">Text Document</td>
+                    <td class="px-4 py-2">~10 KB</td>
+                    <td class="px-4 py-2">A simple text file with a few pages</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-2">MP3 Song</td>
+                    <td class="px-4 py-2">~5 MB</td>
+                    <td class="px-4 py-2">A 3-4 minute song in MP3 format</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-2">HD Movie</td>
+                    <td class="px-4 py-2">~2 GB</td>
+                    <td class="px-4 py-2">A 2-hour movie in 1080p quality</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-2">HDD Storage</td>
+                    <td class="px-4 py-2">~2 TB</td>
+                    <td class="px-4 py-2">Typical capacity of a modern hard drive</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Similar Tools Section Placeholder -->
+    <div id="similarToolsSection"></div>
+
+    <!-- What is tool? Section -->
+    <section id="whatIsSection" class="py-16 px-4 bg-white"></section>
+
+    <!-- Why use tool? Section -->
+    <section id="whyUseSection" class="py-16 px-4"></section>
+
+    <!-- How to use tool? Section -->
+    <section id="howToUseSection" class="py-16 px-4 bg-white"></section>
+
+    <!-- Features Section -->
+    <section id="featuresSection" class="py-16 px-4"></section>
+
+    <!-- FAQ Section -->
+    <section id="faqSection" class="py-16 px-4 bg-white"></section>
+  </main>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+  <!-- Floating Buttons Placeholder -->
+  <div id="floating-buttons"></div>
+
+  <!-- Scripts -->
+  <script src="../app.min.js"></script>
+  <script>
+    // Set current tool info automatically by matching URL
+    if (window.tools) {
+      window.CSRGO_TOOL_INFO = window.tools.find(
+        t => t.url === "tools/data-storage-converter.html"
+      );
+    }
+  </script>
+  <script src="../components/include.min.js"></script>
+  <script src="../components/similar-tools.min.js"></script>
+  <script src="../tools/data/data-storage-converter-data.min.js"></script>
+  <script src="../components/tool-sections.min.js"></script>
+  <script src="../components/floating-buttons.min.js"></script>
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Initialize tool sections
+    document.addEventListener('DOMContentLoaded', () => {
+      renderToolSections('DATA_STORAGE_CONVERTER_DATA');
+    });
+
+    // Elements
+    const fromValue = document.getElementById('fromValue');
+    const fromUnit = document.getElementById('fromUnit');
+    const toValue = document.getElementById('toValue');
+    const toUnit = document.getElementById('toUnit');
+    const quickConvertButtons = document.querySelectorAll('.quick-convert');
+    const calculationModeInputs = document.querySelectorAll('input[name="calculationMode"]');
+
+    // Base values
+    const BINARY_BASE = 1024;
+    const DECIMAL_BASE = 1000;
+
+    // Get current calculation mode
+    function getCalculationMode() {
+      return document.querySelector('input[name="calculationMode"]:checked').value;
+    }
+
+    // Get base value based on calculation mode
+    function getBase() {
+      return getCalculationMode() === 'binary' ? BINARY_BASE : DECIMAL_BASE;
+    }
+
+    // Convert function
+    function convert() {
+      const value = parseFloat(fromValue.value);
+      if (isNaN(value)) {
+        toValue.value = '';
+        return;
+      }
+
+      const base = getBase();
+      const from = fromUnit.value;
+      const to = toUnit.value;
+
+      // Convert to bytes first
+      let bytes;
+      switch (from) {
+        case 'bit':
+          bytes = value / 8;
+          break;
+        case 'byte':
+          bytes = value;
+          break;
+        case 'kb':
+          bytes = value * base;
+          break;
+        case 'mb':
+          bytes = value * Math.pow(base, 2);
+          break;
+        case 'gb':
+          bytes = value * Math.pow(base, 3);
+          break;
+        case 'tb':
+          bytes = value * Math.pow(base, 4);
+          break;
+        case 'pb':
+          bytes = value * Math.pow(base, 5);
+          break;
+      }
+
+      // Convert from bytes to target unit
+      let result;
+      switch (to) {
+        case 'bit':
+          result = bytes * 8;
+          break;
+        case 'byte':
+          result = bytes;
+          break;
+        case 'kb':
+          result = bytes / base;
+          break;
+        case 'mb':
+          result = bytes / Math.pow(base, 2);
+          break;
+        case 'gb':
+          result = bytes / Math.pow(base, 3);
+          break;
+        case 'tb':
+          result = bytes / Math.pow(base, 4);
+          break;
+        case 'pb':
+          result = bytes / Math.pow(base, 5);
+          break;
+      }
+      
+      // Format result to avoid scientific notation and limit decimal places
+      toValue.value = result.toFixed(6).replace(/\.?0+$/, '');
+    }
+
+    // Event listeners
+    fromValue.addEventListener('input', convert);
+    fromUnit.addEventListener('change', convert);
+    toUnit.addEventListener('change', convert);
+    calculationModeInputs.forEach(input => {
+      input.addEventListener('change', convert);
+    });
+
+    // Quick conversion buttons
+    quickConvertButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        fromUnit.value = button.dataset.from;
+        toUnit.value = button.dataset.to;
+        convert();
+      });
+    });
+
+    // Initialize with default values
+    fromValue.value = '1';
+    convert();
+  </script>
+</body>
+</html>

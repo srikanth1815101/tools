@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Random String Generator - Free Online Tool | CSRGO Tools</title>
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../styles.min.css">
+  <link rel="icon" href="https://tools.csrgo.com/logo.png" type="image/png" sizes="32x32">
+  <link rel="shortcut icon" href="https://tools.csrgo.com/logo.png" type="image/png">
+  <link rel="apple-touch-icon" href="https://tools.csrgo.com/logo.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://tools.csrgo.com/",
+    "name": "CSRGO Tools",
+    "logo": "https://tools.csrgo.com/logo.png"
+  }
+  </script>
+  <meta name="description" content="Create secure random strings for passwords, tokens, and more with our free online random string generator. Fast and customizable.">
+  <link rel="canonical" href="https://tools.csrgo.com/tools/random-string-generator.html">
+  <style>
+    .string-output {
+      font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+      letter-spacing: 0.05em;
+      word-break: break-all;
+    }
+    .copy-button {
+      transition: all 0.2s ease;
+    }
+    .copy-button:hover {
+      transform: scale(1.05);
+    }
+    .copy-button:active {
+      transform: scale(0.95);
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-b from-blue-50 via-white to-gray-50 min-h-screen flex flex-col">
+  <!-- Header Placeholder -->
+  <div id="header-placeholder"></div>
+
+  <!-- Main Content -->
+  <main class="flex-grow">
+    <!-- Hero Section -->
+    <section class="pt-20 pb-8 px-4 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-transparent"></div>
+      <div class="container mx-auto text-center relative z-10" id="heroSection"></div>
+    </section>
+
+    <!-- Tool Section -->
+    <section class="py-8 px-4">
+      <div class="container mx-auto max-w-5xl">
+        <div class="bg-white rounded-2xl shadow-lg p-4 md:p-8 card-hover">
+          <div class="space-y-6">
+            <!-- String Output -->
+            <div class="space-y-4">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <h3 class="text-lg font-semibold flex items-center gap-2">
+                  <i data-lucide="hash" class="w-5 h-5 text-purple-600"></i>
+                  Generated String
+                </h3>
+                <div class="flex gap-2">
+                  <button id="copyString" class="text-sm text-gray-600 hover:text-gray-900 flex items-center gap-1 px-3 py-1 rounded hover:bg-gray-100">
+                    <i data-lucide="copy" class="w-4 h-4"></i>
+                    Copy
+                  </button>
+                  <button id="refreshString" class="text-sm text-gray-600 hover:text-gray-900 flex items-center gap-1 px-3 py-1 rounded hover:bg-gray-100">
+                    <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                    Refresh
+                  </button>
+                </div>
+              </div>
+              
+              <div class="relative">
+                <div id="stringOutput" class="w-full p-4 border rounded-xl font-mono text-base md:text-lg bg-gray-50 min-h-[80px] flex items-center justify-center text-gray-400 string-output text-center">
+                  Click "Generate String" to create a random string
+                </div>
+                <div id="stringInfo" class="hidden mt-3 p-3 bg-blue-50 rounded-lg">
+                  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                    <div>
+                      <span class="text-gray-600">Length:</span>
+                      <span id="stringLength" class="ml-2 font-mono font-medium"></span>
+                    </div>
+                    <div>
+                      <span class="text-gray-600">Type:</span>
+                      <span id="stringTypeDisplay" class="ml-2 font-medium"></span>
+                    </div>
+                    <div>
+                      <span class="text-gray-600">Characters:</span>
+                      <span id="charCount" class="ml-2 font-mono font-medium"></span>
+                    </div>
+                    <div>
+                      <span class="text-gray-600">Generated:</span>
+                      <span id="stringTimestamp" class="ml-2 text-xs"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Customization Options -->
+            <div class="space-y-6">
+              <h3 class="text-lg font-semibold flex items-center gap-2">
+                <i data-lucide="settings" class="w-5 h-5 text-indigo-600"></i>
+                Customization Options
+              </h3>
+              
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Left Column -->
+                <div class="space-y-6">
+                  <!-- String Length -->
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">String Length</label>
+                    <div class="flex items-center gap-3">
+                      <input type="range" id="stringLengthSlider" min="1" max="1000" value="32" class="flex-1">
+                      <span id="lengthValue" class="text-sm font-mono text-gray-600 min-w-[3rem]">32</span>
+                    </div>
+                    <div class="flex justify-between text-xs text-gray-500 mt-1">
+                      <span>1</span>
+                      <span>1000</span>
+                    </div>
+                  </div>
+
+                  <!-- String Type -->
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">String Type</label>
+                    <select id="stringType" class="w-full border rounded-lg px-3 py-2 bg-white">
+                      <option value="alphanumeric">Alphanumeric (A-Z, a-z, 0-9)</option>
+                      <option value="alphabetic">Alphabetic (A-Z, a-z)</option>
+                      <option value="numeric">Numeric (0-9)</option>
+                      <option value="hexadecimal">Hexadecimal (0-9, A-F)</option>
+                      <option value="binary">Binary (0-1)</option>
+                      <option value="custom">Custom Characters</option>
+                    </select>
+                  </div>
+
+                  <!-- Custom Characters -->
+                  <div id="customCharsContainer" class="hidden">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Custom Characters</label>
+                    <input type="text" id="customCharacters" class="w-full border rounded-lg px-3 py-2 font-mono text-sm" placeholder="Enter custom characters (e.g., ABC123!@#)" value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789">
+                    <p class="text-xs text-gray-500 mt-1">Enter the characters you want to use for generation</p>
+                  </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="space-y-6">
+                  <!-- Character Options -->
+                  <div class="space-y-3">
+                    <label class="block text-sm font-medium text-gray-700">Character Options</label>
+                    <div class="space-y-3">
+                      <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" id="includeUppercase" checked class="form-checkbox">
+                        <span class="text-sm text-gray-700">Include Uppercase Letters (A-Z)</span>
+                      </label>
+                      <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" id="includeLowercase" checked class="form-checkbox">
+                        <span class="text-sm text-gray-700">Include Lowercase Letters (a-z)</span>
+                      </label>
+                      <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" id="includeNumbers" checked class="form-checkbox">
+                        <span class="text-sm text-gray-700">Include Numbers (0-9)</span>
+                      </label>
+                      <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" id="includeSymbols" class="form-checkbox">
+                        <span class="text-sm text-gray-700">Include Symbols (!@#$%^&*)</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- Additional Options -->
+                  <div class="space-y-3">
+                    <label class="block text-sm font-medium text-gray-700">Additional Options</label>
+                    <div class="space-y-3">
+                      <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" id="excludeSimilar" class="form-checkbox">
+                        <span class="text-sm text-gray-700">Exclude similar characters (l, 1, I, 0, O)</span>
+                      </label>
+                      <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" id="avoidRepeating" class="form-checkbox">
+                        <span class="text-sm text-gray-700">Avoid repeating characters</span>
+                      </label>
+                      <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" id="addSeparators" class="form-checkbox">
+                        <span class="text-sm text-gray-700">Add separators (every 4 characters)</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- String History -->
+                  <div class="space-y-2">
+                    <label class="block text-sm font-medium text-gray-700">Recent Strings</label>
+                    <div id="stringHistory" class="space-y-2 max-h-[120px] overflow-y-auto">
+                      <!-- String history items will be added here -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4">
+              <button id="generateStringBtn" class="flex-1 bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:from-purple-700 hover:to-indigo-700 transition-all flex items-center justify-center gap-2">
+                <i data-lucide="hash" class="w-4 h-4"></i>
+                Generate String
+              </button>
+              <button id="clearHistoryBtn" class="px-6 py-3 bg-gradient-to-r from-gray-50 to-gray-100 hover:from-gray-100 hover:to-gray-200 rounded-lg text-sm font-medium text-gray-700 transition-colors flex items-center justify-center gap-2">
+                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                Clear History
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Similar Tools Section Placeholder -->
+    <div id="similarToolsSection"></div>
+
+    <!-- What is tool? Section -->
+    <section id="whatIsSection" class="py-16 px-4 bg-white"></section>
+
+    <!-- Why use tool? Section -->
+    <section id="whyUseSection" class="py-16 px-4"></section>
+
+    <!-- How to use tool? Section -->
+    <section id="howToUseSection" class="py-16 px-4 bg-white"></section>
+
+    <!-- Features Section -->
+    <section id="featuresSection" class="py-16 px-4"></section>
+
+    <!-- FAQ Section -->
+    <section id="faqSection" class="py-16 px-4 bg-white"></section>
+  </main>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+  <!-- Floating Buttons Placeholder -->
+  <div id="floating-buttons"></div>
+
+  <!-- Scripts -->
+  <script src="../app.min.js"></script>
+  <script>
+    // Set current tool info automatically by matching URL
+    if (window.tools) {
+      window.CSRGO_TOOL_INFO = window.tools.find(
+        t => t.url === "tools/random-string-generator.html"
+      );
+    }
+  </script>
+  <script src="../components/include.min.js"></script>
+  <script src="../components/similar-tools.min.js"></script>
+  <script src="../tools/data/random-string-generator-data.min.js"></script>
+  <script src="../components/tool-sections.min.js"></script>
+  <script src="../components/floating-buttons.min.js"></script>
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Initialize tool sections
+    document.addEventListener('DOMContentLoaded', () => {
+      renderToolSections('RANDOM_STRING_GENERATOR_DATA');
+    });
+
+    // Wait for DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      // Elements
+      const stringOutput = document.getElementById('stringOutput');
+      const stringInfo = document.getElementById('stringInfo');
+      const stringLength = document.getElementById('stringLength');
+      const stringTypeDisplay = document.getElementById('stringTypeDisplay');
+      const charCount = document.getElementById('charCount');
+      const stringTimestamp = document.getElementById('stringTimestamp');
+      const copyString = document.getElementById('copyString');
+      const refreshString = document.getElementById('refreshString');
+      const generateStringBtn = document.getElementById('generateStringBtn');
+      const clearHistoryBtn = document.getElementById('clearHistoryBtn');
+      const stringLengthSlider = document.getElementById('stringLengthSlider');
+      const lengthValue = document.getElementById('lengthValue');
+      const stringTypeSelect = document.getElementById('stringType');
+      const customCharsContainer = document.getElementById('customCharsContainer');
+      const customCharacters = document.getElementById('customCharacters');
+      const includeUppercase = document.getElementById('includeUppercase');
+      const includeLowercase = document.getElementById('includeLowercase');
+      const includeNumbers = document.getElementById('includeNumbers');
+      const includeSymbols = document.getElementById('includeSymbols');
+      const excludeSimilar = document.getElementById('excludeSimilar');
+      const avoidRepeating = document.getElementById('avoidRepeating');
+      const addSeparators = document.getElementById('addSeparators');
+      const stringHistory = document.getElementById('stringHistory');
+
+      // String history storage
+      let stringHistoryData = JSON.parse(localStorage.getItem('randomStringHistory') || '[]');
+
+      // Character sets
+      const charSets = {
+        uppercase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+        lowercase: 'abcdefghijklmnopqrstuvwxyz',
+        numbers: '0123456789',
+        symbols: '!@#$%^&*()_+-=[]{}|;:,.<>?',
+        hex: '0123456789ABCDEF',
+        binary: '01',
+        similar: 'l1I0O'
+      };
+
+      // Update length display
+      stringLengthSlider.addEventListener('input', () => {
+        lengthValue.textContent = stringLengthSlider.value;
+      });
+
+      // Handle string type change
+      stringTypeSelect.addEventListener('change', () => {
+        if (stringTypeSelect.value === 'custom') {
+          customCharsContainer.classList.remove('hidden');
+        } else {
+          customCharsContainer.classList.add('hidden');
+        }
+      });
+
+      // Generate random string
+      function generateRandomString(length, type, options) {
+        let chars = '';
+        
+        if (type === 'custom') {
+          chars = customCharacters.value || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        } else {
+          switch (type) {
+            case 'alphanumeric':
+              if (options.uppercase) chars += charSets.uppercase;
+              if (options.lowercase) chars += charSets.lowercase;
+              if (options.numbers) chars += charSets.numbers;
+              if (options.symbols) chars += charSets.symbols;
+              break;
+            case 'alphabetic':
+              if (options.uppercase) chars += charSets.uppercase;
+              if (options.lowercase) chars += charSets.lowercase;
+              break;
+            case 'numeric':
+              chars = charSets.numbers;
+              break;
+            case 'hexadecimal':
+              chars = charSets.hex;
+              break;
+            case 'binary':
+              chars = charSets.binary;
+              break;
+          }
+        }
+        
+        if (options.excludeSimilar && type !== 'numeric' && type !== 'hexadecimal' && type !== 'binary') {
+          chars = chars.split('').filter(char => !charSets.similar.includes(char)).join('');
+        }
+        
+        if (chars === '') {
+          return 'Please select at least one character type';
+        }
+        
+        let result = '';
+        for (let i = 0; i < length; i++) {
+          if (options.avoidRepeating && result.length > 0) {
+            const lastChar = result[result.length - 1];
+            const availableChars = chars.split('').filter(char => char !== lastChar);
+            if (availableChars.length === 0) break;
+            result += availableChars[Math.floor(Math.random() * availableChars.length)];
+          } else {
+            result += chars[Math.floor(Math.random() * chars.length)];
+          }
+        }
+        
+        if (options.addSeparators && result.length > 4) {
+          const chunks = [];
+          for (let i = 0; i < result.length; i += 4) {
+            chunks.push(result.slice(i, i + 4));
+          }
+          result = chunks.join('-');
+        }
+        
+        return result;
+      }
+
+      // Add to string history
+      function addToHistory(string, type, length) {
+        const historyItem = {
+          id: Date.now(),
+          string: string.length > 50 ? string.substring(0, 50) + '...' : string,
+          fullString: string,
+          type: type,
+          length: length,
+          timestamp: new Date().toLocaleString()
+        };
+
+        stringHistoryData.unshift(historyItem);
+        
+        // Keep only last 10 items
+        if (stringHistoryData.length > 10) {
+          stringHistoryData = stringHistoryData.slice(0, 10);
+        }
+
+        localStorage.setItem('randomStringHistory', JSON.stringify(stringHistoryData));
+        renderStringHistory();
+      }
+
+      // Render string history
+      function renderStringHistory() {
+        stringHistory.innerHTML = '';
+        
+        if (stringHistoryData.length === 0) {
+          stringHistory.innerHTML = '<p class="text-xs text-gray-400 text-center py-2">No recent strings</p>';
+          return;
+        }
+
+        stringHistoryData.forEach(item => {
+          const historyItem = document.createElement('div');
+          historyItem.className = 'p-2 bg-gray-50 border rounded text-xs hover:bg-gray-100 transition-colors cursor-pointer';
+          historyItem.innerHTML = `
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-gray-700">${item.string}</span>
+              <button class="text-purple-600 hover:text-purple-800" onclick="copyToClipboard('${item.fullString}')">
+                <i data-lucide="copy" class="w-3 h-3"></i>
+              </button>
+            </div>
+          `;
+          stringHistory.appendChild(historyItem);
+        });
+        
+        lucide.createIcons();
+      }
+
+      // Copy to clipboard
+      function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+          // Show feedback
+          const originalText = copyString.innerHTML;
+          copyString.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i> Copied!';
+          lucide.createIcons();
+          setTimeout(() => {
+            copyString.innerHTML = originalText;
+            lucide.createIcons();
+          }, 2000);
+        });
+      }
+
+      // Generate string
+      function generateString() {
+        const length = parseInt(stringLengthSlider.value);
+        const type = stringTypeSelect.value;
+        const options = {
+          uppercase: includeUppercase.checked,
+          lowercase: includeLowercase.checked,
+          numbers: includeNumbers.checked,
+          symbols: includeSymbols.checked,
+          excludeSimilar: excludeSimilar.checked,
+          avoidRepeating: avoidRepeating.checked,
+          addSeparators: addSeparators.checked
+        };
+
+        console.log('Generating string with:', { length, type, options });
+
+        // For predefined types, ignore checkbox validation
+        if (type === 'numeric' || type === 'hexadecimal' || type === 'binary') {
+          const result = generateRandomString(length, type, options);
+          displayResult(result, type, length);
+          return;
+        }
+
+        // Validate character type selection for alphanumeric and alphabetic
+        if (type === 'alphanumeric' && !options.uppercase && !options.lowercase && !options.numbers && !options.symbols) {
+          displayError('Please select at least one character type');
+          return;
+        }
+
+        if (type === 'alphabetic' && !options.uppercase && !options.lowercase) {
+          displayError('Please select at least one character type');
+          return;
+        }
+
+        const result = generateRandomString(length, type, options);
+        displayResult(result, type, length);
+      }
+
+      // Display result
+      function displayResult(result, type, length) {
+        if (result === 'Please select at least one character type') {
+          displayError(result);
+          return;
+        }
+
+        stringOutput.textContent = result;
+        stringOutput.className = 'w-full p-4 border rounded-xl font-mono text-base md:text-lg bg-purple-50 text-purple-800 min-h-[80px] flex items-center justify-center string-output text-center';
+        
+        // Update info
+        stringLength.textContent = result.length;
+        stringTypeDisplay.textContent = type.charAt(0).toUpperCase() + type.slice(1);
+        charCount.textContent = result.replace(/[^a-zA-Z0-9]/g, '').length;
+        stringTimestamp.textContent = new Date().toLocaleString();
+        stringInfo.classList.remove('hidden');
+        
+        // Add to history
+        addToHistory(result, type, length);
+      }
+
+      // Display error
+      function displayError(message) {
+        stringOutput.textContent = message;
+        stringOutput.className = 'w-full p-4 border rounded-xl font-mono text-base md:text-lg bg-red-50 text-red-600 min-h-[80px] flex items-center justify-center string-output text-center';
+        stringInfo.classList.add('hidden');
+      }
+
+      // Event listeners
+      generateStringBtn.addEventListener('click', () => {
+        console.log('Generate button clicked');
+        generateString();
+      });
+      refreshString.addEventListener('click', () => {
+        console.log('Refresh button clicked');
+        generateString();
+      });
+      
+      copyString.addEventListener('click', () => {
+        const string = stringOutput.textContent;
+        if (string && string !== 'Click "Generate String" to create a random string' && !string.startsWith('Please')) {
+          copyToClipboard(string);
+        }
+      });
+
+      clearHistoryBtn.addEventListener('click', () => {
+        stringHistoryData = [];
+        localStorage.setItem('randomStringHistory', JSON.stringify(stringHistoryData));
+        renderStringHistory();
+      });
+
+      // Initialize
+      renderStringHistory();
+
+      // Test function to verify basic functionality
+      function testStringGeneration() {
+        console.log('Testing string generation...');
+        
+        // Test numeric generation
+        const numericResult = generateRandomString(10, 'numeric', {});
+        console.log('Numeric test:', numericResult);
+        
+        // Test alphanumeric generation
+        const alphanumericResult = generateRandomString(10, 'alphanumeric', {
+          uppercase: true,
+          lowercase: true,
+          numbers: true,
+          symbols: false
+        });
+        console.log('Alphanumeric test:', alphanumericResult);
+        
+        // Test that elements exist
+        console.log('Elements found:', {
+          stringOutput: !!stringOutput,
+          stringTypeSelect: !!stringTypeSelect,
+          includeUppercase: !!includeUppercase,
+          includeLowercase: !!includeLowercase,
+          includeNumbers: !!includeNumbers,
+          includeSymbols: !!includeSymbols
+        });
+      }
+
+      // Run test on page load
+      setTimeout(testStringGeneration, 1000);
+
+      // Make copyToClipboard globally available for history items
+      window.copyToClipboard = copyToClipboard;
+    });
+  </script>
+</body>
+</html>

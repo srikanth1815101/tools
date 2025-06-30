@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Base64 Encoder & Decoder - Free Online Tool | CSRGO Tools</title>
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../styles.min.css">
+  <link rel="icon" href="https://tools.csrgo.com/logo.png" type="image/png" sizes="32x32">
+  <link rel="shortcut icon" href="https://tools.csrgo.com/logo.png" type="image/png">
+  <link rel="apple-touch-icon" href="https://tools.csrgo.com/logo.png">
+  <meta name="description" content="Encode or decode Base64 data instantly with our free online Base64 encoder/decoder. Fast, secure, and easy to use.">
+  <link rel="canonical" href="https://tools.csrgo.com/tools/base64-encoder-decoder.html">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://tools.csrgo.com/",
+    "name": "CSRGO Tools",
+    "logo": "https://tools.csrgo.com/logo.png"
+  }
+  </script>
+</head>
+<body class="bg-gradient-to-b from-blue-50 via-white to-gray-50 min-h-screen flex flex-col">
+  <!-- Header Placeholder -->
+  <div id="header-placeholder"></div>
+
+  <!-- Main Content -->
+  <main class="flex-grow">
+    <!-- Hero Section -->
+    <section class="pt-20 pb-8 px-4 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-transparent"></div>
+      <div class="container mx-auto text-center relative z-10" id="heroSection"></div>
+    </section>
+
+    <!-- Tool Section -->
+    <section class="py-8 px-4">
+      <div class="container mx-auto max-w-4xl">
+        <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 card-hover flex flex-col gap-8">
+          <!-- Options -->
+          <div class="flex flex-col md:flex-row md:items-end gap-4 mb-2">
+            <div class="flex-1 flex flex-col gap-2">
+              <label class="block text-sm font-medium text-gray-700 mb-1">Mode</label>
+              <select id="mode" class="w-full border rounded-lg px-3 py-2 bg-white">
+                <option value="encode">Encode (Text → Base64)</option>
+                <option value="decode">Decode (Base64 → Text)</option>
+              </select>
+            </div>
+            <div class="flex-1 flex flex-col gap-2">
+              <label class="block text-sm font-medium text-gray-700 mb-1">Character Encoding</label>
+              <select id="encoding" class="w-full border rounded-lg px-3 py-2 bg-white">
+                <option value="utf-8">UTF-8</option>
+                <option value="ascii">ASCII</option>
+              </select>
+            </div>
+            <div class="flex flex-row gap-2 md:gap-2 md:justify-end w-full md:w-auto mt-2 md:mt-0">
+              <button class="sample-btn w-full md:w-auto min-w-[140px] px-4 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 rounded-lg text-sm font-medium text-blue-700 transition-colors flex items-center justify-center gap-2 whitespace-nowrap">
+                <i data-lucide="file-text" class="w-4 h-4"></i>
+                Sample Text
+              </button>
+              <button id="clearBtn" class="w-full md:w-auto min-w-[100px] text-sm text-gray-600 hover:text-gray-900 flex items-center gap-1 px-4 py-2 border border-gray-200 rounded-lg bg-white items-center justify-center">
+                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                Clear
+              </button>
+            </div>
+          </div>
+          <!-- Input/Output Area -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Input -->
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <h3 class="text-lg font-semibold flex items-center gap-2">
+                  <i data-lucide="file-input" class="w-5 h-5 text-blue-600"></i>
+                  <span id="inputLabel">Input Text</span>
+                </h3>
+                <button id="copyInput" class="text-sm text-gray-600 hover:text-gray-900 flex items-center gap-1">
+                  <i data-lucide="copy" class="w-4 h-4"></i>
+                  Copy
+                </button>
+              </div>
+              <textarea id="inputArea" class="w-full h-[200px] md:h-[300px] p-4 border rounded-xl font-mono text-sm bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Paste your text or Base64 here..."></textarea>
+              <div id="errorMessageInput" class="hidden p-2 bg-red-50 text-red-700 rounded-lg text-xs"></div>
+            </div>
+            <!-- Output -->
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <h3 class="text-lg font-semibold flex items-center gap-2">
+                  <i data-lucide="file-output" class="w-5 h-5 text-green-600"></i>
+                  <span id="outputLabel">Base64 Output</span>
+                </h3>
+                <button id="copyOutput" class="text-sm text-gray-600 hover:text-gray-900 flex items-center gap-1">
+                  <i data-lucide="copy" class="w-4 h-4"></i>
+                  Copy
+                </button>
+              </div>
+              <textarea id="outputArea" class="w-full h-[200px] md:h-[300px] p-4 border rounded-xl font-mono text-sm bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Output will appear here..." readonly></textarea>
+              <div id="errorMessageOutput" class="hidden p-2 bg-red-50 text-red-700 rounded-lg text-xs"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Similar Tools Section Placeholder -->
+    <div id="similarToolsSection"></div>
+    <!-- What is tool? Section -->
+    <section id="whatIsSection" class="py-16 px-4 bg-white"></section>
+    <!-- Why use tool? Section -->
+    <section id="whyUseSection" class="py-16 px-4"></section>
+    <!-- How to use tool? Section -->
+    <section id="howToUseSection" class="py-16 px-4 bg-white"></section>
+    <!-- Features Section -->
+    <section id="featuresSection" class="py-16 px-4"></section>
+    <!-- FAQ Section -->
+    <section id="faqSection" class="py-16 px-4 bg-white"></section>
+  </main>
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+  <!-- Floating Buttons Placeholder -->
+  <div id="floating-buttons"></div>
+  <!-- Scripts -->
+  <script src="../app.min.js"></script>
+  <script>
+    // Set current tool info automatically by matching URL
+    if (window.tools) {
+      window.CSRGO_TOOL_INFO = window.tools.find(
+        t => t.url === "tools/base64-encoder-decoder.html"
+      );
+    }
+  </script>
+  <script src="../components/include.min.js"></script>
+  <script src="../components/similar-tools.min.js"></script>
+  <script src="../tools/data/base64-encoder-decoder-data.min.js"></script>
+  <script src="../components/tool-sections.min.js"></script>
+  <script src="../components/floating-buttons.min.js"></script>
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+    // Initialize tool sections
+    document.addEventListener('DOMContentLoaded', () => {
+      renderToolSections('BASE64_ENCODER_DECODER_DATA');
+    });
+    // Elements
+    const mode = document.getElementById('mode');
+    const encoding = document.getElementById('encoding');
+    const inputArea = document.getElementById('inputArea');
+    const outputArea = document.getElementById('outputArea');
+    const inputLabel = document.getElementById('inputLabel');
+    const outputLabel = document.getElementById('outputLabel');
+    const copyInput = document.getElementById('copyInput');
+    const copyOutput = document.getElementById('copyOutput');
+    const clearBtn = document.getElementById('clearBtn');
+    const sampleBtn = document.querySelector('.sample-btn');
+    const errorMessageInput = document.getElementById('errorMessageInput');
+    const errorMessageOutput = document.getElementById('errorMessageOutput');
+    // Sample text
+    const sampleText = 'CSRGO Tools: Free online utilities!';
+    // Encoding/decoding helpers
+    function encodeBase64(str, enc) {
+      try {
+        if (enc === 'utf-8') {
+          return btoa(unescape(encodeURIComponent(str)));
+        } else {
+          // ASCII
+          return btoa(str);
+        }
+      } catch (e) {
+        throw new Error('Input cannot be encoded as Base64.');
+      }
+    }
+    function decodeBase64(str, enc) {
+      try {
+        if (enc === 'utf-8') {
+          return decodeURIComponent(escape(atob(str)));
+        } else {
+          // ASCII
+          return atob(str);
+        }
+      } catch (e) {
+        throw new Error('Input is not valid Base64 or cannot be decoded.');
+      }
+    }
+    // Main conversion logic
+    function convert() {
+      errorMessageInput.classList.add('hidden');
+      errorMessageOutput.classList.add('hidden');
+      try {
+        if (mode.value === 'encode') {
+          outputArea.value = encodeBase64(inputArea.value, encoding.value);
+        } else {
+          outputArea.value = decodeBase64(inputArea.value, encoding.value);
+        }
+      } catch (e) {
+        if (mode.value === 'encode') {
+          errorMessageInput.textContent = e.message;
+          errorMessageInput.classList.remove('hidden');
+        } else {
+          errorMessageOutput.textContent = e.message;
+          errorMessageOutput.classList.remove('hidden');
+        }
+        outputArea.value = '';
+      }
+    }
+    // Event listeners
+    mode.addEventListener('change', () => {
+      if (mode.value === 'encode') {
+        inputLabel.textContent = 'Input Text';
+        outputLabel.textContent = 'Base64 Output';
+        inputArea.placeholder = 'Paste your text here...';
+        outputArea.placeholder = 'Base64 output will appear here...';
+      } else {
+        inputLabel.textContent = 'Input Base64';
+        outputLabel.textContent = 'Decoded Output';
+        inputArea.placeholder = 'Paste your Base64 here...';
+        outputArea.placeholder = 'Decoded output will appear here...';
+      }
+      inputArea.value = '';
+      outputArea.value = '';
+      errorMessageInput.classList.add('hidden');
+      errorMessageOutput.classList.add('hidden');
+    });
+    encoding.addEventListener('change', convert);
+    inputArea.addEventListener('input', convert);
+    sampleBtn.addEventListener('click', () => {
+      inputArea.value = sampleText;
+      convert();
+    });
+    clearBtn.addEventListener('click', () => {
+      inputArea.value = '';
+      outputArea.value = '';
+      errorMessageInput.classList.add('hidden');
+      errorMessageOutput.classList.add('hidden');
+    });
+    copyInput.addEventListener('click', () => {
+      if (inputArea.value) {
+        navigator.clipboard.writeText(inputArea.value);
+        copyInput.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i> Copied!';
+        lucide.createIcons();
+        setTimeout(() => {
+          copyInput.innerHTML = '<i data-lucide="copy" class="w-4 h-4"></i> Copy';
+          lucide.createIcons();
+        }, 1500);
+      }
+    });
+    copyOutput.addEventListener('click', () => {
+      if (outputArea.value) {
+        navigator.clipboard.writeText(outputArea.value);
+        copyOutput.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i> Copied!';
+        lucide.createIcons();
+        setTimeout(() => {
+          copyOutput.innerHTML = '<i data-lucide="copy" class="w-4 h-4"></i> Copy';
+          lucide.createIcons();
+        }, 1500);
+      }
+    });
+    // Initial render
+    convert();
+  </script>
+</body>
+</html>
