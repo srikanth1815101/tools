@@ -1,0 +1,127 @@
+---
+title: "Your Profile - CSRGO Tools"
+url: "/profile.html"
+description: "Your personal CSRGO Tools dashboard. Manage favourites, preferences, and quick links."
+---
+
+<div class="min-h-screen font-sans pb-16 pt-28 md:pt-32">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in-up">
+
+    <!-- Welcome Header matching DSA -->
+    <div class="mb-12 text-center md:text-left relative">
+      <div class="absolute -top-20 -left-20 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="flex items-center justify-center md:justify-start gap-4 mb-4">
+        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-purple-600 to-blue-600 flex items-center justify-center text-white shadow-xl shadow-purple-500/20">
+          <i data-lucide="user" class="w-8 h-8"></i>
+        </div>
+        <div>
+          <h1 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white tracking-tight">
+            Hello, <span id="profile-name" class="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600">User</span>! 👋
+          </h1>
+          <p class="text-base md:text-lg text-gray-600 dark:text-gray-400 font-medium">
+            Your personal command center for CSRGO Tools.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dashboard Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+
+      <!-- Card 1: Favourites -->
+      <div class="group relative flex flex-col h-full">
+        <div class="relative flex-1 bg-white dark:bg-gray-800 rounded-2xl sm:rounded-3xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 flex flex-col">
+          <div class="flex items-center justify-between mb-4">
+            <div class="p-3 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl shadow-lg text-white">
+              <i data-lucide="bookmark" class="w-6 h-6"></i>
+            </div>
+            <a href="{{ "favourite-tools.html" | relURL }}" class="text-xs font-bold text-blue-600 dark:text-fuchsia-400 hover:underline flex items-center gap-1">
+              View All <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+          <h2 class="text-xl font-black text-gray-900 dark:text-white mb-1">Favourite Tools</h2>
+          <div class="mb-4 flex items-baseline gap-2">
+            <span class="text-4xl font-black text-gray-900 dark:text-white" id="stat-fav-count">0</span>
+            <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Saved</span>
+          </div>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 flex-1">Quickly access your pinned and frequently used utility tools.</p>
+          <a href="{{ "favourite-tools.html" | relURL }}" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white font-bold text-sm text-center shadow-lg shadow-purple-500/20 hover:shadow-xl transition-all">
+            Open Favourites
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 2: Appearance & Theme -->
+      <div class="group relative flex flex-col h-full">
+        <div class="relative flex-1 bg-white dark:bg-gray-800 rounded-2xl sm:rounded-3xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 flex flex-col">
+          <div class="flex items-center justify-between mb-4">
+            <div class="p-3 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-xl shadow-lg text-white">
+              <i data-lucide="palette" class="w-6 h-6"></i>
+            </div>
+            <span id="current-theme-badge" class="px-2.5 py-1 text-xs font-bold rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300">Light</span>
+          </div>
+          <h2 class="text-xl font-black text-gray-900 dark:text-white mb-1">Theme Preferences</h2>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mb-6 flex-1">Toggle between sleek dark mode and radiant light mode across the platform.</p>
+          <button onclick="toggleTheme(); updateProfileThemeBadge();" class="w-full py-2.5 px-4 rounded-xl bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-bold text-sm text-center transition-all flex items-center justify-center gap-2">
+            <i data-lucide="sun-moon" class="w-4 h-4"></i> Switch Theme
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 3: CSRGO Platforms -->
+      <div class="group relative flex flex-col h-full">
+        <div class="relative flex-1 bg-white dark:bg-gray-800 rounded-2xl sm:rounded-3xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 flex flex-col">
+          <div class="flex items-center justify-between mb-4">
+            <div class="p-3 bg-gradient-to-r from-orange-500 to-amber-600 rounded-xl shadow-lg text-white">
+              <i data-lucide="layers" class="w-6 h-6"></i>
+            </div>
+          </div>
+          <h2 class="text-xl font-black text-gray-900 dark:text-white mb-1">CSRGO Ecosystem</h2>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 flex-1">Explore all connected CSRGO platforms and services.</p>
+          <div class="space-y-2">
+            <a href="https://dsa.csrgo.com" target="_blank" class="flex items-center justify-between px-3 py-2 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-blue-50 dark:hover:bg-gray-700 text-sm font-medium text-gray-700 dark:text-gray-200 transition-colors">
+              <span class="flex items-center gap-2"><i data-lucide="code-2" class="w-4 h-4 text-blue-500"></i> CSRGO DSA</span>
+              <i data-lucide="external-link" class="w-3.5 h-3.5 text-gray-400"></i>
+            </a>
+            <a href="https://csrgo.com" target="_blank" class="flex items-center justify-between px-3 py-2 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-blue-50 dark:hover:bg-gray-700 text-sm font-medium text-gray-700 dark:text-gray-200 transition-colors">
+              <span class="flex items-center gap-2"><i data-lucide="globe" class="w-4 h-4 text-purple-500"></i> CSRGO.com</span>
+              <i data-lucide="external-link" class="w-3.5 h-3.5 text-gray-400"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function updateProfileThemeBadge() {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    const badge = document.getElementById('current-theme-badge');
+    if (badge) {
+      badge.textContent = currentTheme.charAt(0).toUpperCase() + currentTheme.slice(1);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    try {
+      const favs = JSON.parse(localStorage.getItem('csrgo_favourites') || '[]');
+      const countEl = document.getElementById('stat-fav-count');
+      if (countEl) countEl.textContent = favs.length;
+    } catch(e) {}
+
+    let name = localStorage.getItem('csrgo-nickname');
+    if (!name) {
+      name = localStorage.getItem('dsa-nickname') || 'Explorer';
+      localStorage.setItem('csrgo-nickname', name);
+    }
+    const nameEl = document.getElementById('profile-name');
+    if (nameEl) nameEl.textContent = name;
+
+    updateProfileThemeBadge();
+    if (window.lucide) lucide.createIcons();
+  });
+</script>

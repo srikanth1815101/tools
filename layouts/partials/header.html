@@ -41,51 +41,54 @@
                                 class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left {{ if or (eq .RelPermalink "/favourite-tools.html") (eq .RelPermalink "/favourite-tools/") }}scale-x-100{{ end }}"></span>
                         </a>
 
-                        <!-- Categories Dropdown -->
-                        <div class="relative group">
-                            <button type="button" class="relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 flex items-center gap-1 font-medium {{ if strings.HasPrefix .RelPermalink "/categories/" }}font-bold text-blue-600 dark:text-fuchsia-400{{ end }}" id="categoriesDropdownBtn">
+                        <!-- Categories Dropdown with seamless hover bridge -->
+                        <div class="relative group" id="categoriesGroup">
+                            <button type="button" class="relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 flex items-center gap-1 font-medium {{ if strings.HasPrefix .RelPermalink "/categories/" }}font-bold text-blue-600 dark:text-fuchsia-400{{ end }}" id="categoriesDropdownBtn" aria-expanded="false" aria-haspopup="true">
                                 <span>Categories</span>
-                                <i data-lucide="chevron-down" class="w-4 h-4 ml-0.5 transition-transform duration-200 group-hover:rotate-180"></i>
+                                <i data-lucide="chevron-down" id="categoriesChevron" class="w-4 h-4 ml-0.5 transition-transform duration-200 group-hover:rotate-180"></i>
                                 <span class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left {{ if strings.HasPrefix .RelPermalink "/categories/" }}scale-x-100{{ end }}"></span>
                             </button>
-                            <div id="categoriesDropdown" class="absolute right-0 mt-3 w-64 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl shadow-xl shadow-purple-500/10 dark:shadow-purple-400/10 border border-gray-200/50 dark:border-gray-600/50 py-3 px-2 z-50 hidden group-hover:block transition-all">
-                                <div class="flex flex-col gap-1">
-                                    <a href="{{ "categories/image-tools.html" | relURL }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors">
-                                        <div class="w-8 h-8 rounded-lg bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center">
-                                            <i data-lucide="image" class="w-4 h-4"></i>
-                                        </div>
-                                        <span>Image Tools</span>
-                                    </a>
-                                    <a href="{{ "categories/text-tools.html" | relURL }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors">
-                                        <div class="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center">
-                                            <i data-lucide="type" class="w-4 h-4"></i>
-                                        </div>
-                                        <span>Text Tools</span>
-                                    </a>
-                                    <a href="{{ "categories/developer-tools.html" | relURL }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors">
-                                        <div class="w-8 h-8 rounded-lg bg-orange-50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 flex items-center justify-center">
-                                            <i data-lucide="code" class="w-4 h-4"></i>
-                                        </div>
-                                        <span>Developer Tools</span>
-                                    </a>
-                                    <a href="{{ "categories/math-calculators.html" | relURL }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors">
-                                        <div class="w-8 h-8 rounded-lg bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center">
-                                            <i data-lucide="calculator" class="w-4 h-4"></i>
-                                        </div>
-                                        <span>Math & Calculators</span>
-                                    </a>
-                                    <a href="{{ "categories/unit-converters.html" | relURL }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors">
-                                        <div class="w-8 h-8 rounded-lg bg-yellow-50 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 flex items-center justify-center">
-                                            <i data-lucide="ruler" class="w-4 h-4"></i>
-                                        </div>
-                                        <span>Unit Converters</span>
-                                    </a>
-                                    <a href="{{ "categories/security-tools.html" | relURL }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors">
-                                        <div class="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
-                                            <i data-lucide="shield" class="w-4 h-4"></i>
-                                        </div>
-                                        <span>Security & Encryption</span>
-                                    </a>
+                            <!-- Dropdown Container positioned at top-full with pt-2 hover bridge -->
+                            <div id="categoriesDropdownWrapper" class="absolute right-0 top-full pt-2 w-64 z-50 hidden group-hover:block transition-all">
+                                <div id="categoriesDropdown" class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl shadow-xl shadow-purple-500/10 dark:shadow-purple-400/10 border border-gray-200/50 dark:border-gray-600/50 py-3 px-2">
+                                    <div class="flex flex-col gap-1">
+                                        <a href="{{ "categories/image-tools.html" | relURL }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors">
+                                            <div class="w-8 h-8 rounded-lg bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center">
+                                                <i data-lucide="image" class="w-4 h-4"></i>
+                                            </div>
+                                            <span>Image Tools</span>
+                                        </a>
+                                        <a href="{{ "categories/text-tools.html" | relURL }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors">
+                                            <div class="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+                                                <i data-lucide="type" class="w-4 h-4"></i>
+                                            </div>
+                                            <span>Text Tools</span>
+                                        </a>
+                                        <a href="{{ "categories/developer-tools.html" | relURL }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors">
+                                            <div class="w-8 h-8 rounded-lg bg-orange-50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 flex items-center justify-center">
+                                                <i data-lucide="code" class="w-4 h-4"></i>
+                                            </div>
+                                            <span>Developer Tools</span>
+                                        </a>
+                                        <a href="{{ "categories/math-calculators.html" | relURL }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors">
+                                            <div class="w-8 h-8 rounded-lg bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center">
+                                                <i data-lucide="calculator" class="w-4 h-4"></i>
+                                            </div>
+                                            <span>Math & Calculators</span>
+                                        </a>
+                                        <a href="{{ "categories/unit-converters.html" | relURL }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors">
+                                            <div class="w-8 h-8 rounded-lg bg-yellow-50 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 flex items-center justify-center">
+                                                <i data-lucide="ruler" class="w-4 h-4"></i>
+                                            </div>
+                                            <span>Unit Converters</span>
+                                        </a>
+                                        <a href="{{ "categories/security-tools.html" | relURL }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors">
+                                            <div class="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+                                                <i data-lucide="shield" class="w-4 h-4"></i>
+                                            </div>
+                                            <span>Security & Encryption</span>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -120,6 +123,13 @@
                             aria-label="Toggle theme">
                             <i id="theme-icon" data-lucide="moon" stroke-width="2" class="w-6 h-6"></i>
                         </button>
+
+                        <!-- Profile Button (Exact DSA Match) -->
+                        <a href="{{ "profile.html" | relURL }}"
+                            class="p-2 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-blue-600 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-fuchsia-400 transition-colors duration-200 {{ if or (eq .RelPermalink "/profile.html") (eq .RelPermalink "/profile/") }}text-blue-600 dark:text-fuchsia-400 font-bold{{ end }}"
+                            aria-label="User Profile">
+                            <i data-lucide="user" stroke-width="2" class="w-6 h-6"></i>
+                        </a>
 
                         <!-- Mobile Menu Button -->
                         <button onclick="toggleMobileMenu()"
@@ -179,6 +189,10 @@
                     class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ if or (eq .RelPermalink "/sitemap.html") (eq .RelPermalink "/sitemap/") }}bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 text-purple-700 dark:text-purple-300{{ else }}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50{{ end }}">
                     <span>Sitemap</span>
                 </a>
+                <a href="{{ "profile.html" | relURL }}"
+                    class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ if or (eq .RelPermalink "/profile.html") (eq .RelPermalink "/profile/") }}bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 text-purple-700 dark:text-purple-300{{ else }}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50{{ end }}">
+                    <span>Profile</span>
+                </a>
             </div>
         </div>
     </div>
@@ -187,7 +201,7 @@
 <script>
     function toggleTheme() {
         const html = document.documentElement;
-        const currentTheme = html.getAttribute('data-theme') || 'light';
+        const currentTheme = html.getAttribute('data-theme') || (html.classList.contains('dark') ? 'dark' : 'light');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
         html.setAttribute('data-theme', newTheme);
@@ -225,12 +239,33 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
+        // Theme init
         const currentTheme = localStorage.getItem('theme') || 'light';
         const themeIcon = document.getElementById('theme-icon');
         if (themeIcon) {
             themeIcon.setAttribute('data-lucide', currentTheme === 'dark' ? 'sun' : 'moon');
         }
         if (window.lucide) lucide.createIcons();
+
+        // Desktop Categories click support so it never closes unexpectedly
+        const catBtn = document.getElementById('categoriesDropdownBtn');
+        const catWrapper = document.getElementById('categoriesDropdownWrapper');
+        if (catBtn && catWrapper) {
+            catBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isOpened = !catWrapper.classList.contains('hidden') && catWrapper.classList.contains('!block');
+                if (isOpened) {
+                    catWrapper.classList.remove('!block');
+                } else {
+                    catWrapper.classList.add('!block');
+                }
+            });
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('#categoriesGroup')) {
+                    catWrapper.classList.remove('!block');
+                }
+            });
+        }
     });
 
     window.addEventListener('scroll', () => {
