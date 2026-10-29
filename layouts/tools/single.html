@@ -30,9 +30,13 @@
 
 <script>
   if (window.tools) {
+    const baseSlug = "{{ .File.BaseFileName }}";
     window.CSRGO_TOOL_INFO = window.tools.find(
-      t => t.url === "tools/{{ .File.BaseFileName }}.html"
+      t => t.id === baseSlug || t.url === `tools/${baseSlug}/` || t.url === `tools/${baseSlug}.html` || t.url.includes(baseSlug)
     );
+    if (window.CSRGO_TOOL_INFO && window.toolsDB) {
+      window.toolsDB.recordRecent(window.CSRGO_TOOL_INFO);
+    }
   }
 </script>
 <script src="{{ "components/similar-tools.js" | relURL }}"></script>

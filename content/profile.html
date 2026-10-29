@@ -1,127 +1,256 @@
 ---
 title: "Your Profile - CSRGO Tools"
-url: "/profile.html"
-description: "Your personal CSRGO Tools dashboard. Manage favourites, preferences, and quick links."
+url: "/profile/"
+description: "Your personal command center. Access favourite tools and recently used tools."
 ---
 
-<div class="min-h-screen font-sans pb-16 pt-28 md:pt-32">
+<div class="min-h-screen font-sans pb-20 pt-28 md:pt-32">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in-up">
 
     <!-- Welcome Header matching DSA -->
     <div class="mb-12 text-center md:text-left relative">
-      <div class="absolute -top-20 -left-20 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -top-20 -left-20 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-      <div class="flex items-center justify-center md:justify-start gap-4 mb-4">
-        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-purple-600 to-blue-600 flex items-center justify-center text-white shadow-xl shadow-purple-500/20">
-          <i data-lucide="user" class="w-8 h-8"></i>
+      <div class="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-5">
+        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl sm:rounded-3xl bg-gradient-to-tr from-purple-600 to-blue-600 flex items-center justify-center text-white shadow-xl shadow-purple-500/25 shrink-0">
+          <i data-lucide="user" class="w-8 h-8 sm:w-10 sm:h-10"></i>
         </div>
         <div>
-          <h1 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white tracking-tight">
-            Hello, <span id="profile-name" class="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600">User</span>! 👋
+          <h1 class="text-3xl sm:text-5xl font-black text-gray-900 dark:text-white tracking-tight">
+            Hello, <span id="profile-name" class="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600">Explorer</span>! 👋
           </h1>
-          <p class="text-base md:text-lg text-gray-600 dark:text-gray-400 font-medium">
+          <p class="text-base sm:text-lg text-gray-600 dark:text-gray-400 font-medium mt-1">
             Your personal command center for CSRGO Tools.
           </p>
         </div>
       </div>
     </div>
 
-    <!-- Dashboard Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-
-      <!-- Card 1: Favourites -->
-      <div class="group relative flex flex-col h-full">
-        <div class="relative flex-1 bg-white dark:bg-gray-800 rounded-2xl sm:rounded-3xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 flex flex-col">
-          <div class="flex items-center justify-between mb-4">
-            <div class="p-3 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl shadow-lg text-white">
-              <i data-lucide="bookmark" class="w-6 h-6"></i>
-            </div>
-            <a href="{{ "favourite-tools.html" | relURL }}" class="text-xs font-bold text-blue-600 dark:text-fuchsia-400 hover:underline flex items-center gap-1">
-              View All <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-            </a>
+    <!-- Section 1: Favourite Tools -->
+    <section class="mb-14">
+      <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 flex items-center justify-center">
+            <i data-lucide="bookmark" class="w-5 h-5"></i>
           </div>
-          <h2 class="text-xl font-black text-gray-900 dark:text-white mb-1">Favourite Tools</h2>
-          <div class="mb-4 flex items-baseline gap-2">
-            <span class="text-4xl font-black text-gray-900 dark:text-white" id="stat-fav-count">0</span>
-            <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Saved</span>
-          </div>
-          <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 flex-1">Quickly access your pinned and frequently used utility tools.</p>
-          <a href="{{ "favourite-tools.html" | relURL }}" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white font-bold text-sm text-center shadow-lg shadow-purple-500/20 hover:shadow-xl transition-all">
-            Open Favourites
-          </a>
-        </div>
-      </div>
-
-      <!-- Card 2: Appearance & Theme -->
-      <div class="group relative flex flex-col h-full">
-        <div class="relative flex-1 bg-white dark:bg-gray-800 rounded-2xl sm:rounded-3xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 flex flex-col">
-          <div class="flex items-center justify-between mb-4">
-            <div class="p-3 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-xl shadow-lg text-white">
-              <i data-lucide="palette" class="w-6 h-6"></i>
-            </div>
-            <span id="current-theme-badge" class="px-2.5 py-1 text-xs font-bold rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300">Light</span>
-          </div>
-          <h2 class="text-xl font-black text-gray-900 dark:text-white mb-1">Theme Preferences</h2>
-          <p class="text-sm text-gray-600 dark:text-gray-400 mb-6 flex-1">Toggle between sleek dark mode and radiant light mode across the platform.</p>
-          <button onclick="toggleTheme(); updateProfileThemeBadge();" class="w-full py-2.5 px-4 rounded-xl bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-bold text-sm text-center transition-all flex items-center justify-center gap-2">
-            <i data-lucide="sun-moon" class="w-4 h-4"></i> Switch Theme
-          </button>
-        </div>
-      </div>
-
-      <!-- Card 3: CSRGO Platforms -->
-      <div class="group relative flex flex-col h-full">
-        <div class="relative flex-1 bg-white dark:bg-gray-800 rounded-2xl sm:rounded-3xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 flex flex-col">
-          <div class="flex items-center justify-between mb-4">
-            <div class="p-3 bg-gradient-to-r from-orange-500 to-amber-600 rounded-xl shadow-lg text-white">
-              <i data-lucide="layers" class="w-6 h-6"></i>
-            </div>
-          </div>
-          <h2 class="text-xl font-black text-gray-900 dark:text-white mb-1">CSRGO Ecosystem</h2>
-          <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 flex-1">Explore all connected CSRGO platforms and services.</p>
-          <div class="space-y-2">
-            <a href="https://dsa.csrgo.com" target="_blank" class="flex items-center justify-between px-3 py-2 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-blue-50 dark:hover:bg-gray-700 text-sm font-medium text-gray-700 dark:text-gray-200 transition-colors">
-              <span class="flex items-center gap-2"><i data-lucide="code-2" class="w-4 h-4 text-blue-500"></i> CSRGO DSA</span>
-              <i data-lucide="external-link" class="w-3.5 h-3.5 text-gray-400"></i>
-            </a>
-            <a href="https://csrgo.com" target="_blank" class="flex items-center justify-between px-3 py-2 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-blue-50 dark:hover:bg-gray-700 text-sm font-medium text-gray-700 dark:text-gray-200 transition-colors">
-              <span class="flex items-center gap-2"><i data-lucide="globe" class="w-4 h-4 text-purple-500"></i> CSRGO.com</span>
-              <i data-lucide="external-link" class="w-3.5 h-3.5 text-gray-400"></i>
-            </a>
+          <div>
+            <h2 class="text-2xl font-black text-gray-900 dark:text-white flex items-center gap-2">
+              Favourite Tools
+              <span id="fav-badge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300">0</span>
+            </h2>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Your pinned utility tools for rapid one-click access</p>
           </div>
         </div>
       </div>
 
-    </div>
+      <!-- Favourite Tools Grid -->
+      <div id="favourites-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 hidden"></div>
+
+      <!-- Empty State for Favourites -->
+      <div id="favourites-empty" class="bg-white dark:bg-gray-800 rounded-3xl p-8 sm:p-12 border border-gray-100 dark:border-gray-700 text-center shadow-lg shadow-purple-500/5">
+        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 text-purple-600 dark:text-purple-400 flex items-center justify-center mx-auto mb-4">
+          <i data-lucide="bookmark" class="w-8 h-8"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">No Favourite Tools Yet</h3>
+        <p class="text-gray-600 dark:text-gray-400 max-w-md mx-auto mb-6 text-sm sm:text-base">
+          Add your favourite tools to have them right here on your command center for instant access anytime.
+        </p>
+        <a href="{{ "/" | relURL }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white font-bold text-sm shadow-lg shadow-purple-500/25 hover:shadow-xl transition-all">
+          <span>Explore Tools</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- Section 2: Recently Used Tools -->
+    <section>
+      <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+            <i data-lucide="history" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h2 class="text-2xl font-black text-gray-900 dark:text-white flex items-center gap-2">
+              Recently Used Tools
+              <span id="recent-badge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300">0</span>
+            </h2>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Tools you have visited and calculated with recently</p>
+          </div>
+        </div>
+        <button id="clear-recent-btn" onclick="clearAllRecent()" class="text-xs font-bold text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400 transition-colors hidden flex items-center gap-1.5 py-1.5 px-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-red-300">
+          <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Clear History
+        </button>
+      </div>
+
+      <!-- Recently Used Grid -->
+      <div id="recent-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 hidden"></div>
+
+      <!-- Empty State for Recent -->
+      <div id="recent-empty" class="bg-white dark:bg-gray-800 rounded-3xl p-8 sm:p-12 border border-gray-100 dark:border-gray-700 text-center shadow-lg shadow-blue-500/5">
+        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-100 to-cyan-100 dark:from-blue-900/30 dark:to-cyan-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center mx-auto mb-4">
+          <i data-lucide="history" class="w-8 h-8"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">No Recently Used Tools</h3>
+        <p class="text-gray-600 dark:text-gray-400 max-w-md mx-auto mb-6 text-sm sm:text-base">
+          Tools you launch will automatically be saved to your local history for convenient workflow continuity.
+        </p>
+        <a href="{{ "/" | relURL }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-sm shadow-lg shadow-blue-500/25 hover:shadow-xl transition-all">
+          <span>Start Using Tools</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </section>
 
   </div>
 </div>
 
 <script>
-  function updateProfileThemeBadge() {
-    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-    const badge = document.getElementById('current-theme-badge');
-    if (badge) {
-      badge.textContent = currentTheme.charAt(0).toUpperCase() + currentTheme.slice(1);
+  function formatTimeAgo(timestamp) {
+    if (!timestamp) return 'Recently';
+    const diff = Math.floor((Date.now() - timestamp) / 1000);
+    if (diff < 60) return 'Just now';
+    if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+    if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+    return `${Math.floor(diff / 86400)}d ago`;
+  }
+
+  async function loadFavourites() {
+    if (!window.toolsDB) return;
+    const favs = await window.toolsDB.getAllFavourites();
+    const grid = document.getElementById('favourites-grid');
+    const empty = document.getElementById('favourites-empty');
+    const badge = document.getElementById('fav-badge');
+
+    if (badge) badge.textContent = favs.length;
+
+    if (!favs || favs.length === 0) {
+      if (grid) grid.classList.add('hidden');
+      if (empty) empty.classList.remove('hidden');
+      return;
+    }
+
+    if (empty) empty.classList.add('hidden');
+    if (grid) {
+      grid.classList.remove('hidden');
+      grid.innerHTML = favs.map(tool => {
+        const cleanUrl = tool.url.startsWith('/') ? tool.url : '/' + tool.url;
+        return `
+          <div class="group bg-white dark:bg-gray-800 rounded-2xl p-5 border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div class="flex items-start justify-between gap-3 mb-3">
+                <div class="w-12 h-12 rounded-xl bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0">
+                  <i data-lucide="${tool.icon || 'tool'}" class="w-6 h-6"></i>
+                </div>
+                <button onclick="removeFav('${tool.id}')" title="Remove from favourites" class="p-2 rounded-lg text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">
+                  <i data-lucide="bookmark-minus" class="w-4 h-4"></i>
+                </button>
+              </div>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-1 group-hover:text-blue-600 dark:group-hover:text-fuchsia-400 transition-colors">
+                <a href="${cleanUrl}">${tool.name}</a>
+              </h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 line-clamp-2">${tool.description || ''}</p>
+            </div>
+            <a href="${cleanUrl}" class="w-full py-2.5 px-4 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 text-gray-700 dark:text-gray-200 hover:text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
+              <span>Open Tool</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        `;
+      }).join('');
+      if (window.lucide) lucide.createIcons();
     }
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    try {
-      const favs = JSON.parse(localStorage.getItem('csrgo_favourites') || '[]');
-      const countEl = document.getElementById('stat-fav-count');
-      if (countEl) countEl.textContent = favs.length;
-    } catch(e) {}
+  async function loadRecent() {
+    if (!window.toolsDB) return;
+    const recents = await window.toolsDB.getAllRecent(12);
+    const grid = document.getElementById('recent-grid');
+    const empty = document.getElementById('recent-empty');
+    const badge = document.getElementById('recent-badge');
+    const clearBtn = document.getElementById('clear-recent-btn');
 
-    let name = localStorage.getItem('csrgo-nickname');
-    if (!name) {
-      name = localStorage.getItem('dsa-nickname') || 'Explorer';
-      localStorage.setItem('csrgo-nickname', name);
+    if (badge) badge.textContent = recents.length;
+
+    if (!recents || recents.length === 0) {
+      if (grid) grid.classList.add('hidden');
+      if (empty) empty.classList.remove('hidden');
+      if (clearBtn) clearBtn.classList.add('hidden');
+      return;
     }
+
+    if (empty) empty.classList.add('hidden');
+    if (clearBtn) clearBtn.classList.remove('hidden');
+    if (grid) {
+      grid.classList.remove('hidden');
+      grid.innerHTML = recents.map(tool => {
+        const cleanUrl = tool.url.startsWith('/') ? tool.url : '/' + tool.url;
+        const timeAgo = formatTimeAgo(tool.lastUsed);
+        return `
+          <div class="group bg-white dark:bg-gray-800 rounded-2xl p-5 border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div class="flex items-start justify-between gap-3 mb-3">
+                <div class="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+                  <i data-lucide="${tool.icon || 'tool'}" class="w-6 h-6"></i>
+                </div>
+                <span class="text-[11px] font-bold text-gray-400 bg-gray-100 dark:bg-gray-700/60 px-2 py-0.5 rounded-full">${timeAgo}</span>
+              </div>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-1 group-hover:text-blue-600 dark:group-hover:text-fuchsia-400 transition-colors">
+                <a href="${cleanUrl}">${tool.name}</a>
+              </h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 line-clamp-2">${tool.description || ''}</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <a href="${cleanUrl}" class="flex-1 py-2.5 px-4 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 text-gray-700 dark:text-gray-200 hover:text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
+                <span>Launch</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+              <button onclick="toggleFavFromRecent('${tool.id}')" title="Pin to favourites" class="p-2.5 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-purple-50 dark:hover:bg-purple-900/30 text-gray-500 hover:text-purple-600 dark:text-gray-400 dark:hover:text-purple-400 transition-colors">
+                <i data-lucide="bookmark-plus" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+      if (window.lucide) lucide.createIcons();
+    }
+  }
+
+  async function removeFav(id) {
+    if (window.toolsDB) {
+      await window.toolsDB.removeFavourite(id);
+      await loadFavourites();
+    }
+  }
+
+  async function toggleFavFromRecent(id) {
+    if (!window.toolsDB) return;
+    const tool = (window.tools || []).find(t => t.id === id);
+    if (tool) {
+      await window.toolsDB.addFavourite(tool);
+      await loadFavourites();
+    }
+  }
+
+  async function clearAllRecent() {
+    if (confirm('Are you sure you want to clear your recently used tools history?')) {
+      if (window.toolsDB) {
+        await window.toolsDB.clearRecent();
+        await loadRecent();
+      }
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    // User nickname matching DSA
+    let name = localStorage.getItem('csrgo-nickname') || localStorage.getItem('dsa-nickname') || 'Explorer';
     const nameEl = document.getElementById('profile-name');
     if (nameEl) nameEl.textContent = name;
 
-    updateProfileThemeBadge();
+    if (window.toolsDB) {
+      await window.toolsDB.ready;
+      await loadFavourites();
+      await loadRecent();
+    }
     if (window.lucide) lucide.createIcons();
   });
 </script>

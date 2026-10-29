@@ -5,7 +5,7 @@
             <div class="flex justify-between items-center">
                 <!-- Logo and Site Title -->
                 <div class="flex items-center space-x-2 sm:space-x-3">
-                    <a href="{{ "index.html" | relURL }}" class="flex items-center">
+                    <a href="{{ "/" | relURL }}" class="flex items-center">
                         <div class="relative flex items-center justify-center p-1">
                             <img src="{{ "logo.png" | relURL }}" alt="CSRGO" class="w-6 h-6 sm:w-8 sm:h-8 relative z-10" />
                         </div>
@@ -27,18 +27,11 @@
                 <div class="flex items-center space-x-4 sm:space-x-6">
                     <!-- Desktop Navigation -->
                     <div class="hidden md:flex gap-8 text-base font-medium">
-                        <a href="{{ "index.html" | relURL }}"
-                            class="relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 {{ if or .IsHome (eq .RelPermalink "/") (eq .RelPermalink "/index.html") }}font-bold text-blue-600 dark:text-fuchsia-400{{ end }}">
+                        <a href="{{ "/" | relURL }}"
+                            class="relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 {{ if or .IsHome (eq .RelPermalink "/") }}font-bold text-blue-600 dark:text-fuchsia-400{{ end }}">
                             Home
                             <span
-                                class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left {{ if or .IsHome (eq .RelPermalink "/") (eq .RelPermalink "/index.html") }}scale-x-100{{ end }}"></span>
-                        </a>
-
-                        <a href="{{ "favourite-tools.html" | relURL }}"
-                            class="relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 {{ if or (eq .RelPermalink "/favourite-tools.html") (eq .RelPermalink "/favourite-tools/") }}font-bold text-blue-600 dark:text-fuchsia-400{{ end }}">
-                            Favourites
-                            <span
-                                class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left {{ if or (eq .RelPermalink "/favourite-tools.html") (eq .RelPermalink "/favourite-tools/") }}scale-x-100{{ end }}"></span>
+                                class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left {{ if or .IsHome (eq .RelPermalink "/") }}scale-x-100{{ end }}"></span>
                         </a>
 
                         <!-- Categories Dropdown with seamless hover bridge -->
@@ -52,37 +45,37 @@
                             <div id="categoriesDropdownWrapper" class="absolute right-0 top-full pt-2 w-64 z-50 hidden group-hover:block transition-all">
                                 <div id="categoriesDropdown" class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl shadow-xl shadow-purple-500/10 dark:shadow-purple-400/10 border border-gray-200/50 dark:border-gray-600/50 py-3 px-2">
                                     <div class="flex flex-col gap-1">
-                                        <a href="{{ "categories/image-tools.html" | relURL }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors">
+                                        <a href="{{ "categories/image-tools/" | relURL }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors">
                                             <div class="w-8 h-8 rounded-lg bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center">
                                                 <i data-lucide="image" class="w-4 h-4"></i>
                                             </div>
                                             <span>Image Tools</span>
                                         </a>
-                                        <a href="{{ "categories/text-tools.html" | relURL }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors">
+                                        <a href="{{ "categories/text-tools/" | relURL }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors">
                                             <div class="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center">
                                                 <i data-lucide="type" class="w-4 h-4"></i>
                                             </div>
                                             <span>Text Tools</span>
                                         </a>
-                                        <a href="{{ "categories/developer-tools.html" | relURL }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors">
+                                        <a href="{{ "categories/developer-tools/" | relURL }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors">
                                             <div class="w-8 h-8 rounded-lg bg-orange-50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 flex items-center justify-center">
                                                 <i data-lucide="code" class="w-4 h-4"></i>
                                             </div>
                                             <span>Developer Tools</span>
                                         </a>
-                                        <a href="{{ "categories/math-calculators.html" | relURL }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors">
+                                        <a href="{{ "categories/math-calculators/" | relURL }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors">
                                             <div class="w-8 h-8 rounded-lg bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center">
                                                 <i data-lucide="calculator" class="w-4 h-4"></i>
                                             </div>
                                             <span>Math & Calculators</span>
                                         </a>
-                                        <a href="{{ "categories/unit-converters.html" | relURL }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors">
+                                        <a href="{{ "categories/unit-converters/" | relURL }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors">
                                             <div class="w-8 h-8 rounded-lg bg-yellow-50 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 flex items-center justify-center">
                                                 <i data-lucide="ruler" class="w-4 h-4"></i>
                                             </div>
                                             <span>Unit Converters</span>
                                         </a>
-                                        <a href="{{ "categories/security-tools.html" | relURL }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors">
+                                        <a href="{{ "categories/security-tools/" | relURL }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors">
                                             <div class="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
                                                 <i data-lucide="shield" class="w-4 h-4"></i>
                                             </div>
@@ -93,25 +86,18 @@
                             </div>
                         </div>
 
-                        <a href="{{ "about.html" | relURL }}"
-                            class="relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 {{ if or (eq .RelPermalink "/about.html") (eq .RelPermalink "/about/") }}font-bold text-blue-600 dark:text-fuchsia-400{{ end }}">
+                        <a href="{{ "about/" | relURL }}"
+                            class="relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 {{ if or (eq .RelPermalink "/about/") (eq .RelPermalink "/about") }}font-bold text-blue-600 dark:text-fuchsia-400{{ end }}">
                             About
                             <span
-                                class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left {{ if or (eq .RelPermalink "/about.html") (eq .RelPermalink "/about/") }}scale-x-100{{ end }}"></span>
+                                class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left {{ if or (eq .RelPermalink "/about/") (eq .RelPermalink "/about") }}scale-x-100{{ end }}"></span>
                         </a>
 
-                        <a href="{{ "contact.html" | relURL }}"
-                            class="relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 {{ if or (eq .RelPermalink "/contact.html") (eq .RelPermalink "/contact/") }}font-bold text-blue-600 dark:text-fuchsia-400{{ end }}">
+                        <a href="{{ "contact/" | relURL }}"
+                            class="relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 {{ if or (eq .RelPermalink "/contact/") (eq .RelPermalink "/contact") }}font-bold text-blue-600 dark:text-fuchsia-400{{ end }}">
                             Contact
                             <span
-                                class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left {{ if or (eq .RelPermalink "/contact.html") (eq .RelPermalink "/contact/") }}scale-x-100{{ end }}"></span>
-                        </a>
-
-                        <a href="{{ "sitemap.html" | relURL }}"
-                            class="relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 {{ if or (eq .RelPermalink "/sitemap.html") (eq .RelPermalink "/sitemap/") }}font-bold text-blue-600 dark:text-fuchsia-400{{ end }}">
-                            Sitemap
-                            <span
-                                class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left {{ if or (eq .RelPermalink "/sitemap.html") (eq .RelPermalink "/sitemap/") }}scale-x-100{{ end }}"></span>
+                                class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left {{ if or (eq .RelPermalink "/contact/") (eq .RelPermalink "/contact") }}scale-x-100{{ end }}"></span>
                         </a>
                     </div>
 
@@ -125,8 +111,8 @@
                         </button>
 
                         <!-- Profile Button (Exact DSA Match) -->
-                        <a href="{{ "profile.html" | relURL }}"
-                            class="p-2 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-blue-600 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-fuchsia-400 transition-colors duration-200 {{ if or (eq .RelPermalink "/profile.html") (eq .RelPermalink "/profile/") }}text-blue-600 dark:text-fuchsia-400 font-bold{{ end }}"
+                        <a href="{{ "profile/" | relURL }}"
+                            class="p-2 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-blue-600 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-fuchsia-400 transition-colors duration-200 {{ if or (eq .RelPermalink "/profile/") (eq .RelPermalink "/profile") }}text-blue-600 dark:text-fuchsia-400 font-bold{{ end }}"
                             aria-label="User Profile">
                             <i data-lucide="user" stroke-width="2" class="w-6 h-6"></i>
                         </a>
@@ -144,13 +130,9 @@
             <!-- Mobile Navigation Dropdown -->
             <div id="mobile-menu"
                 class="hidden md:hidden pt-4 mt-2 border-t border-gray-200/50 dark:border-gray-700/50 space-y-2">
-                <a href="{{ "index.html" | relURL }}"
-                    class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ if or .IsHome (eq .RelPermalink "/") (eq .RelPermalink "/index.html") }}bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 text-purple-700 dark:text-purple-300{{ else }}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50{{ end }}">
+                <a href="{{ "/" | relURL }}"
+                    class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ if or .IsHome (eq .RelPermalink "/") }}bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 text-purple-700 dark:text-purple-300{{ else }}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50{{ end }}">
                     <span>Home</span>
-                </a>
-                <a href="{{ "favourite-tools.html" | relURL }}"
-                    class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ if or (eq .RelPermalink "/favourite-tools.html") (eq .RelPermalink "/favourite-tools/") }}bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 text-purple-700 dark:text-purple-300{{ else }}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50{{ end }}">
-                    <span>Favourites</span>
                 </a>
                 <button onclick="toggleMobileCategories()"
                     class="w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ if strings.HasPrefix .RelPermalink "/categories/" }}bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 text-purple-700 dark:text-purple-300{{ else }}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50{{ end }}">
@@ -158,39 +140,35 @@
                     <i data-lucide="chevron-down" id="mobile-cat-icon" class="w-4 h-4 transition-transform duration-200"></i>
                 </button>
                 <div id="mobile-categories-menu" class="hidden pl-4 space-y-1">
-                    <a href="{{ "categories/image-tools.html" | relURL }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                    <a href="{{ "categories/image-tools/" | relURL }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50">
                         <i data-lucide="image" class="w-4 h-4 text-green-500"></i> Image Tools
                     </a>
-                    <a href="{{ "categories/text-tools.html" | relURL }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                    <a href="{{ "categories/text-tools/" | relURL }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50">
                         <i data-lucide="type" class="w-4 h-4 text-blue-500"></i> Text Tools
                     </a>
-                    <a href="{{ "categories/developer-tools.html" | relURL }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                    <a href="{{ "categories/developer-tools/" | relURL }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50">
                         <i data-lucide="code" class="w-4 h-4 text-orange-500"></i> Developer Tools
                     </a>
-                    <a href="{{ "categories/math-calculators.html" | relURL }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                    <a href="{{ "categories/math-calculators/" | relURL }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50">
                         <i data-lucide="calculator" class="w-4 h-4 text-red-500"></i> Math & Calculators
                     </a>
-                    <a href="{{ "categories/unit-converters.html" | relURL }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                    <a href="{{ "categories/unit-converters/" | relURL }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50">
                         <i data-lucide="ruler" class="w-4 h-4 text-yellow-500"></i> Unit Converters
                     </a>
-                    <a href="{{ "categories/security-tools.html" | relURL }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                    <a href="{{ "categories/security-tools/" | relURL }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50">
                         <i data-lucide="shield" class="w-4 h-4 text-indigo-500"></i> Security & Encryption
                     </a>
                 </div>
-                <a href="{{ "about.html" | relURL }}"
-                    class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ if or (eq .RelPermalink "/about.html") (eq .RelPermalink "/about/") }}bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 text-purple-700 dark:text-purple-300{{ else }}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50{{ end }}">
+                <a href="{{ "about/" | relURL }}"
+                    class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ if or (eq .RelPermalink "/about/") (eq .RelPermalink "/about") }}bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 text-purple-700 dark:text-purple-300{{ else }}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50{{ end }}">
                     <span>About</span>
                 </a>
-                <a href="{{ "contact.html" | relURL }}"
-                    class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ if or (eq .RelPermalink "/contact.html") (eq .RelPermalink "/contact/") }}bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 text-purple-700 dark:text-purple-300{{ else }}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50{{ end }}">
+                <a href="{{ "contact/" | relURL }}"
+                    class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ if or (eq .RelPermalink "/contact/") (eq .RelPermalink "/contact") }}bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 text-purple-700 dark:text-purple-300{{ else }}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50{{ end }}">
                     <span>Contact</span>
                 </a>
-                <a href="{{ "sitemap.html" | relURL }}"
-                    class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ if or (eq .RelPermalink "/sitemap.html") (eq .RelPermalink "/sitemap/") }}bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 text-purple-700 dark:text-purple-300{{ else }}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50{{ end }}">
-                    <span>Sitemap</span>
-                </a>
-                <a href="{{ "profile.html" | relURL }}"
-                    class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ if or (eq .RelPermalink "/profile.html") (eq .RelPermalink "/profile/") }}bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 text-purple-700 dark:text-purple-300{{ else }}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50{{ end }}">
+                <a href="{{ "profile/" | relURL }}"
+                    class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ if or (eq .RelPermalink "/profile/") (eq .RelPermalink "/profile") }}bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 text-purple-700 dark:text-purple-300{{ else }}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50{{ end }}">
                     <span>Profile</span>
                 </a>
             </div>

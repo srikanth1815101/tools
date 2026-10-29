@@ -1,6 +1,6 @@
-﻿---
+---
 title: "Discount Calculator - Free Online Tool | CSRGO Tools"
-url: "/tools/discount-calculator.html"
+url: "/tools/discount-calculator/"
 tool_data_file: "tools/data/discount-calculator-data.js"
 tool_data_var: "DISCOUNT_CALCULATOR_DATA"
 ---
@@ -33,12 +33,12 @@ tool_data_var: "DISCOUNT_CALCULATOR_DATA"
                   <div class="flex items-center gap-2 text-blue-700">
                     <i data-lucide="tag" class="w-5 h-5"></i>
                     <span>Discount Amount:</span>
-                    <span class="font-bold text-xl">₹<span id="discountValue">0</span></span>
+                    <span class="font-bold text-xl">?<span id="discountValue">0</span></span>
                   </div>
                   <div class="flex items-center gap-2 text-green-700">
                     <i data-lucide="shopping-cart" class="w-5 h-5"></i>
                     <span>Final Price:</span>
-                    <span class="font-bold">₹<span id="finalPriceValue">0</span></span>
+                    <span class="font-bold">?<span id="finalPriceValue">0</span></span>
                   </div>
                 </div>
               </div>
@@ -92,7 +92,7 @@ tool_data_var: "DISCOUNT_CALCULATOR_DATA"
     });
 
     copyBtn.addEventListener('click', () => {
-      const resultString = `Discount Amount: ₹${discountValue.textContent} | Final Price: ₹${finalPriceValue.textContent}`;
+      const resultString = `Discount Amount: ?${discountValue.textContent} | Final Price: ?${finalPriceValue.textContent}`;
       if (!discountValue.textContent) return;
       navigator.clipboard.writeText(resultString).then(() => {
         const originalIcon = copyBtn.innerHTML;

@@ -135,7 +135,7 @@ function renderOtherCategories(currentCategoryId) {
               </div>
               <h3 class="text-xl font-bold mb-2">${cat.name}</h3>
               <p class="text-gray-600 text-sm mb-4">${cat.description}</p>
-              <a href="../categories/${cat.id}.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-50 text-blue-700 font-medium text-sm hover:bg-blue-100 transition-colors">
+              <a href="/categories/${cat.id}/" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-50 text-blue-700 font-medium text-sm hover:bg-blue-100 transition-colors">
                 View all tools
                 <i data-lucide="arrow-right" class="w-4 h-4"></i>
               </a>

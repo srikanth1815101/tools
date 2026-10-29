@@ -1,6 +1,5 @@
 baseURL = 'https://tools.csrgo.com/'
 title = 'CSRGO Tools - Your All-in-One Tool Collection'
-uglyURLs = true
 
 [security]
   allowContent = ['^text/html$', '^text/markdown$']

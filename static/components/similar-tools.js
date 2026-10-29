@@ -33,18 +33,15 @@
 
     function renderSimilarCard(tool, idx) {
       const color = colorPalette[idx % colorPalette.length];
-      let href = "/" + tool.url;
-      if (location.protocol === "file:") {
-        href = location.pathname.includes("/tools/") ? tool.url.replace(/^tools\//, "") : tool.url;
-      }
+      let href = tool.url.startsWith('/') ? tool.url : '/' + tool.url;
       return `
-        <a href="${href}" class="flex items-center gap-3 p-3 rounded-xl bg-white shadow-sm border border-gray-100 hover:shadow-md hover:border-blue-100 transition-all">
+        <a href="${href}" class="flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md hover:border-blue-100 transition-all">
           <div class="w-10 h-10 rounded-lg flex items-center justify-center ${color}">
             <i data-lucide="${tool.icon}" class="w-5 h-5"></i>
           </div>
           <div class="flex-1 min-w-0">
-            <div class="font-semibold text-base text-gray-900">${tool.name}</div>
-            <div class="text-gray-500 text-sm mt-0.5">${tool.description}</div>
+            <div class="font-semibold text-base text-gray-900 dark:text-white">${tool.name}</div>
+            <div class="text-gray-500 dark:text-gray-400 text-sm mt-0.5">${tool.description}</div>
           </div>
         </a>
       `;
@@ -55,13 +52,13 @@
     section.className = "mt-12 mb-24";
     section.innerHTML = `
       <div class="container mx-auto max-w-4xl px-4 pb-12">
-        <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+        <h2 class="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-900 dark:text-white">
           <i data-lucide="sparkles" class="w-6 h-6 text-yellow-400"></i>
           Similar Tools
         </h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
           ${similar.map((t, idx) => renderSimilarCard(t, idx)).join("")}
-          <a href="../categories/${categoryObj ? categoryObj.id : ""}.html" class="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-[#7c3aed] to-[#2563eb] shadow-sm hover:shadow-md transition-all">
+          <a href="/categories/${categoryObj ? categoryObj.id : ""}/" class="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-[#7c3aed] to-[#2563eb] shadow-sm hover:shadow-md transition-all">
             <div class="w-10 h-10 rounded-lg flex items-center justify-center bg-white/10">
               <i data-lucide="arrow-right" class="w-5 h-5 text-white"></i>
             </div>

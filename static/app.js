@@ -49,7 +49,7 @@ function renderCategoryCard(category) {
         <div class="w-12 h-12 rounded-xl flex items-center justify-center ${category.color}">
           <i data-lucide="${category.icon}" class="w-6 h-6"></i>
         </div>
-        <a href="categories/${category.id}.html" class="flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+        <a href="categories/${category.id}/" class="flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
           <span>View all</span>
           <span class="transform transition-transform group-hover:translate-x-0.5">→</span>
         </a>
@@ -75,9 +75,9 @@ function renderToolItem(tool, index = 0) {
     "bg-indigo-50 text-indigo-600",
     "bg-gray-50 text-gray-600"
   ];
-  const prefix = window.location.pathname.includes("/categories/") ? "../" : "";
+  const href = tool.url.startsWith('/') ? tool.url : '/' + tool.url;
   return `
-    <a href="${prefix + tool.url}" class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors group">
+    <a href="${href}" class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors group">
       <div class="w-8 h-8 rounded-lg flex items-center justify-center ${colors[index % colors.length]}">
         <i data-lucide="${tool.icon}" class="w-4 h-4"></i>
       </div>
@@ -101,54 +101,54 @@ window.categories = [
 
 // Global Tools Definition
 window.tools = [
-  {id:"image-to-png",name:"Image to PNG Converter",description:"Convert images to PNG format",icon:"image",url:"tools/image-to-png-converter.html",category:"image-tools"},
-  {id:"image-to-jpg",name:"Image to JPG Converter",description:"Convert images to JPG format",icon:"image",url:"tools/image-to-jpg-converter.html",category:"image-tools"},
-  {id:"image-resizer",name:"Image Resizer",description:"Resize images to desired dimensions",icon:"scaling",url:"tools/image-resizer.html",category:"image-tools"},
-  {id:"image-compressor",name:"Image Compressor",description:"Compress images without losing quality",icon:"image-upscale",url:"tools/image-compressor.html",category:"image-tools"},
-  {id:"image-cropper",name:"Image Cropper",description:"Crop images to desired size",icon:"crop",url:"tools/image-cropper.html",category:"image-tools"},
-  {id:"image-to-base64",name:"Convert Image to Base64",description:"Convert images to Base64 string",icon:"file-code",url:"tools/convert-image-to-base64.html",category:"image-tools"},
-  {id:"webp-to-png",name:"Convert WebP to PNG",description:"Convert WebP images to PNG format",icon:"image",url:"tools/convert-webp-to-png.html",category:"image-tools"},
-  {id:"gif-maker",name:"GIF Maker",description:"Create animated GIFs from images",icon:"image-play",url:"tools/gif-maker.html",category:"image-tools"},
-  {id:"qr-generator",name:"QR Code Generator",description:"Generate QR codes for any content",icon:"qr-code",url:"tools/qr-code-generator.html",category:"image-tools"},
-  {id:"screenshot-to-pdf",name:"Image to PDF Converter",description:"Convert images to PDF format",icon:"file",url:"tools/image-to-pdf-converter.html",category:"image-tools"},
-  {id:"word-counter",name:"Word Counter",description:"Count words in your text",icon:"whole-word",url:"tools/word-counter.html",category:"text-tools"},
-  {id:"white-space-removal",name:"White Space Removal",description:"Remove extra spaces, tabs, and line breaks",icon:"letter-text",url:"tools/white-space-removal.html",category:"text-tools",keywords:["white space","text cleaning","format text","remove spaces","remove tabs","remove line breaks","text formatting","clean text"]},
-  {id:"case-converter",name:"Case Converter",description:"Convert text between different cases",icon:"type",url:"tools/case-converter.html",category:"text-tools"},
-  {id:"text-to-handwriting",name:"Text to Handwriting Converter",description:"Convert your text into realistic handwriting",icon:"pen-tool",url:"tools/text-to-handwriting.html",category:"text-tools"},
-  {id:"speech-to-text",name:"Speech-to-Text",description:"Convert speech to text",icon:"mic",url:"tools/speech-to-text.html",category:"text-tools"},
-  {id:"url-encoder",name:"URL Encoder & Decoder",description:"Encode or decode URLs",icon:"link",url:"tools/url-encoder-decoder.html",category:"text-tools"},
-  {id:"random-text",name:"Random Text Generator",description:"Generate random text",icon:"shuffle",url:"tools/random-text-generator.html",category:"text-tools"},
-  {id:"json-formatter",name:"JSON Formatter",description:"Format and validate JSON",icon:"braces",url:"tools/json-formatter.html",category:"developer-tools"},
-  {id:"html-to-markdown",name:"HTML to Markdown Converter",description:"Convert HTML to Markdown",icon:"code",url:"tools/html-to-markdown-converter.html",category:"developer-tools"},
-  {id:"css-minifier",name:"CSS Minifier",description:"Minify CSS code",icon:"file-code",url:"tools/css-minifier.html",category:"developer-tools"},
-  {id:"js-minifier",name:"JavaScript Minifier",description:"Minify JavaScript code",icon:"file-code-2",url:"tools/javascript-minifier.html",category:"developer-tools"},
-  {id:"sql-formatter",name:"SQL Formatter",description:"Format SQL queries",icon:"database",url:"tools/sql-formatter.html",category:"developer-tools"},
-  {id:"htaccess-generator",name:"HTACCESS Redirect Generator",description:"Generate HTACCESS redirect rules",icon:"circle-arrow-out-up-right",url:"tools/htaccess-redirect-generator.html",category:"developer-tools"},
-  {id:"markdown-to-html",name:"Markdown to HTML Converter",description:"Convert Markdown to HTML",icon:"code-xml",url:"tools/markdown-to-html-converter.html",category:"developer-tools"},
-  {id:"color-picker",name:"Color Code Picker",description:"Pick and convert color codes",icon:"palette",url:"tools/color-code-picker.html",category:"developer-tools"},
-  {id:"base64-encoder",name:"Base64 Encoder & Decoder",description:"Encode or decode Base64",icon:"file-code",url:"tools/base64-encoder-decoder.html",category:"developer-tools"},
-  {id:"percentage-calculator",name:"Percentage Calculator",description:"Calculate percentages",icon:"percent",url:"tools/percentage-calculator.html",category:"math-calculators"},
-  {id:"age-calculator",name:"Age Calculator",description:"Calculate age from birth date",icon:"calendar",url:"tools/age-calculator.html",category:"math-calculators"},
-  {id:"bmi-calculator",name:"BMI Calculator",description:"Calculate Body Mass Index",icon:"activity",url:"tools/bmi-calculator.html",category:"math-calculators"},
-  {id:"loan-calculator",name:"Loan EMI Calculator",description:"Calculate loan EMI",icon:"credit-card",url:"tools/loan-emi-calculator.html",category:"math-calculators"},
-  {id:"scientific-calculator",name:"Scientific Calculator",description:"Advanced mathematical calculations",icon:"calculator",url:"tools/scientific-calculator.html",category:"math-calculators"},
-  {id:"discount-calculator",name:"Discount Calculator",description:"Calculate discounts",icon:"tag",url:"tools/discount-calculator.html",category:"math-calculators"},
-  {id:"binary-converter",name:"Binary to Decimal Converter",description:"Convert between binary and decimal",icon:"binary",url:"tools/binary-to-decimal-converter.html",category:"math-calculators"},
-  {id:"tip-calculator",name:"Tip Calculator",description:"Calculate tips and splits",icon:"hand-platter",url:"tools/tip-calculator.html",category:"math-calculators"},
-  {id:"length-converter",name:"Length Converter",description:"Convert between length units",icon:"ruler",url:"tools/length-converter.html",category:"unit-converters"},
-  {id:"weight-converter",name:"Weight Converter",description:"Convert between weight units",icon:"scale",url:"tools/weight-converter.html",category:"unit-converters"},
-  {id:"speed-converter",name:"Speed Converter",description:"Convert between speed units",icon:"gauge",url:"tools/speed-converter.html",category:"unit-converters"},
-  {id:"temperature-converter",name:"Temperature Converter",description:"Convert between temperature units",icon:"thermometer",url:"tools/temperature-converter.html",category:"unit-converters"},
-  {id:"volume-converter",name:"Volume Converter",description:"Convert between volume units",icon:"box",url:"tools/volume-converter.html",category:"unit-converters"},
-  {id:"data-converter",name:"Data Storage Converter",description:"Convert between data storage units",icon:"hard-drive",url:"tools/data-storage-converter.html",category:"unit-converters"},
-  {id:"energy-converter",name:"Energy Converter",description:"Convert between energy units",icon:"zap",url:"tools/energy-converter.html",category:"unit-converters"},
-  {id:"pressure-converter",name:"Pressure Converter",description:"Convert between pressure units",icon:"wind-arrow-down",url:"tools/pressure-converter.html",category:"unit-converters"},
-  {id:"fuel-converter",name:"Fuel Efficiency Converter",description:"Convert between fuel efficiency units",icon:"fuel",url:"tools/fuel-efficiency-converter.html",category:"unit-converters"},
-  {id:"angle-converter",name:"Angle Converter",description:"Convert between angle units",icon:"compass",url:"tools/angle-converter.html",category:"unit-converters"},
-  {id:"md5-generator",name:"MD5 Hash Generator",description:"Generate MD5 hashes",icon:"key",url:"tools/md5-hash-generator.html",category:"security-tools"},
-  {id:"sha256-generator",name:"SHA256 Hash Generator",description:"Generate SHA256 hashes",icon:"key-round",url:"tools/sha256-hash-generator.html",category:"security-tools"},
-  {id:"password-generator",name:"Password Generator",description:"Generate secure passwords",icon:"lock",url:"tools/password-generator.html",category:"security-tools"},
-  {id:"random-string",name:"Random String Generator",description:"Generate random strings",icon:"hash",url:"tools/random-string-generator.html",category:"security-tools"}
+  {id:"image-to-png",name:"Image to PNG Converter",description:"Convert images to PNG format",icon:"image",url:"/tools/image-to-png-converter/",category:"image-tools"},
+  {id:"image-to-jpg",name:"Image to JPG Converter",description:"Convert images to JPG format",icon:"image",url:"/tools/image-to-jpg-converter/",category:"image-tools"},
+  {id:"image-resizer",name:"Image Resizer",description:"Resize images to desired dimensions",icon:"scaling",url:"/tools/image-resizer/",category:"image-tools"},
+  {id:"image-compressor",name:"Image Compressor",description:"Compress images without losing quality",icon:"image-upscale",url:"/tools/image-compressor/",category:"image-tools"},
+  {id:"image-cropper",name:"Image Cropper",description:"Crop images to desired size",icon:"crop",url:"/tools/image-cropper/",category:"image-tools"},
+  {id:"image-to-base64",name:"Convert Image to Base64",description:"Convert images to Base64 string",icon:"file-code",url:"/tools/convert-image-to-base64/",category:"image-tools"},
+  {id:"webp-to-png",name:"Convert WebP to PNG",description:"Convert WebP images to PNG format",icon:"image",url:"/tools/convert-webp-to-png/",category:"image-tools"},
+  {id:"gif-maker",name:"GIF Maker",description:"Create animated GIFs from images",icon:"image-play",url:"/tools/gif-maker/",category:"image-tools"},
+  {id:"qr-generator",name:"QR Code Generator",description:"Generate QR codes for any content",icon:"qr-code",url:"/tools/qr-code-generator/",category:"image-tools"},
+  {id:"screenshot-to-pdf",name:"Image to PDF Converter",description:"Convert images to PDF format",icon:"file",url:"/tools/image-to-pdf-converter/",category:"image-tools"},
+  {id:"word-counter",name:"Word Counter",description:"Count words in your text",icon:"whole-word",url:"/tools/word-counter/",category:"text-tools"},
+  {id:"white-space-removal",name:"White Space Removal",description:"Remove extra spaces, tabs, and line breaks",icon:"letter-text",url:"/tools/white-space-removal/",category:"text-tools",keywords:["white space","text cleaning","format text","remove spaces","remove tabs","remove line breaks","text formatting","clean text"]},
+  {id:"case-converter",name:"Case Converter",description:"Convert text between different cases",icon:"type",url:"/tools/case-converter/",category:"text-tools"},
+  {id:"text-to-handwriting",name:"Text to Handwriting Converter",description:"Convert your text into realistic handwriting",icon:"pen-tool",url:"/tools/text-to-handwriting/",category:"text-tools"},
+  {id:"speech-to-text",name:"Speech-to-Text",description:"Convert speech to text",icon:"mic",url:"/tools/speech-to-text/",category:"text-tools"},
+  {id:"url-encoder",name:"URL Encoder & Decoder",description:"Encode or decode URLs",icon:"link",url:"/tools/url-encoder-decoder/",category:"text-tools"},
+  {id:"random-text",name:"Random Text Generator",description:"Generate random text",icon:"shuffle",url:"/tools/random-text-generator/",category:"text-tools"},
+  {id:"json-formatter",name:"JSON Formatter",description:"Format and validate JSON",icon:"braces",url:"/tools/json-formatter/",category:"developer-tools"},
+  {id:"html-to-markdown",name:"HTML to Markdown Converter",description:"Convert HTML to Markdown",icon:"code",url:"/tools/html-to-markdown-converter/",category:"developer-tools"},
+  {id:"css-minifier",name:"CSS Minifier",description:"Minify CSS code",icon:"file-code",url:"/tools/css-minifier/",category:"developer-tools"},
+  {id:"js-minifier",name:"JavaScript Minifier",description:"Minify JavaScript code",icon:"file-code-2",url:"/tools/javascript-minifier/",category:"developer-tools"},
+  {id:"sql-formatter",name:"SQL Formatter",description:"Format SQL queries",icon:"database",url:"/tools/sql-formatter/",category:"developer-tools"},
+  {id:"htaccess-generator",name:"HTACCESS Redirect Generator",description:"Generate HTACCESS redirect rules",icon:"circle-arrow-out-up-right",url:"/tools/htaccess-redirect-generator/",category:"developer-tools"},
+  {id:"markdown-to-html",name:"Markdown to HTML Converter",description:"Convert Markdown to HTML",icon:"code-xml",url:"/tools/markdown-to-html-converter/",category:"developer-tools"},
+  {id:"color-picker",name:"Color Code Picker",description:"Pick and convert color codes",icon:"palette",url:"/tools/color-code-picker/",category:"developer-tools"},
+  {id:"base64-encoder",name:"Base64 Encoder & Decoder",description:"Encode or decode Base64",icon:"file-code",url:"/tools/base64-encoder-decoder/",category:"developer-tools"},
+  {id:"percentage-calculator",name:"Percentage Calculator",description:"Calculate percentages",icon:"percent",url:"/tools/percentage-calculator/",category:"math-calculators"},
+  {id:"age-calculator",name:"Age Calculator",description:"Calculate age from birth date",icon:"calendar",url:"/tools/age-calculator/",category:"math-calculators"},
+  {id:"bmi-calculator",name:"BMI Calculator",description:"Calculate Body Mass Index",icon:"activity",url:"/tools/bmi-calculator/",category:"math-calculators"},
+  {id:"loan-calculator",name:"Loan EMI Calculator",description:"Calculate loan EMI",icon:"credit-card",url:"/tools/loan-emi-calculator/",category:"math-calculators"},
+  {id:"scientific-calculator",name:"Scientific Calculator",description:"Advanced mathematical calculations",icon:"calculator",url:"/tools/scientific-calculator/",category:"math-calculators"},
+  {id:"discount-calculator",name:"Discount Calculator",description:"Calculate discounts",icon:"tag",url:"/tools/discount-calculator/",category:"math-calculators"},
+  {id:"binary-converter",name:"Binary to Decimal Converter",description:"Convert between binary and decimal",icon:"binary",url:"/tools/binary-to-decimal-converter/",category:"math-calculators"},
+  {id:"tip-calculator",name:"Tip Calculator",description:"Calculate tips and splits",icon:"hand-platter",url:"/tools/tip-calculator/",category:"math-calculators"},
+  {id:"length-converter",name:"Length Converter",description:"Convert between length units",icon:"ruler",url:"/tools/length-converter/",category:"unit-converters"},
+  {id:"weight-converter",name:"Weight Converter",description:"Convert between weight units",icon:"scale",url:"/tools/weight-converter/",category:"unit-converters"},
+  {id:"speed-converter",name:"Speed Converter",description:"Convert between speed units",icon:"gauge",url:"/tools/speed-converter/",category:"unit-converters"},
+  {id:"temperature-converter",name:"Temperature Converter",description:"Convert between temperature units",icon:"thermometer",url:"/tools/temperature-converter/",category:"unit-converters"},
+  {id:"volume-converter",name:"Volume Converter",description:"Convert between volume units",icon:"box",url:"/tools/volume-converter/",category:"unit-converters"},
+  {id:"data-converter",name:"Data Storage Converter",description:"Convert between data storage units",icon:"hard-drive",url:"/tools/data-storage-converter/",category:"unit-converters"},
+  {id:"energy-converter",name:"Energy Converter",description:"Convert between energy units",icon:"zap",url:"/tools/energy-converter/",category:"unit-converters"},
+  {id:"pressure-converter",name:"Pressure Converter",description:"Convert between pressure units",icon:"wind-arrow-down",url:"/tools/pressure-converter/",category:"unit-converters"},
+  {id:"fuel-converter",name:"Fuel Efficiency Converter",description:"Convert between fuel efficiency units",icon:"fuel",url:"/tools/fuel-efficiency-converter/",category:"unit-converters"},
+  {id:"angle-converter",name:"Angle Converter",description:"Convert between angle units",icon:"compass",url:"/tools/angle-converter/",category:"unit-converters"},
+  {id:"md5-generator",name:"MD5 Hash Generator",description:"Generate MD5 hashes",icon:"key",url:"/tools/md5-hash-generator/",category:"security-tools"},
+  {id:"sha256-generator",name:"SHA256 Hash Generator",description:"Generate SHA256 hashes",icon:"key-round",url:"/tools/sha256-hash-generator/",category:"security-tools"},
+  {id:"password-generator",name:"Password Generator",description:"Generate secure passwords",icon:"lock",url:"/tools/password-generator/",category:"security-tools"},
+  {id:"random-string",name:"Random String Generator",description:"Generate random strings",icon:"hash",url:"/tools/random-string-generator/",category:"security-tools"}
 ];
 
 // Popular Tool Identifiers
