@@ -88,7 +88,7 @@ to {
   animation:heroSearch .9s .6s cubic-bezier(.4,0,.2,1) forwards}
 
 .font-inter {
-  font-family:Inter,Arial,Helvetica,sans-serif}
+  font-family:'Inter',system-ui,-apple-system,sans-serif}
 
 .logo-csrgo {
   text-shadow:0 2px 8px rgba(30,64,175,.08),0 1px 1px rgba(0,0,0,.04)}

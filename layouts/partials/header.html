@@ -28,24 +28,25 @@
                     <!-- Desktop Navigation -->
                     <div class="hidden md:flex gap-8 text-base font-medium">
                         <a href="{{ "index.html" | relURL }}"
-                            class="group relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 {{ if .IsHome }}font-bold text-blue-600 dark:text-fuchsia-400{{ end }}">
+                            class="relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 {{ if or .IsHome (eq .RelPermalink "/") (eq .RelPermalink "/index.html") }}font-bold text-blue-600 dark:text-fuchsia-400{{ end }}">
                             Home
                             <span
-                                class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left group-hover:scale-x-100 {{ if .IsHome }}scale-x-100{{ end }}"></span>
+                                class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left {{ if or .IsHome (eq .RelPermalink "/") (eq .RelPermalink "/index.html") }}scale-x-100{{ end }}"></span>
                         </a>
+
                         <a href="{{ "favourite-tools.html" | relURL }}"
-                            class="group relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 {{ if eq .RelPermalink "/favourite-tools.html" }}font-bold text-blue-600 dark:text-fuchsia-400{{ end }}">
+                            class="relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 {{ if or (eq .RelPermalink "/favourite-tools.html") (eq .RelPermalink "/favourite-tools/") }}font-bold text-blue-600 dark:text-fuchsia-400{{ end }}">
                             Favourites
                             <span
-                                class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left group-hover:scale-x-100 {{ if eq .RelPermalink "/favourite-tools.html" }}scale-x-100{{ end }}"></span>
+                                class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left {{ if or (eq .RelPermalink "/favourite-tools.html") (eq .RelPermalink "/favourite-tools/") }}scale-x-100{{ end }}"></span>
                         </a>
 
                         <!-- Categories Dropdown -->
                         <div class="relative group">
-                            <button class="relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 flex items-center gap-1 font-medium" id="categoriesDropdownBtn">
-                                Categories
-                                <svg class="w-4 h-4 ml-0.5 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-                                <span class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left group-hover:scale-x-100"></span>
+                            <button type="button" class="relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 flex items-center gap-1 font-medium {{ if strings.HasPrefix .RelPermalink "/categories/" }}font-bold text-blue-600 dark:text-fuchsia-400{{ end }}" id="categoriesDropdownBtn">
+                                <span>Categories</span>
+                                <i data-lucide="chevron-down" class="w-4 h-4 ml-0.5 transition-transform duration-200 group-hover:rotate-180"></i>
+                                <span class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left {{ if strings.HasPrefix .RelPermalink "/categories/" }}scale-x-100{{ end }}"></span>
                             </button>
                             <div id="categoriesDropdown" class="absolute right-0 mt-3 w-64 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl shadow-xl shadow-purple-500/10 dark:shadow-purple-400/10 border border-gray-200/50 dark:border-gray-600/50 py-3 px-2 z-50 hidden group-hover:block transition-all">
                                 <div class="flex flex-col gap-1">
@@ -90,22 +91,24 @@
                         </div>
 
                         <a href="{{ "about.html" | relURL }}"
-                            class="group relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 {{ if eq .RelPermalink "/about.html" }}font-bold text-blue-600 dark:text-fuchsia-400{{ end }}">
+                            class="relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 {{ if or (eq .RelPermalink "/about.html") (eq .RelPermalink "/about/") }}font-bold text-blue-600 dark:text-fuchsia-400{{ end }}">
                             About
                             <span
-                                class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left group-hover:scale-x-100 {{ if eq .RelPermalink "/about.html" }}scale-x-100{{ end }}"></span>
+                                class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left {{ if or (eq .RelPermalink "/about.html") (eq .RelPermalink "/about/") }}scale-x-100{{ end }}"></span>
                         </a>
+
                         <a href="{{ "contact.html" | relURL }}"
-                            class="group relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 {{ if eq .RelPermalink "/contact.html" }}font-bold text-blue-600 dark:text-fuchsia-400{{ end }}">
+                            class="relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 {{ if or (eq .RelPermalink "/contact.html") (eq .RelPermalink "/contact/") }}font-bold text-blue-600 dark:text-fuchsia-400{{ end }}">
                             Contact
                             <span
-                                class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left group-hover:scale-x-100 {{ if eq .RelPermalink "/contact.html" }}scale-x-100{{ end }}"></span>
+                                class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left {{ if or (eq .RelPermalink "/contact.html") (eq .RelPermalink "/contact/") }}scale-x-100{{ end }}"></span>
                         </a>
+
                         <a href="{{ "sitemap.html" | relURL }}"
-                            class="group relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 {{ if eq .RelPermalink "/sitemap.html" }}font-bold text-blue-600 dark:text-fuchsia-400{{ end }}">
+                            class="relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 {{ if or (eq .RelPermalink "/sitemap.html") (eq .RelPermalink "/sitemap/") }}font-bold text-blue-600 dark:text-fuchsia-400{{ end }}">
                             Sitemap
                             <span
-                                class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left group-hover:scale-x-100 {{ if eq .RelPermalink "/sitemap.html" }}scale-x-100{{ end }}"></span>
+                                class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left {{ if or (eq .RelPermalink "/sitemap.html") (eq .RelPermalink "/sitemap/") }}scale-x-100{{ end }}"></span>
                         </a>
                     </div>
 
@@ -115,7 +118,7 @@
                         <button onclick="toggleTheme()"
                             class="p-2 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-blue-600 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-fuchsia-400 transition-colors duration-200"
                             aria-label="Toggle theme">
-                            <i id="theme-icon" data-lucide="sun" stroke-width="2" class="w-6 h-6"></i>
+                            <i id="theme-icon" data-lucide="moon" stroke-width="2" class="w-6 h-6"></i>
                         </button>
 
                         <!-- Mobile Menu Button -->
@@ -130,17 +133,17 @@
 
             <!-- Mobile Navigation Dropdown -->
             <div id="mobile-menu"
-                class="hidden md:hidden pt-4 mt-2 border-t border-gray-200/50 dark:border-gray-700/50 space-y-1">
+                class="hidden md:hidden pt-4 mt-2 border-t border-gray-200/50 dark:border-gray-700/50 space-y-2">
                 <a href="{{ "index.html" | relURL }}"
-                    class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                    class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ if or .IsHome (eq .RelPermalink "/") (eq .RelPermalink "/index.html") }}bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 text-purple-700 dark:text-purple-300{{ else }}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50{{ end }}">
                     <span>Home</span>
                 </a>
                 <a href="{{ "favourite-tools.html" | relURL }}"
-                    class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                    class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ if or (eq .RelPermalink "/favourite-tools.html") (eq .RelPermalink "/favourite-tools/") }}bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 text-purple-700 dark:text-purple-300{{ else }}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50{{ end }}">
                     <span>Favourites</span>
                 </a>
                 <button onclick="toggleMobileCategories()"
-                    class="w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                    class="w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ if strings.HasPrefix .RelPermalink "/categories/" }}bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 text-purple-700 dark:text-purple-300{{ else }}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50{{ end }}">
                     <span>Categories</span>
                     <i data-lucide="chevron-down" id="mobile-cat-icon" class="w-4 h-4 transition-transform duration-200"></i>
                 </button>
@@ -165,15 +168,15 @@
                     </a>
                 </div>
                 <a href="{{ "about.html" | relURL }}"
-                    class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                    class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ if or (eq .RelPermalink "/about.html") (eq .RelPermalink "/about/") }}bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 text-purple-700 dark:text-purple-300{{ else }}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50{{ end }}">
                     <span>About</span>
                 </a>
                 <a href="{{ "contact.html" | relURL }}"
-                    class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                    class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ if or (eq .RelPermalink "/contact.html") (eq .RelPermalink "/contact/") }}bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 text-purple-700 dark:text-purple-300{{ else }}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50{{ end }}">
                     <span>Contact</span>
                 </a>
                 <a href="{{ "sitemap.html" | relURL }}"
-                    class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                    class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ if or (eq .RelPermalink "/sitemap.html") (eq .RelPermalink "/sitemap/") }}bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 text-purple-700 dark:text-purple-300{{ else }}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50{{ end }}">
                     <span>Sitemap</span>
                 </a>
             </div>
@@ -227,7 +230,7 @@
         if (themeIcon) {
             themeIcon.setAttribute('data-lucide', currentTheme === 'dark' ? 'sun' : 'moon');
         }
-        if (window.lucide) window.lucide.createIcons();
+        if (window.lucide) lucide.createIcons();
     });
 
     window.addEventListener('scroll', () => {
