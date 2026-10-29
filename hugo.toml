@@ -1,0 +1,13 @@
+baseURL = 'https://tools.csrgo.com/'
+title = 'CSRGO Tools - Your All-in-One Tool Collection'
+uglyURLs = true
+
+[security]
+  allowContent = ['^text/html$', '^text/markdown$']
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[params]
+  description = 'Your one-stop destination for free online tools'
+  logo = 'https://tools.csrgo.com/logo.png'

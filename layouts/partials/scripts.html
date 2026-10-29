@@ -1,0 +1,8 @@
+{{ range .Params.custom_scripts }}
+<script src="{{ . | relURL }}"></script>
+{{ end }}
+<script>
+  if (window.lucide) {
+    lucide.createIcons();
+  }
+</script>

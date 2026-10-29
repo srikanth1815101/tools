@@ -1,0 +1,119 @@
+{{ define "main" }}
+<!-- Main Content -->
+<main class="flex-grow">
+  <!-- Hero Section -->
+  <section class="pt-28 pb-16 px-4">
+    <div class="container mx-auto text-center">
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 animate-fade-in animate-hero-heading" style="animation-delay:0.2s;">
+        <span class="gradient-logo-text">CSRGO Tools</span>
+      </h1>
+      <h2 class="text-xl md:text-2xl font-semibold text-blue-600 mb-2 animate-fade-in animate-hero-subheading" style="animation-delay:0.5s;">Find. Use. Simplify.</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto mb-8 animate-fade-in animate-hero-desc" style="animation-delay:0.7s;">Your one-stop destination for free online tools</p>
+      <div class="animate-fade-in-up animate-hero-search" style="animation-delay:0.9s;">
+        <form id="searchForm" class="w-full max-w-2xl mx-auto relative transition-all duration-300 transform">
+          <div class="absolute left-4 top-4 h-5 w-5 flex items-center justify-center" id="searchIcon">
+            <i data-lucide="search" class="w-5 h-5"></i>
+          </div>
+          <div id="searchTypewriterOverlay" class="absolute left-12 top-1/2 -translate-y-1/2 flex items-center pointer-events-none select-none text-lg w-[calc(100%-3rem)]">
+            <span id="searchTypewriterText" class="font-semibold"></span>
+          </div>
+          <input id="searchInput" type="text" autocomplete="off" class="w-full pl-12 pr-24 py-3 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm transition-all text-lg bg-transparent text-gray-900 relative z-10" />
+          <button type="button" id="micButton" class="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-white rounded-full bg-blue-600 hover:bg-blue-700 transition-colors duration-300 transform-none z-50 cursor-pointer">
+            <i data-lucide="mic" class="w-5 h-5"></i>
+          </button>
+        </form>
+      </div>
+      <!-- Popular Tools Section -->
+      <section id="popularToolsSection" class="mt-10 pb-8 pt-4 rounded-xl">
+        <div class="space-y-6">
+          <div class="flex overflow-x-auto no-scrollbar gap-4" id="popularToolsRow1"></div>
+          <div class="flex overflow-x-auto no-scrollbar gap-4" id="popularToolsRow2"></div>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <!-- Search Results -->
+  <section id="searchResults"></section>
+
+  <!-- Categories Section (revealed on scroll) -->
+  <section class="py-16 px-4 transition-opacity duration-700" id="categoriesSection"></section>
+</main>
+
+<script>
+  // Render Lucide icons
+  document.getElementById('searchIcon').innerHTML = '<i data-lucide="search" class="w-5 h-5"></i>';
+  document.getElementById('micButton').innerHTML = '<i data-lucide="mic" class="w-5 h-5"></i>';
+  if (window.lucide) {
+    lucide.createIcons();
+  }
+
+  // Speech Recognition Setup
+  const micButton = document.getElementById('micButton');
+  const searchInput = document.getElementById('searchInput');
+  let isListening = false;
+  let recognition = null;
+
+  function initSpeechRecognition() {
+    if ('webkitSpeechRecognition' in window) {
+      recognition = new webkitSpeechRecognition();
+    } else if ('SpeechRecognition' in window) {
+      recognition = new SpeechRecognition();
+    } else {
+      if (micButton) micButton.style.display = 'none';
+      return;
+    }
+
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = 'en-US';
+
+    recognition.onstart = () => {
+      isListening = true;
+      micButton.classList.add('bg-red-600', 'hover:bg-red-700', 'listening');
+      micButton.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+    };
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      searchInput.value = transcript;
+      
+      const searchEvent = new Event('input', { bubbles: true });
+      searchInput.dispatchEvent(searchEvent);
+      
+      document.getElementById('searchForm').dispatchEvent(new Event('submit'));
+    };
+
+    recognition.onend = () => {
+      isListening = false;
+      micButton.classList.add('bg-blue-600', 'hover:bg-blue-700');
+      micButton.classList.remove('bg-red-600', 'hover:bg-red-700', 'listening');
+    };
+
+    recognition.onerror = (event) => {
+      console.error('Speech recognition error:', event.error);
+      isListening = false;
+      micButton.classList.add('bg-blue-600', 'hover:bg-blue-700');
+      micButton.classList.remove('bg-red-600', 'hover:bg-red-700', 'listening');
+    };
+  }
+
+  initSpeechRecognition();
+
+  if (micButton) {
+    micButton.addEventListener('click', () => {
+      if (!recognition) return;
+
+      if (!isListening) {
+        try {
+          recognition.start();
+        } catch (error) {
+          console.error('Error starting speech recognition:', error);
+        }
+      } else {
+        recognition.stop();
+      }
+    });
+  }
+</script>
+{{ end }}

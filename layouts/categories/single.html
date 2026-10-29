@@ -1,0 +1,11 @@
+{{ define "main" }}
+<main class="flex-grow">
+  <div id="header-placeholder"></div>
+  <div id="footer-placeholder"></div>
+</main>
+<script>
+  window.includeHTML = function() {};
+</script>
+<script src="{{ "components/category-page.min.js" | relURL }}"></script>
+{{ .Content }}
+{{ end }}

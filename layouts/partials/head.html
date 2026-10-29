@@ -1,0 +1,78 @@
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>{{ if .Title }}{{ .Title }}{{ else }}{{ .Site.Title }}{{ end }}</title>
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ with .Params.description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}{{ end }}">
+
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Lucide Icons CDN -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<!-- Core App Scripts (Data & State) -->
+<script src="{{ "app.min.js" | relURL }}"></script>
+<!-- Custom CSS -->
+<link rel="stylesheet" href="{{ "styles.min.css" | relURL }}">
+
+<!-- Favicon -->
+<link rel="icon" href="https://tools.csrgo.com/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="https://tools.csrgo.com/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" sizes="180x180" href="https://tools.csrgo.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://tools.csrgo.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://tools.csrgo.com/favicon-16x16.png">
+<link rel="manifest" href="https://tools.csrgo.com/site.webmanifest">
+
+<!-- Open Graph / Social Media Meta Tags -->
+<meta property="og:image" content="{{ "logo.png" | absURL }}">
+<meta property="og:image:alt" content="CSRGO Tools Logo">
+<meta property="og:title" content="{{ if .Title }}{{ .Title }}{{ else }}{{ .Site.Title }}{{ end }}">
+<meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ with .Params.description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}{{ end }}">
+
+{{ if .IsHome }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://tools.csrgo.com/#organization",
+  "url": "https://tools.csrgo.com",
+  "name": "CSRGO Tools",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://tools.csrgo.com/logo.png",
+    "width": "360",
+    "height": "360"
+  },
+  "sameAs": [
+    "https://tools.csrgo.com/about.html",
+    "https://tools.csrgo.com/contact.html",
+    "https://tools.csrgo.com/blog.html"
+  ],
+  "description": "Your one-stop destination for free online tools",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://tools.csrgo.com/search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+{{ else }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "url": "https://tools.csrgo.com/",
+  "name": "CSRGO Tools",
+  "logo": "https://tools.csrgo.com/logo.png"
+}
+</script>
+{{ end }}
+
+{{ range .Params.custom_styles }}
+<link rel="stylesheet" href="{{ . }}">
+{{ end }}
+
+{{ with .Params.custom_css }}
+<style>
+{{ . | safeCSS }}
+</style>
+{{ end }}

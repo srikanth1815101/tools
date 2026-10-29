@@ -1,0 +1,163 @@
+---
+title: "Favourite Tools - CSRGO Tools"
+url: "/favourite-tools.html"
+description: "Quick access to your favourite tools saved in your browser."
+---
+<style>
+  .gradient-bg {
+    background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+  }
+  .card-hover {
+    transition: all 0.3s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+  }
+</style>
+
+<main class="flex-grow">
+  <section class="pt-28 pb-12 px-4">
+    <div class="container mx-auto max-w-7xl text-center">
+      <div class="flex justify-center mb-6">
+        <div class="w-16 h-16 rounded-2xl gradient-bg flex items-center justify-center animate-float">
+          <i data-lucide="star" class="w-8 h-8 text-white"></i>
+        </div>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Your Favourite Tools</h1>
+      <p class="text-lg text-gray-600 mb-8">Quick access to the tools you love most. Favourites are saved in your browser for next time!</p>
+      <div id="favourites-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+      <div id="no-favourites" class="hidden text-gray-500 text-xl mt-12 flex flex-col items-center gap-2">
+        <i data-lucide="heart-off" class="w-10 h-10"></i>
+        <span>No favourite tools yet. Go add some!</span>
+      </div>
+      <div class="flex justify-center mt-10" id="edit-controls-container">
+        <button id="edit-favourites-btn" class="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-[#7c3aed] to-[#2563eb] text-white font-semibold rounded-lg hover:opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 text-lg shadow">
+          <span>Edit</span>
+          <i data-lucide="pencil" class="w-5 h-5 ml-2"></i>
+        </button>
+        <button id="done-editing-btn" class="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-green-500 to-green-700 text-white font-semibold rounded-lg hover:opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 text-lg shadow ml-3 hidden">
+          <span>Done</span>
+          <i data-lucide="check" class="w-5 h-5 ml-2"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+  function getToolCategoryColor(tool) {
+    if (tool.category && window.categories && window.categories.length) {
+      const cat = window.categories.find(c => c.id === tool.category);
+      if (cat && cat.color) return cat.color;
+    }
+    let idx = 0;
+    if (tool.name && window.colorPalette) {
+      idx = Array.from(tool.name).reduce((a, c) => a + c.charCodeAt(0), 0) % window.colorPalette.length;
+      return window.colorPalette[idx];
+    }
+    return "bg-blue-50 text-blue-600";
+  }
+
+  let isEditing = false;
+  function renderFavourites() {
+    const favs = JSON.parse(localStorage.getItem('csrgo_favourites') || '[]');
+    const list = document.getElementById('favourites-list');
+    const none = document.getElementById('no-favourites');
+    if (!list || !none) return;
+    list.innerHTML = '';
+    if (!favs.length) {
+      none.classList.remove('hidden');
+      document.getElementById('edit-controls-container').classList.add('hidden');
+      return;
+    }
+    none.classList.add('hidden');
+    document.getElementById('edit-controls-container').classList.remove('hidden');
+    favs.forEach((fav, idx) => {
+      let toolData = fav;
+      if (window.tools && window.tools.length) {
+        const match = window.tools.find(t => t.url === fav.url || t.name === fav.name);
+        if (match) toolData = { ...match, ...fav };
+      }
+      let description = toolData.description || '';
+      if ((!description || description === '') && window.tools && window.tools.length) {
+        const match = window.tools.find(t => t.url === fav.url || t.name === fav.name);
+        if (match && match.description) description = match.description;
+      }
+      if (isEditing) {
+        const flexRow = document.createElement('div');
+        flexRow.className = 'flex items-stretch';
+        const card = document.createElement('div');
+        card.className = 'bg-white rounded-xl shadow-sm border border-gray-100 p-5 transition-all duration-300 hover:shadow-md hover:border-blue-100 focus:ring-2 focus:ring-blue-200 outline-none flex-1';
+        card.innerHTML = window.renderToolItem({ ...toolData, description }, idx);
+        const btnGroup = document.createElement('div');
+        btnGroup.className = 'flex flex-col justify-center gap-2 ml-2';
+        btnGroup.innerHTML = `
+          <button type="button" class="text-blue-500 hover:text-blue-700 move-up bg-transparent border-0 shadow-none p-0" title="Move up" ${idx === 0 ? 'disabled' : ''}><i data-lucide="arrow-up" class="w-5 h-5"></i></button>
+          <button type="button" class="text-blue-500 hover:text-blue-700 move-down bg-transparent border-0 shadow-none p-0" title="Move down" ${idx === favs.length-1 ? 'disabled' : ''}><i data-lucide="arrow-down" class="w-5 h-5"></i></button>
+          <button type="button" class="text-red-500 hover:text-red-700 remove-fav mt-2 bg-transparent border-0 shadow-none p-0" title="Remove from favourites"><i data-lucide="x" class="w-5 h-5"></i></button>
+        `;
+        flexRow.appendChild(card);
+        flexRow.appendChild(btnGroup);
+        list.appendChild(flexRow);
+        btnGroup.querySelector('.remove-fav').onclick = function(e) {
+          e.preventDefault();
+          const newFavs = favs.filter(f => f.url !== fav.url);
+          localStorage.setItem('csrgo_favourites', JSON.stringify(newFavs));
+          renderFavourites();
+        };
+        btnGroup.querySelector('.move-up').onclick = function(e) {
+          e.preventDefault();
+          if (idx === 0) return;
+          const newFavs = [...favs];
+          [newFavs[idx-1], newFavs[idx]] = [newFavs[idx], newFavs[idx-1]];
+          localStorage.setItem('csrgo_favourites', JSON.stringify(newFavs));
+          renderFavourites();
+        };
+        btnGroup.querySelector('.move-down').onclick = function(e) {
+          e.preventDefault();
+          if (idx === favs.length-1) return;
+          const newFavs = [...favs];
+          [newFavs[idx], newFavs[idx+1]] = [newFavs[idx+1], newFavs[idx]];
+          localStorage.setItem('csrgo_favourites', JSON.stringify(newFavs));
+          renderFavourites();
+        };
+      } else {
+        const card = document.createElement('div');
+        card.className = 'bg-white rounded-xl shadow-sm border border-gray-100 p-5 transition-all duration-300 hover:shadow-md hover:border-blue-100 focus:ring-2 focus:ring-blue-200 outline-none';
+        card.innerHTML = window.renderToolItem({ ...toolData, description }, idx);
+        list.appendChild(card);
+      }
+    });
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+  }
+
+  const editFavBtn = document.getElementById('edit-favourites-btn');
+  const doneEditBtn = document.getElementById('done-editing-btn');
+  if (editFavBtn && doneEditBtn) {
+    editFavBtn.onclick = function() {
+      isEditing = true;
+      editFavBtn.classList.add('hidden');
+      doneEditBtn.classList.remove('hidden');
+      renderFavourites();
+    };
+    doneEditBtn.onclick = function() {
+      isEditing = false;
+      editFavBtn.classList.remove('hidden');
+      doneEditBtn.classList.add('hidden');
+      renderFavourites();
+    };
+  }
+  document.addEventListener('DOMContentLoaded', renderFavourites);
+  window.addEventListener('storage', renderFavourites);
+</script>

@@ -1,0 +1,43 @@
+{{ define "main" }}
+<main class="flex-grow">
+  <!-- Hero Section -->
+  <section class="pt-20 pb-8 px-4 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-transparent"></div>
+    <div class="container mx-auto text-center relative z-10" id="heroSection"></div>
+  </section>
+
+  <!-- Interactive Tool Section -->
+  {{ .Content }}
+
+  <!-- Similar Tools Section Placeholder -->
+  <div id="similarToolsSection"></div>
+
+  <!-- What is tool? Section -->
+  <section id="whatIsSection" class="py-16 px-4 bg-white"></section>
+
+  <!-- Why use tool? Section -->
+  <section id="whyUseSection" class="py-16 px-4"></section>
+
+  <!-- How to use tool? Section -->
+  <section id="howToUseSection" class="py-16 px-4 bg-white"></section>
+
+  <!-- Features Section -->
+  <section id="featuresSection" class="py-16 px-4"></section>
+
+  <!-- FAQ Section -->
+  <section id="faqSection" class="py-16 px-4 bg-white"></section>
+</main>
+
+<script>
+  if (window.tools) {
+    window.CSRGO_TOOL_INFO = window.tools.find(
+      t => t.url === "tools/{{ .File.BaseFileName }}.html"
+    );
+  }
+</script>
+<script src="{{ "components/similar-tools.min.js" | relURL }}"></script>
+{{ with .Params.tool_data_file }}
+<script src="{{ . | relURL }}"></script>
+{{ end }}
+<script src="{{ "components/tool-sections.min.js" | relURL }}"></script>
+{{ end }}
