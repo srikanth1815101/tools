@@ -1,174 +1,239 @@
-<header class="fixed top-0 left-0 right-0 bg-white/60 backdrop-blur shadow-sm z-50 transition-all duration-300">
-  <div class="container mx-auto px-4 py-4">
-    <nav class="flex items-center justify-between">
-      <a href="{{ "index.html" | relURL }}" class="flex items-center gap-2 group select-none">
-        <img src="{{ "logo.png" | relURL }}" alt="CSRGO Logo" class="h-9 w-auto object-contain" />
-        <span class="nav-divider mx-1"></span>
-        <span class="nav-tools-text">Tools</span>
-      </a>
-      <div class="hidden md:flex items-center gap-6">
-        <a href="{{ "index.html" | relURL }}" class="flex items-center gap-2 text-base font-semibold text-gray-700 hover:text-blue-600 px-2 py-1 rounded transition-colors">
-          <i data-lucide="home" class="w-5 h-5 text-blue-600"></i>
-          Home
-        </a>
-        <a href="{{ "favourite-tools.html" | relURL }}" class="flex items-center gap-2 text-base font-semibold text-gray-700 hover:text-blue-600 px-2 py-1 rounded transition-colors">
-          <i data-lucide="star" class="w-5 h-5 text-yellow-500"></i>
-          Favourites
-        </a>
-        <div class="relative group">
-          <button class="text-base font-medium text-gray-700 hover:text-blue-700 transition-colors flex items-center gap-1" id="categoriesDropdownBtn">
-            <i data-lucide="grid" class="w-5 h-5 text-purple-600"></i>
-            Categories
-            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-          </button>
-          <div id="categoriesDropdown" class="absolute right-0 mt-2 w-fit min-w-[16rem] max-w-[22rem] bg-white rounded-2xl shadow-2xl py-4 px-2 z-50 hidden group-hover:block border border-blue-100">
-            <div class="flex flex-col gap-1">
-              <a href="{{ "categories/image-tools.html" | relURL }}" class="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors text-gray-700 whitespace-nowrap">
-                <i data-lucide="image" class="w-5 h-5 text-green-500"></i> Image Tools
-              </a>
-              <a href="{{ "categories/text-tools.html" | relURL }}" class="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors text-gray-700 whitespace-nowrap">
-                <i data-lucide="type" class="w-5 h-5 text-blue-500"></i> Text Tools
-              </a>
-              <a href="{{ "categories/developer-tools.html" | relURL }}" class="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-orange-50 transition-colors text-gray-700 whitespace-nowrap">
-                <i data-lucide="code" class="w-5 h-5 text-orange-500"></i> Developer Tools
-              </a>
-              <a href="{{ "categories/math-calculators.html" | relURL }}" class="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-red-50 transition-colors text-gray-700 whitespace-nowrap">
-                <i data-lucide="calculator" class="w-5 h-5 text-red-500"></i> Math & Calculators
-              </a>
-              <a href="{{ "categories/unit-converters.html" | relURL }}" class="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-yellow-50 transition-colors text-gray-700 whitespace-nowrap">
-                <i data-lucide="ruler" class="w-5 h-5 text-yellow-500"></i> Unit Converters
-              </a>
-              <a href="{{ "categories/security-tools.html" | relURL }}" class="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-indigo-50 transition-colors text-gray-700 whitespace-nowrap">
-                <i data-lucide="shield" class="w-5 h-5 text-indigo-500"></i> Security & Encryption
-              </a>
+<header class="fixed top-2 sm:top-4 left-2 sm:left-4 right-2 sm:right-4 z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto">
+        <div
+            class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl border border-gray-200/50 dark:border-gray-600/50 rounded-xl sm:rounded-2xl px-4 sm:px-6 py-3 sm:py-4 shadow-lg shadow-purple-500/10 dark:shadow-purple-400/10 relative">
+            <div class="flex justify-between items-center">
+                <!-- Logo and Site Title -->
+                <div class="flex items-center space-x-2 sm:space-x-3">
+                    <a href="{{ "index.html" | relURL }}" class="flex items-center">
+                        <div class="relative flex items-center justify-center p-1">
+                            <img src="{{ "logo.png" | relURL }}" alt="CSRGO" class="w-6 h-6 sm:w-8 sm:h-8 relative z-10" />
+                        </div>
+
+                        <!-- Separator -->
+                        <div class="h-4 sm:h-6 w-px bg-gray-200 dark:bg-gray-700 mx-1.5 sm:mx-2 self-center"></div>
+
+                        <!-- Brand Text -->
+                        <div class="h-6 sm:h-8 flex items-center">
+                            <span
+                                class="text-xl sm:text-3xl font-black tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 leading-none pt-0.5">
+                                CSRGO Tools
+                            </span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Right Side Container (Nav + Actions) -->
+                <div class="flex items-center space-x-4 sm:space-x-6">
+                    <!-- Desktop Navigation -->
+                    <div class="hidden md:flex gap-8 text-base font-medium">
+                        <a href="{{ "index.html" | relURL }}"
+                            class="group relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 {{ if .IsHome }}font-bold text-blue-600 dark:text-fuchsia-400{{ end }}">
+                            Home
+                            <span
+                                class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left group-hover:scale-x-100 {{ if .IsHome }}scale-x-100{{ end }}"></span>
+                        </a>
+                        <a href="{{ "favourite-tools.html" | relURL }}"
+                            class="group relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 {{ if eq .RelPermalink "/favourite-tools.html" }}font-bold text-blue-600 dark:text-fuchsia-400{{ end }}">
+                            Favourites
+                            <span
+                                class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left group-hover:scale-x-100 {{ if eq .RelPermalink "/favourite-tools.html" }}scale-x-100{{ end }}"></span>
+                        </a>
+
+                        <!-- Categories Dropdown -->
+                        <div class="relative group">
+                            <button class="relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 flex items-center gap-1 font-medium" id="categoriesDropdownBtn">
+                                Categories
+                                <svg class="w-4 h-4 ml-0.5 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                                <span class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left group-hover:scale-x-100"></span>
+                            </button>
+                            <div id="categoriesDropdown" class="absolute right-0 mt-3 w-64 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl shadow-xl shadow-purple-500/10 dark:shadow-purple-400/10 border border-gray-200/50 dark:border-gray-600/50 py-3 px-2 z-50 hidden group-hover:block transition-all">
+                                <div class="flex flex-col gap-1">
+                                    <a href="{{ "categories/image-tools.html" | relURL }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors">
+                                        <div class="w-8 h-8 rounded-lg bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center">
+                                            <i data-lucide="image" class="w-4 h-4"></i>
+                                        </div>
+                                        <span>Image Tools</span>
+                                    </a>
+                                    <a href="{{ "categories/text-tools.html" | relURL }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors">
+                                        <div class="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+                                            <i data-lucide="type" class="w-4 h-4"></i>
+                                        </div>
+                                        <span>Text Tools</span>
+                                    </a>
+                                    <a href="{{ "categories/developer-tools.html" | relURL }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors">
+                                        <div class="w-8 h-8 rounded-lg bg-orange-50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 flex items-center justify-center">
+                                            <i data-lucide="code" class="w-4 h-4"></i>
+                                        </div>
+                                        <span>Developer Tools</span>
+                                    </a>
+                                    <a href="{{ "categories/math-calculators.html" | relURL }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors">
+                                        <div class="w-8 h-8 rounded-lg bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center">
+                                            <i data-lucide="calculator" class="w-4 h-4"></i>
+                                        </div>
+                                        <span>Math & Calculators</span>
+                                    </a>
+                                    <a href="{{ "categories/unit-converters.html" | relURL }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors">
+                                        <div class="w-8 h-8 rounded-lg bg-yellow-50 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 flex items-center justify-center">
+                                            <i data-lucide="ruler" class="w-4 h-4"></i>
+                                        </div>
+                                        <span>Unit Converters</span>
+                                    </a>
+                                    <a href="{{ "categories/security-tools.html" | relURL }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors">
+                                        <div class="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+                                            <i data-lucide="shield" class="w-4 h-4"></i>
+                                        </div>
+                                        <span>Security & Encryption</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="{{ "about.html" | relURL }}"
+                            class="group relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 {{ if eq .RelPermalink "/about.html" }}font-bold text-blue-600 dark:text-fuchsia-400{{ end }}">
+                            About
+                            <span
+                                class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left group-hover:scale-x-100 {{ if eq .RelPermalink "/about.html" }}scale-x-100{{ end }}"></span>
+                        </a>
+                        <a href="{{ "contact.html" | relURL }}"
+                            class="group relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 {{ if eq .RelPermalink "/contact.html" }}font-bold text-blue-600 dark:text-fuchsia-400{{ end }}">
+                            Contact
+                            <span
+                                class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left group-hover:scale-x-100 {{ if eq .RelPermalink "/contact.html" }}scale-x-100{{ end }}"></span>
+                        </a>
+                        <a href="{{ "sitemap.html" | relURL }}"
+                            class="group relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 {{ if eq .RelPermalink "/sitemap.html" }}font-bold text-blue-600 dark:text-fuchsia-400{{ end }}">
+                            Sitemap
+                            <span
+                                class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left group-hover:scale-x-100 {{ if eq .RelPermalink "/sitemap.html" }}scale-x-100{{ end }}"></span>
+                        </a>
+                    </div>
+
+                    <!-- Right Actions -->
+                    <div class="flex items-center space-x-1 sm:space-x-2">
+                        <!-- Theme Toggle Button -->
+                        <button onclick="toggleTheme()"
+                            class="p-2 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-blue-600 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-fuchsia-400 transition-colors duration-200"
+                            aria-label="Toggle theme">
+                            <i id="theme-icon" data-lucide="sun" stroke-width="2" class="w-6 h-6"></i>
+                        </button>
+
+                        <!-- Mobile Menu Button -->
+                        <button onclick="toggleMobileMenu()"
+                            class="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-blue-600 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-fuchsia-400 transition-colors duration-200"
+                            aria-label="Toggle menu">
+                            <i data-lucide="menu" stroke-width="2" class="w-6 h-6"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-        <a href="{{ "about.html" | relURL }}" class="flex items-center gap-2 text-base font-semibold text-gray-700 hover:text-blue-600 px-2 py-1 rounded transition-colors">
-          <i data-lucide="info" class="w-5 h-5 text-indigo-600"></i>
-          About
-        </a>
-        <a href="{{ "contact.html" | relURL }}" class="flex items-center gap-2 text-base font-semibold text-gray-700 hover:text-blue-600 px-2 py-1 rounded transition-colors">
-          <i data-lucide="mail" class="w-5 h-5 text-red-600"></i>
-          Contact
-        </a>
-        <a href="{{ "sitemap.html" | relURL }}" class="flex items-center gap-2 text-base font-semibold text-gray-700 hover:text-blue-600 px-2 py-1 rounded transition-colors">
-          <i data-lucide="network" class="w-5 h-5 text-orange-600"></i>
-          Sitemap
-        </a>
-      </div>
-      <button id="mobileMenuBtn" class="md:hidden flex items-center justify-center w-10 h-10 rounded-lg text-gray-700 hover:bg-gray-100 focus:outline-none transition-colors" aria-label="Open menu">
-        <i data-lucide="menu" class="w-6 h-6"></i>
-      </button>
-    </nav>
-    <!-- New Mobile Menu -->
-    <div id="mobileMenu" class="md:hidden fixed inset-0 bg-white z-50 transform translate-x-full transition-transform duration-300 ease-in-out">
-      <div class="flex flex-col h-full">
-        <!-- Mobile Menu Header -->
-        <div class="flex items-center justify-end p-4 border-b" style="background: linear-gradient(90deg, rgba(124,58,237,0.08) 0%, rgba(37,99,235,0.08) 100%); backdrop-filter: blur(8px);">
-          <button id="mobileMenuCloseBtn" class="p-2 rounded-lg text-gray-700" aria-label="Close menu" style="display: flex; justify-content: flex-end;">
-            <i data-lucide="x" class="w-6 h-6"></i>
-          </button>
-        </div>
-        
-        <!-- Mobile Menu Content -->
-        <div class="flex-1 overflow-y-auto" style="background: linear-gradient(90deg, rgba(124,58,237,0.08) 0%, rgba(37,99,235,0.08) 100%); backdrop-filter: blur(8px);">
-          <div class="p-4 space-y-2">
-            <a href="{{ "index.html" | relURL }}" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors">
-              <i data-lucide="home" class="w-5 h-5 mr-3 text-blue-600"></i>
-              Home
-            </a>
-            <a href="{{ "favourite-tools.html" | relURL }}" class="w-full flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors">
-              <i data-lucide="star" class="w-5 h-5 mr-3 text-yellow-500"></i>
-              Favourites
-            </a>
-            <button id="mobileCategoriesBtn" class="w-full flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors">
-              <i data-lucide="grid" class="w-5 h-5 mr-3 text-purple-600"></i>
-              Categories
-              <i data-lucide="chevron-down" class="w-5 h-5 ml-auto transition-transform"></i>
-            </button>
-            <div id="mobileCategoriesDropdown" class="hidden pl-4 space-y-2 mt-2">
-              <a href="{{ "categories/image-tools.html" | relURL }}" class="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-100 transition-colors"><i data-lucide="image" class="w-5 h-5 text-green-600"></i> Image Tools</a>
-              <a href="{{ "categories/text-tools.html" | relURL }}" class="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-blue-100 transition-colors"><i data-lucide="type" class="w-5 h-5 text-blue-600"></i> Text Tools</a>
-              <a href="{{ "categories/developer-tools.html" | relURL }}" class="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-orange-100 transition-colors"><i data-lucide="code" class="w-5 h-5 text-orange-600"></i> Developer Tools</a>
-              <a href="{{ "categories/math-calculators.html" | relURL }}" class="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-red-100 transition-colors"><i data-lucide="calculator" class="w-5 h-5 text-red-600"></i> Math & Calculators</a>
-              <a href="{{ "categories/unit-converters.html" | relURL }}" class="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-yellow-100 transition-colors"><i data-lucide="ruler" class="w-5 h-5 text-yellow-600"></i> Unit Converters</a>
-              <a href="{{ "categories/security-tools.html" | relURL }}" class="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-indigo-100 transition-colors"><i data-lucide="shield" class="w-5 h-5 text-indigo-600"></i> Security & Encryption</a>
+
+            <!-- Mobile Navigation Dropdown -->
+            <div id="mobile-menu"
+                class="hidden md:hidden pt-4 mt-2 border-t border-gray-200/50 dark:border-gray-700/50 space-y-1">
+                <a href="{{ "index.html" | relURL }}"
+                    class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                    <span>Home</span>
+                </a>
+                <a href="{{ "favourite-tools.html" | relURL }}"
+                    class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                    <span>Favourites</span>
+                </a>
+                <button onclick="toggleMobileCategories()"
+                    class="w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                    <span>Categories</span>
+                    <i data-lucide="chevron-down" id="mobile-cat-icon" class="w-4 h-4 transition-transform duration-200"></i>
+                </button>
+                <div id="mobile-categories-menu" class="hidden pl-4 space-y-1">
+                    <a href="{{ "categories/image-tools.html" | relURL }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                        <i data-lucide="image" class="w-4 h-4 text-green-500"></i> Image Tools
+                    </a>
+                    <a href="{{ "categories/text-tools.html" | relURL }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                        <i data-lucide="type" class="w-4 h-4 text-blue-500"></i> Text Tools
+                    </a>
+                    <a href="{{ "categories/developer-tools.html" | relURL }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                        <i data-lucide="code" class="w-4 h-4 text-orange-500"></i> Developer Tools
+                    </a>
+                    <a href="{{ "categories/math-calculators.html" | relURL }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                        <i data-lucide="calculator" class="w-4 h-4 text-red-500"></i> Math & Calculators
+                    </a>
+                    <a href="{{ "categories/unit-converters.html" | relURL }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                        <i data-lucide="ruler" class="w-4 h-4 text-yellow-500"></i> Unit Converters
+                    </a>
+                    <a href="{{ "categories/security-tools.html" | relURL }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                        <i data-lucide="shield" class="w-4 h-4 text-indigo-500"></i> Security & Encryption
+                    </a>
+                </div>
+                <a href="{{ "about.html" | relURL }}"
+                    class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                    <span>About</span>
+                </a>
+                <a href="{{ "contact.html" | relURL }}"
+                    class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                    <span>Contact</span>
+                </a>
+                <a href="{{ "sitemap.html" | relURL }}"
+                    class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                    <span>Sitemap</span>
+                </a>
             </div>
-            <a href="{{ "about.html" | relURL }}" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors">
-              <i data-lucide="info" class="w-5 h-5 mr-3 text-indigo-600"></i>
-              About
-            </a>
-            <a href="{{ "contact.html" | relURL }}" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors">
-              <i data-lucide="mail" class="w-5 h-5 mr-3 text-red-600"></i>
-              Contact
-            </a>
-            <a href="{{ "sitemap.html" | relURL }}" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors">
-              <i data-lucide="network" class="w-5 h-5 mr-3 text-orange-600"></i>
-              Sitemap
-            </a>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </header>
+
 <script>
-  (function() {
-    function initNav() {
-      const catBtn = document.getElementById("categoriesDropdownBtn");
-      const catDropdown = document.getElementById("categoriesDropdown");
-      if (catBtn && catDropdown) {
-        catBtn.addEventListener("click", function(e) {
-          e.preventDefault();
-          catDropdown.classList.toggle("hidden");
-        });
-        document.addEventListener("click", function(e) {
-          if (!catDropdown.contains(e.target) && !catBtn.contains(e.target)) {
-            catDropdown.classList.add("hidden");
-          }
-        });
-      }
-      const menuBtn = document.getElementById("mobileMenuBtn");
-      const mobileMenu = document.getElementById("mobileMenu");
-      const closeBtn = document.getElementById("mobileMenuCloseBtn");
-      const mobileCatBtn = document.getElementById("mobileCategoriesBtn");
-      const mobileCatDropdown = document.getElementById("mobileCategoriesDropdown");
-      if (menuBtn && mobileMenu) {
-        const toggleMenu = function(open) {
-          if (open) {
-            mobileMenu.classList.remove("translate-x-full");
-            document.body.style.overflow = "hidden";
-          } else {
-            mobileMenu.classList.add("translate-x-full");
-            document.body.style.overflow = "";
-            if (mobileCatDropdown) {
-              mobileCatDropdown.classList.add("hidden");
-              const icon = mobileCatBtn.querySelector('[data-lucide="chevron-down"]');
-              if (icon) icon.style.transform = "rotate(0deg)";
-            }
-          }
-        };
-        menuBtn.addEventListener("click", function() { toggleMenu(true); });
-        closeBtn && closeBtn.addEventListener("click", function() { toggleMenu(false); });
-        mobileMenu.addEventListener("click", function(e) {
-          if (e.target === mobileMenu) toggleMenu(false);
-        });
-        if (mobileCatBtn && mobileCatDropdown) {
-          mobileCatBtn.addEventListener("click", function() {
-            mobileCatDropdown.classList.toggle("hidden");
-            const icon = mobileCatBtn.querySelector('[data-lucide="chevron-down"]');
-            if (icon) {
-              icon.style.transform = mobileCatDropdown.classList.contains("hidden") ? "rotate(0deg)" : "rotate(180deg)";
-            }
-          });
+    function toggleTheme() {
+        const html = document.documentElement;
+        const currentTheme = html.getAttribute('data-theme') || 'light';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+
+        if (newTheme === 'dark') {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
         }
-      }
+
+        const themeIcon = document.getElementById('theme-icon');
+        if (themeIcon) {
+            themeIcon.setAttribute('data-lucide', newTheme === 'dark' ? 'sun' : 'moon');
+            if (window.lucide) lucide.createIcons();
+        }
     }
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", initNav);
-    } else {
-      initNav();
+
+    function toggleMobileMenu() {
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenu) {
+            mobileMenu.classList.toggle('hidden');
+        }
     }
-  })();
+
+    function toggleMobileCategories() {
+        const catMenu = document.getElementById('mobile-categories-menu');
+        const icon = document.getElementById('mobile-cat-icon');
+        if (catMenu) {
+            catMenu.classList.toggle('hidden');
+            if (icon) {
+                icon.style.transform = catMenu.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+            }
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        const themeIcon = document.getElementById('theme-icon');
+        if (themeIcon) {
+            themeIcon.setAttribute('data-lucide', currentTheme === 'dark' ? 'sun' : 'moon');
+        }
+        if (window.lucide) window.lucide.createIcons();
+    });
+
+    window.addEventListener('scroll', () => {
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+        }
+    }, { passive: true });
 </script>

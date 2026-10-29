@@ -7,11 +7,29 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <!-- Tailwind CSS CDN -->
 <script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class'
+  };
+</script>
+<!-- Theme Init Script (DSA exact) -->
+<script>
+  (function () {
+    const theme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', theme);
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  })();
+</script>
 <!-- Lucide Icons CDN -->
 <script src="https://unpkg.com/lucide@latest"></script>
 <!-- Core App Scripts (Data & State) -->
 <script src="{{ "app.js" | relURL }}"></script>
-<!-- Custom CSS -->
+<!-- Custom CSS & CSRGO Unified Brand System -->
+<link rel="stylesheet" href="{{ "css/csrgo-brand.css" | relURL }}">
 <link rel="stylesheet" href="{{ "styles.css" | relURL }}">
 
 <!-- Favicon -->

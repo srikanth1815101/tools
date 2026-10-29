@@ -1,4 +1,4 @@
-﻿@keyframes fadeIn {
+@keyframes fadeIn {
   from {
   opacity:0}
 
@@ -155,17 +155,6 @@ to {
 body {
   background:linear-gradient(135deg,var(--csrgo-light) 0,#e0e7ff 100%)}
 
-header {
-  background:linear-gradient(90deg,rgba(124,58,237,.08) 0,rgba(37,99,235,.08) 100%)!important;
-  backdrop-filter:blur(8px);
-  border-bottom:1px solid rgba(124,58,237,.1);
-  box-shadow:0 1px 8px 0 rgba(37,99,235,.04);
-  padding-top:.25rem!important;
-  padding-bottom:.25rem!important}
-
-header .container {
-  padding-top:.5rem!important;
-  padding-bottom:.5rem!important}
 
 .nav-tools-badge {
   font-size:1rem;

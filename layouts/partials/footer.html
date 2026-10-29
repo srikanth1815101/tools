@@ -1,116 +1,50 @@
-<!-- Footer -->
-<footer class="bg-gradient-to-b from-white to-gray-50 border-t border-gray-100">
-  <style>
-    #mobileCategoriesDropdown.hidden { display: none !important; }
-    #mobileCategoriesDropdown a { justify-content: center !important; text-align: center !important; width: 100%; }
-    @media (max-width: 768px) {
-      .footer-main {
-        text-align: center !important;
-        justify-items: center !important;
-      }
-      .footer-main .space-y-4, .footer-main > div {
-        align-items: center !important;
-        justify-content: center !important;
-      }
-      .footer-main .flex {
-        justify-content: center !important;
-      }
-      #mobileMenu.mobile-menu-open {
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100vw !important;
-        height: 100vh !important;
-        background: linear-gradient(135deg, rgba(124,58,237,0.95) 0%, rgba(37,99,235,0.95) 100%) !important;
-        backdrop-filter: blur(16px) !important;
-        -webkit-backdrop-filter: blur(16px) !important;
-        z-index: 1000 !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 1.5rem !important;
-        box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-        padding: 0 !important;
-      }
-      #mobileMenu a, #mobileMenu button {
-        font-size: 1.25rem !important;
-        width: 100%;
-        text-align: center;
-      }
-      #mobileCategoriesDropdown {
-        position: static !important;
-        padding-left: 1rem !important;
-        width: 100%;
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 0.5rem !important;
-        text-align: left !important;
-        align-items: stretch !important;
-      }
-      #mobileCategoriesDropdown a {
-        text-align: left !important;
-        justify-content: flex-start !important;
-        padding-left: 2rem !important;
-      }
-    }
-  </style>
-  <div class="container mx-auto px-4 py-12">
-    <!-- Main Footer Content -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8 footer-main">
-      <!-- Brand Section -->
-      <div class="space-y-4">
-        <a href="{{ "index.html" | relURL }}" class="flex items-center gap-3 group" style="align-items: center;">
-          <img src="{{ "logo.png" | relURL }}" alt="CSRGO Logo" class="h-10 w-auto object-contain" style="height:2.5rem;" />
-          <span class="nav-divider mx-1"></span>
-          <span class="nav-tools-text text-2xl font-bold" style="font-size:2rem;">CSRGO Tools</span>
-        </a>
-        <p class="text-gray-600 text-base">Your one-stop destination for free online tools and utilities.</p>
-      </div>
-
-      <!-- Quick Links -->
-      <div>
-        <h3 class="font-semibold text-gray-900 mb-4">Quick Links</h3>
-        <ul class="space-y-2">
-          <li><a href="{{ "index.html" | relURL }}" class="text-gray-600 hover:text-blue-600 transition-colors">Home</a></li>
-          <li><a href="{{ "favourite-tools.html" | relURL }}" class="text-gray-600 hover:text-blue-600 transition-colors">Favourites</a></li>
-          <li><a href="{{ "about.html" | relURL }}" class="text-gray-600 hover:text-blue-600 transition-colors">About</a></li>
-          <li><a href="{{ "contact.html" | relURL }}" class="text-gray-600 hover:text-blue-600 transition-colors">Contact</a></li>
-          <li><a href="{{ "sitemap.html" | relURL }}" class="text-gray-600 hover:text-blue-600 transition-colors">Sitemap</a></li>
-        </ul>
-      </div>
-
-      <!-- Categories -->
-      <div>
-        <h3 class="font-semibold text-gray-900 mb-4">Categories</h3>
-        <ul class="space-y-2">
-          <li><a href="{{ "categories/image-tools.html" | relURL }}" class="text-gray-600 hover:text-blue-600 transition-colors">Image Tools</a></li>
-          <li><a href="{{ "categories/text-tools.html" | relURL }}" class="text-gray-600 hover:text-blue-600 transition-colors">Text Tools</a></li>
-          <li><a href="{{ "categories/developer-tools.html" | relURL }}" class="text-gray-600 hover:text-blue-600 transition-colors">Developer Tools</a></li>
-          <li><a href="{{ "categories/math-calculators.html" | relURL }}" class="text-gray-600 hover:text-blue-600 transition-colors">Math & Calculators</a></li>
-          <li><a href="{{ "categories/unit-converters.html" | relURL }}" class="text-gray-600 hover:text-blue-600 transition-colors">Unit Converters</a></li>
-          <li><a href="{{ "categories/security-tools.html" | relURL }}" class="text-gray-600 hover:text-blue-600 transition-colors">Security & Encryption</a></li>
-        </ul>
-      </div>
-
-      <!-- Legal -->
-      <div>
-        <h3 class="font-semibold text-gray-900 mb-4">Legal</h3>
-        <ul class="space-y-2">
-          <li><a href="{{ "legal/privacy-policy.html" | relURL }}" class="text-gray-600 hover:text-blue-600 transition-colors">Privacy Policy</a></li>
-          <li><a href="{{ "legal/terms-of-service.html" | relURL }}" class="text-gray-600 hover:text-blue-600 transition-colors">Terms of Service</a></li>
-          <li><a href="{{ "legal/cookie-policy.html" | relURL }}" class="text-gray-600 hover:text-blue-600 transition-colors">Cookie Policy</a></li>
-          <li><a href="{{ "legal/disclaimer.html" | relURL }}" class="text-gray-600 hover:text-blue-600 transition-colors">Disclaimer</a></li>
-          <li><a href="{{ "legal/accessibility.html" | relURL }}" class="text-gray-600 hover:text-blue-600 transition-colors">Accessibility</a></li>
-        </ul>
-      </div>
+<footer class="bg-gradient-to-t from-gray-900 via-gray-950 to-blue-950 text-white pt-16 pb-8 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-5 gap-12 text-center md:text-left">
+        <!-- Logo & Description -->
+        <div class="md:col-span-2 flex flex-col gap-4">
+            <a href="{{ "index.html" | relURL }}" class="flex items-center justify-center md:justify-start gap-1 group">
+                <img src="{{ "logo.png" | relURL }}" alt="CSRGO Tools"
+                    class="h-10 w-10 object-contain transition-transform duration-200 group-hover:scale-105 leading-none pb-1 filter brightness-0 invert"
+                    style="max-width: 44px; min-width: 36px;" />
+                <span class="mx-1 h-7 border-l border-gray-400 dark:border-gray-300 inline-block relative -mt-1"></span>
+                <span class="text-4xl font-extrabold text-white select-none leading-none pb-1">CSRGO Tools</span>
+            </a>
+            <p class="text-gray-300 text-sm max-w-md mx-auto md:mx-0">Your one-stop destination for free online tools and utilities. Convert, calculate, format, and optimize instantly in your browser.</p>
+        </div>
+        <!-- Quick Links -->
+        <div>
+            <h4 class="font-bold mb-3">Quick Links</h4>
+            <ul class="space-y-2 text-gray-300 text-sm">
+                <li><a href="{{ "index.html" | relURL }}" class="hover:text-blue-400 transition-colors">Home</a></li>
+                <li><a href="{{ "favourite-tools.html" | relURL }}" class="hover:text-blue-400 transition-colors">Favourites</a></li>
+                <li><a href="{{ "about.html" | relURL }}" class="hover:text-blue-400 transition-colors">About</a></li>
+                <li><a href="{{ "contact.html" | relURL }}" class="hover:text-blue-400 transition-colors">Contact</a></li>
+                <li><a href="{{ "sitemap.html" | relURL }}" class="hover:text-blue-400 transition-colors">Sitemap</a></li>
+            </ul>
+        </div>
+        <!-- Legal -->
+        <div>
+            <h4 class="font-bold mb-3">Legal</h4>
+            <ul class="space-y-2 text-gray-300 text-sm">
+                <li><a href="{{ "legal/privacy-policy.html" | relURL }}" class="hover:text-blue-400 transition-colors">Privacy Policy</a></li>
+                <li><a href="{{ "legal/terms-of-service.html" | relURL }}" class="hover:text-blue-400 transition-colors">Terms of Service</a></li>
+                <li><a href="{{ "legal/cookie-policy.html" | relURL }}" class="hover:text-blue-400 transition-colors">Cookie Policy</a></li>
+                <li><a href="{{ "legal/disclaimer.html" | relURL }}" class="hover:text-blue-400 transition-colors">Disclaimer</a></li>
+                <li><a href="{{ "legal/accessibility.html" | relURL }}" class="hover:text-blue-400 transition-colors">Accessibility</a></li>
+            </ul>
+        </div>
+        <!-- CSRGO Platforms -->
+        <div>
+            <h4 class="font-bold mb-3">CSRGO Platforms</h4>
+            <ul class="space-y-2 text-gray-300 text-sm">
+                <li><a href="https://csrgo.com" class="hover:text-blue-400 transition-colors" target="_blank" rel="noopener">CSRGO.com</a></li>
+                <li><a href="https://dsa.csrgo.com" class="hover:text-blue-400 transition-colors" target="_blank" rel="noopener">CSRGO DSA</a></li>
+                <li><a href="https://tools.csrgo.com" class="hover:text-blue-400 transition-colors">CSRGO Tools</a></li>
+                <li><a href="https://csrgo.com/blog/" class="hover:text-blue-400 transition-colors" target="_blank" rel="noopener">Blog</a></li>
+            </ul>
+        </div>
     </div>
-
-    <!-- Copyright -->
-    <div class="border-t border-gray-100 pt-8">
-      <p class="text-center text-gray-500 text-sm">
-        &copy; <span id="year">{{ now.Format "2006" }}</span> CSRGO Tools. All rights reserved.
-      </p>
+    <div class="border-t border-gray-800 mt-12 pt-6 text-center text-gray-400 text-sm">
+        &copy; {{ now.Format "2006" }} CSRGO Tools. All rights reserved.<br>
     </div>
-  </div>
 </footer>
