@@ -1,4 +1,4 @@
-﻿/**
+/**
  * CSRGO Tools - Main Application Script
  * Provides category management, global search, typewriter animation, and tool discovery.
  */
@@ -152,7 +152,33 @@ window.tools = [
 ];
 
 // Popular Tool Identifiers
-const popularToolIds = [`n  "image-to-png",`n  "image-to-jpg",`n  "image-resizer",`n  "image-compressor",`n  "image-cropper",`n  "meta-tag-generator",`n  "keyword-density",`n  "word-counter",`n  "case-converter",`n  "json-formatter",`n  "bmi-calculator",`n  "currency-converter",`n  "length-converter",`n  "md5-generator",`n  "password-generator",`n  "youtube-thumbnail",`n  "instagram-downloader",`n  "barcode-generator",`n  "resume-builder",`n  "random-number",`n  "ai-chatbot",`n  "meme-generator",`n  "tip-calculator",`n  "sql-formatter",`n  "color-picker"`n];
+const popularToolIds = [
+  "image-to-png",
+  "image-to-jpg",
+  "image-resizer",
+  "image-compressor",
+  "image-cropper",
+  "meta-tag-generator",
+  "keyword-density",
+  "word-counter",
+  "case-converter",
+  "json-formatter",
+  "bmi-calculator",
+  "currency-converter",
+  "length-converter",
+  "md5-generator",
+  "password-generator",
+  "youtube-thumbnail",
+  "instagram-downloader",
+  "barcode-generator",
+  "resume-builder",
+  "random-number",
+  "ai-chatbot",
+  "meme-generator",
+  "tip-calculator",
+  "sql-formatter",
+  "color-picker"
+];
 
 function renderPopularTools() {
   const row1 = document.getElementById("popularToolsRow1");
