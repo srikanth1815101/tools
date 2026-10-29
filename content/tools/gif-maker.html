@@ -1,10 +1,10 @@
 ---
 title: "GIF Maker - Free Online Tool | CSRGO"
 url: "/tools/gif-maker.html"
-tool_data_file: "tools/data/gif-maker-data.min.js"
+tool_data_file: "tools/data/gif-maker-data.js"
 tool_data_var: "GIF_MAKER_DATA"
 custom_scripts:
-  - "tools/lib/gif.min.js"
+  - "tools/lib/gif.js"
 ---
 <!-- Tool UI -->
     <section id="toolUI" class="py-8 px-4">
@@ -209,7 +209,7 @@ custom_scripts:
           quality: 10,
           width: maxWidth,
           height: maxHeight,
-          workerScript: 'lib/gif.worker.min.js'
+          workerScript: 'lib/gif.worker.js'
         });
 
         // Create a promise to handle the GIF creation

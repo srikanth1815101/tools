@@ -35,9 +35,13 @@
     );
   }
 </script>
-<script src="{{ "components/similar-tools.min.js" | relURL }}"></script>
-{{ with .Params.tool_data_file }}
-<script src="{{ . | relURL }}"></script>
-{{ end }}
-<script src="{{ "components/tool-sections.min.js" | relURL }}"></script>
+<script src="{{ "components/similar-tools.js" | relURL }}"></script>
+{{ $toolDataVar := .Params.tool_data_var | default (printf "%s_DATA" (.File.BaseFileName | replaceRE "-" "_" | upper)) }}
+{{ $defaultDataFile := printf "tools/data/%s-data.js" .File.BaseFileName }}
+{{ $toolDataFile := .Params.tool_data_file | default $defaultDataFile }}
+<script src="{{ $toolDataFile | relURL }}"></script>
+<script>
+  window.CSRGO_TOOL_NAME = "{{ $toolDataVar }}";
+</script>
+<script src="{{ "components/tool-sections.js" | relURL }}"></script>
 {{ end }}

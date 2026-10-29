@@ -6,6 +6,13 @@
 <script>
   window.includeHTML = function() {};
 </script>
-<script src="{{ "components/category-page.min.js" | relURL }}"></script>
+<script src="{{ "components/category-page.js" | relURL }}"></script>
 {{ .Content }}
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    if (typeof initCategoryPage === 'function') {
+      initCategoryPage('{{ .File.BaseFileName }}');
+    }
+  });
+</script>
 {{ end }}
