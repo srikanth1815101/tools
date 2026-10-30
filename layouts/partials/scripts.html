@@ -2,7 +2,35 @@
 <script src="{{ . | relURL }}"></script>
 {{ end }}
 <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+  });
   if (window.lucide) {
     lucide.createIcons();
   }
+
+  // Go to Top Button Logic (exact as DSA)
+  document.addEventListener('DOMContentLoaded', () => {
+    const goToTopBtn = document.getElementById('goToTopBtn');
+    if (goToTopBtn) {
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          goToTopBtn.classList.remove('hidden', 'opacity-0', 'translate-y-4');
+          goToTopBtn.classList.add('flex', 'opacity-100', 'translate-y-0');
+        } else {
+          goToTopBtn.classList.remove('flex', 'opacity-100', 'translate-y-0');
+          goToTopBtn.classList.add('hidden', 'opacity-0', 'translate-y-4');
+        }
+      }, { passive: true });
+
+      goToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    }
+  });
 </script>
