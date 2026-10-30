@@ -33,6 +33,52 @@
           'gradient-accent': 'linear-gradient(90deg, #FF6B35 0%, #FF8C5A 50%, #4A90E2 100%)',
           'gradient-warm': 'linear-gradient(135deg, #FF6B35 0%, #FF7F66 100%)',
           'gradient-cool': 'linear-gradient(135deg, #4A90E2 0%, #8B5CF6 100%)',
+        },
+        animation: {
+          'fade-in-up': 'fadeInUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards',
+          'fade-in': 'fadeIn 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards',
+          'blob': 'blob 7s infinite',
+          'pop-in': 'popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+          'float': 'float 6s ease-in-out infinite',
+          'gradient-x': 'gradient-x 15s ease infinite',
+          'slide-up': 'slideUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards',
+          'marquee': 'marquee 45s linear infinite',
+        },
+        keyframes: {
+          fadeInUp: {
+            '0%': { opacity: '0', transform: 'translateY(20px)' },
+            '100%': { opacity: '1', transform: 'translateY(0)' },
+          },
+          fadeIn: {
+            '0%': { opacity: '0' },
+            '100%': { opacity: '1' },
+          },
+          blob: {
+            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+          },
+          popIn: {
+            '0%': { opacity: '0', transform: 'scale(0.8) translateY(10px)' },
+            '100%': { opacity: '1', transform: 'scale(1) translateY(0)' },
+          },
+          float: {
+            '0%, 100%': { transform: 'translateY(0)' },
+            '50%': { transform: 'translateY(-20px)' },
+          },
+          'gradient-x': {
+            '0%, 100%': { 'background-size': '200% 200%', 'background-position': 'left center' },
+            '50%': { 'background-size': '200% 200%', 'background-position': 'right center' },
+          },
+          slideUp: {
+            '0%': { opacity: '0', transform: 'translateY(30px)' },
+            '100%': { opacity: '1', transform: 'translateY(0)' },
+          },
+          marquee: {
+            '0%': { transform: 'translateX(0)' },
+            '100%': { transform: 'translateX(-50%)' },
+          },
         }
       }
     }
@@ -58,7 +104,7 @@
 <script src="{{ "app.js" | relURL }}"></script>
 <!-- Custom CSS & CSRGO Unified Brand System -->
 <link rel="stylesheet" href="{{ "css/csrgo-brand.css" | relURL }}">
-<link rel="stylesheet" href="{{ "styles.css" | relURL }}">
+<link rel="stylesheet" href="{{ "css/styles.css" | relURL }}">
 
 <!-- Favicon -->
 <link rel="icon" href="https://tools.csrgo.com/favicon.ico" type="image/x-icon">

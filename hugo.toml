@@ -1,5 +1,8 @@
 baseURL = 'https://tools.csrgo.com/'
+locale = 'en-us'
 title = 'CSRGO Tools - Your All-in-One Tool Collection'
+enableEmoji = true
+buildFuture = true
 
 [security]
   allowContent = ['^text/html$', '^text/markdown$']
@@ -8,5 +11,15 @@ title = 'CSRGO Tools - Your All-in-One Tool Collection'
   unsafe = true
 
 [params]
-  description = 'Your one-stop destination for free online tools'
-  logo = 'https://tools.csrgo.com/logo.png'
+  description = 'Your one-stop destination for free online tools and utilities. Convert, calculate, format, and optimize instantly in your browser.'
+  author = 'CSRGO'
+  logo = '/logo.png'
+  favicon = '/favicon.ico'
+
+  # Brand colors from logo (exact matches with DSA)
+  [params.colors]
+    primary = '#FF6B35'      # Orange from logo
+    secondary = '#4A90E2'    # Blue from logo
+    accent = '#9B59B6'       # Purple from logo
+    darkBg = '#0A0E27'       # Dark navy background
+    lightBg = '#F8F9FA'      # Light background

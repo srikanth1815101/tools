@@ -25,8 +25,8 @@ function renderCategories() {
   container.innerHTML = `
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">Browse by Categories</h2>
-        <p class="text-gray-600 max-w-2xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-gray-900 dark:text-white">Browse by Categories</h2>
+        <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
           Find the perfect tool for your task from our collection of free online utilities
         </p>
       </div>
@@ -44,18 +44,18 @@ function renderCategories() {
 function renderCategoryCard(category) {
   const toolsInCategory = getToolsByCategory(category.id);
   return `
-    <div class="group relative bg-white rounded-xl shadow-sm border border-gray-100 p-6 transition-all duration-300 hover:shadow-lg hover:border-blue-100 h-full flex flex-col">
+    <div class="group relative bg-white dark:bg-[#141B3D] rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50 p-6 transition-all duration-300 hover:shadow-lg hover:border-blue-200 dark:hover:border-blue-800 h-full flex flex-col">
       <div class="flex justify-between items-start mb-4">
         <div class="w-12 h-12 rounded-xl flex items-center justify-center ${category.color}">
           <i data-lucide="${category.icon}" class="w-6 h-6"></i>
         </div>
-        <a href="categories/${category.id}/" class="flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+        <a href="categories/${category.id}/" class="flex items-center gap-1 px-3 py-1.5 text-sm font-semibold text-blue-600 dark:text-fuchsia-400 bg-blue-50 dark:bg-blue-900/30 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors">
           <span>View all</span>
           <span class="transform transition-transform group-hover:translate-x-0.5">→</span>
         </a>
       </div>
-      <h3 class="text-xl font-bold mb-2">${category.name}</h3>
-      <p class="text-gray-600 text-sm mb-6">${category.description}</p>
+      <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">${category.name}</h3>
+      <p class="text-gray-600 dark:text-gray-400 text-sm mb-6">${category.description}</p>
       <div class="space-y-2 flex-grow">
         ${toolsInCategory.map((tool, idx) => renderToolItem(tool, idx)).join("")}
       </div>
@@ -65,25 +65,25 @@ function renderCategoryCard(category) {
 
 function renderToolItem(tool, index = 0) {
   const colors = [
-    "bg-blue-50 text-blue-600",
-    "bg-green-50 text-green-600",
-    "bg-yellow-50 text-yellow-600",
-    "bg-purple-50 text-purple-600",
-    "bg-pink-50 text-pink-600",
-    "bg-orange-50 text-orange-600",
-    "bg-red-50 text-red-600",
-    "bg-indigo-50 text-indigo-600",
-    "bg-gray-50 text-gray-600"
+    "bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400",
+    "bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400",
+    "bg-yellow-50 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400",
+    "bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400",
+    "bg-pink-50 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400",
+    "bg-orange-50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400",
+    "bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400",
+    "bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400",
+    "bg-gray-50 dark:bg-gray-700/50 text-gray-600 dark:text-gray-300"
   ];
   const href = tool.url.startsWith('/') ? tool.url : '/' + tool.url;
   return `
-    <a href="${href}" class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors group">
+    <a href="${href}" class="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group">
       <div class="w-8 h-8 rounded-lg flex items-center justify-center ${colors[index % colors.length]}">
         <i data-lucide="${tool.icon}" class="w-4 h-4"></i>
       </div>
-      <div>
-        <span class="font-medium text-gray-900">${tool.name}</span>
-        <p class="text-xs text-gray-500 mt-0.5">${tool.description}</p>
+      <div class="min-w-0 flex-1">
+        <span class="font-semibold text-sm text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-fuchsia-400 transition-colors truncate block">${tool.name}</span>
+        <p class="text-xs text-gray-500 dark:text-gray-400 truncate mt-0.5">${tool.description}</p>
       </div>
     </a>
   `;
@@ -225,13 +225,13 @@ function renderPopularTools() {
 
   row1.innerHTML = row1Tools
     .map((tool, idx) => `
-    <a href="${tool.url}" class="min-w-[320px] max-w-xs h-32 bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex items-center gap-4 transition-all duration-300 hover:shadow-md hover:border-blue-100 focus:ring-2 focus:ring-blue-200 outline-none">
+    <a href="${tool.url}" class="min-w-[320px] max-w-xs h-32 bg-white dark:bg-[#141B3D] rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50 p-4 flex items-center gap-4 transition-all duration-300 hover:shadow-md hover:border-blue-200 dark:hover:border-blue-800 outline-none">
       <div class="w-12 h-12 rounded-lg flex items-center justify-center ${colors[idx % colors.length]}">
         <i data-lucide="${tool.icon}" class="w-6 h-6"></i>
       </div>
       <div class="flex-1 min-w-0">
-        <div class="font-semibold text-base text-gray-900">${tool.name}</div>
-        <div class="text-gray-500 text-sm mt-1">${tool.description}</div>
+        <div class="font-bold text-base text-gray-900 dark:text-white">${tool.name}</div>
+        <div class="text-gray-500 dark:text-gray-400 text-sm mt-1 line-clamp-2">${tool.description}</div>
       </div>
     </a>
   `)
@@ -239,13 +239,13 @@ function renderPopularTools() {
 
   row2.innerHTML = row2Tools
     .map((tool, idx) => `
-    <a href="${tool.url}" class="min-w-[320px] max-w-xs h-32 bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex items-center gap-4 transition-all duration-300 hover:shadow-md hover:border-blue-100 focus:ring-2 focus:ring-blue-200 outline-none">
+    <a href="${tool.url}" class="min-w-[320px] max-w-xs h-32 bg-white dark:bg-[#141B3D] rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50 p-4 flex items-center gap-4 transition-all duration-300 hover:shadow-md hover:border-blue-200 dark:hover:border-blue-800 outline-none">
       <div class="w-12 h-12 rounded-lg flex items-center justify-center ${colors[idx % colors.length]}">
         <i data-lucide="${tool.icon}" class="w-6 h-6"></i>
       </div>
       <div class="flex-1 min-w-0">
-        <div class="font-semibold text-base text-gray-900">${tool.name}</div>
-        <div class="text-gray-500 text-sm mt-1">${tool.description}</div>
+        <div class="font-bold text-base text-gray-900 dark:text-white">${tool.name}</div>
+        <div class="text-gray-500 dark:text-gray-400 text-sm mt-1 line-clamp-2">${tool.description}</div>
       </div>
     </a>
   `)
@@ -318,14 +318,14 @@ function renderToolCard(tool, index) {
   const category = window.categories.find(c => c.id === tool.category);
   const color = colorPalette[index % colorPalette.length];
   return `
-    <a href="${tool.url}" class="block bg-white rounded-xl shadow-sm border border-gray-100 p-5 transition-all duration-300 hover:shadow-md hover:border-blue-100 focus:ring-2 focus:ring-blue-200 outline-none">
+    <a href="${tool.url}" class="block bg-white dark:bg-[#141B3D] rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50 p-5 transition-all duration-300 hover:shadow-md hover:border-blue-200 dark:hover:border-blue-800 outline-none">
       <div class="flex items-center gap-4">
         <div class="w-14 h-14 rounded-lg flex items-center justify-center ${color}">
           <i data-lucide="${tool.icon}" class="w-7 h-7"></i>
         </div>
         <div class="flex-1 min-w-0">
-          <div class="font-semibold text-lg text-gray-900">${tool.name}</div>
-          <div class="text-gray-500 text-base mt-1">${tool.description}</div>
+          <div class="font-bold text-lg text-gray-900 dark:text-white">${tool.name}</div>
+          <div class="text-gray-500 dark:text-gray-400 text-base mt-1">${tool.description}</div>
         </div>
       </div>
       <hr class="my-4 border-gray-100">
@@ -355,7 +355,7 @@ function renderSearchResults(results, query) {
           ? `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               ${results.map((tool, idx) => renderToolCard(tool, idx)).join("")}
             </div>`
-          : `<div class="bg-gray-50 rounded-lg p-8 text-center">
+          : `<div class="bg-white dark:bg-[#141B3D] border border-gray-100 dark:border-gray-700/50 rounded-2xl p-8 text-center">
               <p class="text-gray-500">
                 No tools match your search. Try different keywords or browse categories below.
               </p>

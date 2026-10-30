@@ -1,9 +1,7 @@
 {{ define "main" }}
-<main class="flex-grow pt-28 md:pt-32 pb-16">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="bg-white dark:bg-gray-800 rounded-2xl md:rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 sm:p-10 md:p-12">
-      {{ .Content }}
-    </div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 animate-fade-in-up">
+  <div class="bg-white dark:bg-gray-800 rounded-2xl md:rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 sm:p-10 md:p-12">
+    {{ .Content }}
   </div>
-</main>
+</div>
 {{ end }}

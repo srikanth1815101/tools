@@ -16,57 +16,40 @@ function initCategoryPage(categoryId, title, description, icon, color) {
 
   document.title = `${pageTitle} - CSRGO Tools`;
 
-  const heroSection = document.createElement("section");
-  heroSection.className = "pt-28 md:pt-32 pb-16 relative overflow-hidden";
-  heroSection.innerHTML = `
-    <div class="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-transparent"></div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+  const heroEl = document.getElementById("categoryHeroSection");
+  if (heroEl) {
+    heroEl.className = "text-center relative";
+    heroEl.innerHTML = `
       <div class="flex justify-center mb-6">
-        <div class="w-16 h-16 rounded-2xl gradient-bg flex items-center justify-center animate-float">
+        <div class="w-16 h-16 rounded-2xl gradient-bg flex items-center justify-center animate-float shadow-lg shadow-purple-500/20">
           <i data-lucide="${pageIcon}" class="w-10 h-10 text-white"></i>
         </div>
       </div>
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 animate-fade-in animate-hero-heading" style="animation-delay:0.2s;">
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-black mb-4 animate-fade-in animate-hero-heading tracking-tight" style="animation-delay:0.2s;">
         <span class="gradient-logo-text">${pageTitle}</span>
       </h1>
-      <p class="text-lg text-gray-600 mb-8 max-w-3xl mx-auto">
+      <p class="text-base md:text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-3xl mx-auto leading-relaxed">
         ${pageDesc}
       </p>
-      <div class="flex flex-wrap justify-center gap-2 mb-8 animate-fade-in animate-hero-search" style="animation-delay:0.6s;">
-        <div class="flex items-center gap-1.5 px-3 py-1.5 bg-white rounded-full shadow-sm whitespace-nowrap">
+      <div class="flex flex-wrap justify-center gap-2 mb-4 animate-fade-in animate-hero-search" style="animation-delay:0.6s;">
+        <div class="flex items-center gap-1.5 px-3 py-1.5 bg-white dark:bg-[#141B3D] border border-gray-100 dark:border-gray-700/50 rounded-full shadow-sm whitespace-nowrap text-gray-700 dark:text-gray-300">
           <i data-lucide="shield" class="w-4 h-4 text-green-500"></i>
-          <span class="text-sm font-medium text-gray-700">Secure Tools</span>
+          <span class="text-xs md:text-sm font-medium">Secure Tools</span>
         </div>
-        <div class="flex items-center gap-1.5 px-3 py-1.5 bg-white rounded-full shadow-sm whitespace-nowrap">
+        <div class="flex items-center gap-1.5 px-3 py-1.5 bg-white dark:bg-[#141B3D] border border-gray-100 dark:border-gray-700/50 rounded-full shadow-sm whitespace-nowrap text-gray-700 dark:text-gray-300">
           <i data-lucide="zap" class="w-4 h-4 text-yellow-500"></i>
-          <span class="text-sm font-medium text-gray-700">Instant Results</span>
+          <span class="text-xs md:text-sm font-medium">Instant Results</span>
         </div>
-        <div class="flex items-center gap-1.5 px-3 py-1.5 bg-white rounded-full shadow-sm whitespace-nowrap">
+        <div class="flex items-center gap-1.5 px-3 py-1.5 bg-white dark:bg-[#141B3D] border border-gray-100 dark:border-gray-700/50 rounded-full shadow-sm whitespace-nowrap text-gray-700 dark:text-gray-300">
           <i data-lucide="globe" class="w-4 h-4 text-blue-500"></i>
-          <span class="text-sm font-medium text-gray-700">Browser-based</span>
+          <span class="text-xs md:text-sm font-medium">Browser-based</span>
         </div>
       </div>
-      <div id="tools-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
-    </div>
-  `;
-
-  const headerPlaceholder = document.getElementById("header-placeholder");
-  if (headerPlaceholder && headerPlaceholder.parentNode) {
-    headerPlaceholder.parentNode.insertBefore(heroSection, headerPlaceholder.nextSibling);
-  } else {
-    const mainEl = document.querySelector("main");
-    if (mainEl) {
-      mainEl.prepend(heroSection);
-    }
+    `;
   }
 
   if (window.lucide) {
     lucide.createIcons();
-  }
-
-  if (typeof includeHTML === "function") {
-    includeHTML("header-placeholder", "../components/header.html");
-    includeHTML("footer-placeholder", "../components/footer.html");
   }
 
   renderTools(categoryId);
@@ -81,7 +64,7 @@ function renderTools(categoryId) {
     grid.innerHTML = toolsList
       .map(
         (tool, idx) => `
-      <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 transition-all duration-300 hover:shadow-md hover:border-blue-100 focus:ring-2 focus:ring-blue-200 outline-none">
+      <div class="bg-white dark:bg-[#141B3D] rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50 p-5 transition-all duration-300 hover:shadow-md hover:border-blue-200 dark:hover:border-blue-800">
         ${window.renderToolItem(tool, idx)}
       </div>
     `
@@ -96,7 +79,7 @@ function renderTools(categoryId) {
   } else {
     grid.innerHTML = `
       <div class="col-span-full text-center py-12">
-        <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
+        <div class="w-16 h-16 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center mx-auto mb-4">
           <i data-lucide="alert-circle" class="w-8 h-8 text-gray-400"></i>
         </div>
         <p class="text-gray-400 text-lg">No tools found in this category.</p>
@@ -111,47 +94,40 @@ function renderTools(categoryId) {
 
 function renderOtherCategories(currentCategoryId) {
   const otherCats = (window.categories || []).filter(c => c.id !== currentCategoryId);
-  const section = document.createElement("section");
-  section.className = "py-20 relative overflow-hidden";
-  section.innerHTML = `
-    <div class="absolute inset-0 bg-gradient-to-b from-blue-50/30 to-transparent"></div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">
-          <span class="gradient-logo-text">Browse Other Categories</span>
-        </h2>
-        <p class="text-gray-600 max-w-2xl mx-auto">
-          Explore our collection of powerful tools organized by category
-        </p>
-      </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        ${otherCats
-          .map(
-            cat => `
-          <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 transition-all duration-300 hover:shadow-md hover:border-blue-100">
-            <div class="flex flex-col items-center text-center">
-              <div class="w-12 h-12 rounded-xl flex items-center justify-center ${cat.color} mb-4">
-                <i data-lucide="${cat.icon}" class="w-6 h-6"></i>
-              </div>
-              <h3 class="text-xl font-bold mb-2">${cat.name}</h3>
-              <p class="text-gray-600 text-sm mb-4">${cat.description}</p>
-              <a href="/categories/${cat.id}/" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-50 text-blue-700 font-medium text-sm hover:bg-blue-100 transition-colors">
-                View all tools
-                <i data-lucide="arrow-right" class="w-4 h-4"></i>
-              </a>
+  const otherContainer = document.getElementById("otherCategoriesSection");
+  if (!otherContainer) return;
+
+  otherContainer.innerHTML = `
+    <div class="text-center mb-10">
+      <h2 class="text-2xl md:text-4xl font-extrabold mb-3">
+        <span class="gradient-logo-text">Browse Other Categories</span>
+      </h2>
+      <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-sm md:text-base">
+        Explore our collection of powerful tools organized by category
+      </p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      ${otherCats
+        .map(
+          cat => `
+        <div class="bg-white dark:bg-[#141B3D] rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50 p-6 transition-all duration-300 hover:shadow-md hover:border-blue-200 dark:hover:border-blue-800 flex flex-col justify-between">
+          <div class="flex flex-col items-center text-center">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center ${cat.color} mb-4">
+              <i data-lucide="${cat.icon}" class="w-6 h-6"></i>
             </div>
+            <h3 class="text-lg md:text-xl font-bold mb-2 text-gray-900 dark:text-white">${cat.name}</h3>
+            <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 leading-relaxed">${cat.description}</p>
           </div>
-        `
-          )
-          .join("")}
-      </div>
+          <a href="/categories/${cat.id}/" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 font-semibold text-sm hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors">
+            <span>View all tools</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+      `
+        )
+        .join("")}
     </div>
   `;
-
-  const grid = document.getElementById("tools-grid");
-  if (grid && grid.parentNode) {
-    grid.parentNode.insertBefore(section, grid.nextSibling);
-  }
 
   if (window.lucide) {
     lucide.createIcons();

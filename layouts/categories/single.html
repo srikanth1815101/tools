@@ -1,8 +1,16 @@
 {{ define "main" }}
-<main class="flex-grow">
-  <div id="header-placeholder"></div>
-  <div id="footer-placeholder"></div>
-</main>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8 space-y-12 animate-fade-in-up">
+  <!-- Category Hero & Info -->
+  <div id="categoryHeroSection"></div>
+
+  <!-- Tools Grid -->
+  <div>
+    <div id="tools-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+  </div>
+
+  <!-- Browse Other Categories -->
+  <div id="otherCategoriesSection" class="pt-8"></div>
+</div>
 <script>
   window.includeHTML = function() {};
 </script>

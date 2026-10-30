@@ -5,9 +5,8 @@ tool_data_file: "tools/data/angle-converter-data.js"
 tool_data_var: "ANGLE_CONVERTER_DATA"
 ---
 <!-- Converter Tool Section -->
-    <section class="py-8">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="bg-white rounded-2xl shadow-lg p-4 sm:p-6 md:p-8">
+    <!-- Tool Interface Card -->
+        <div class="bg-white dark:bg-[#141B3D] border border-gray-100 dark:border-gray-700/50 rounded-2xl md:rounded-3xl shadow-sm p-4 sm:p-6 md:p-8">
           <div class="grid grid-cols-1 gap-6">
             <!-- Input Section -->
             <div class="space-y-4">
@@ -15,7 +14,7 @@ tool_data_var: "ANGLE_CONVERTER_DATA"
               <div class="flex flex-col sm:flex-row gap-3">
                 <input type="number" id="fromValue" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all" placeholder="Enter value">
                 <select id="fromUnit" class="w-full sm:w-48 rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all">
-                  <option value="deg">Degrees (°)</option>
+                  <option value="deg">Degrees (ï¿½)</option>
                   <option value="rad">Radians (rad)</option>
                   <option value="grad">Gradians (grad)</option>
                   <option value="rev">Revolutions (rev)</option>
@@ -29,7 +28,7 @@ tool_data_var: "ANGLE_CONVERTER_DATA"
               <div class="flex flex-col sm:flex-row gap-3">
                 <input type="number" id="toValue" class="w-full rounded-lg border border-gray-300 px-4 py-2 bg-gray-50" readonly>
                 <select id="toUnit" class="w-full sm:w-48 rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all">
-                  <option value="deg">Degrees (°)</option>
+                  <option value="deg">Degrees (ï¿½)</option>
                   <option value="rad">Radians (rad)</option>
                   <option value="grad">Gradians (grad)</option>
                   <option value="rev">Revolutions (rev)</option>
@@ -64,22 +63,22 @@ tool_data_var: "ANGLE_CONVERTER_DATA"
                 <tbody class="divide-y divide-gray-200">
                   <tr>
                     <td class="px-4 py-2">Right Angle</td>
-                    <td class="px-4 py-2">90°</td>
+                    <td class="px-4 py-2">90ï¿½</td>
                     <td class="px-4 py-2">Quarter of a full rotation</td>
                   </tr>
                   <tr>
                     <td class="px-4 py-2">Straight Angle</td>
-                    <td class="px-4 py-2">180°</td>
+                    <td class="px-4 py-2">180ï¿½</td>
                     <td class="px-4 py-2">Half of a full rotation</td>
                   </tr>
                   <tr>
                     <td class="px-4 py-2">Full Rotation</td>
-                    <td class="px-4 py-2">360°</td>
+                    <td class="px-4 py-2">360ï¿½</td>
                     <td class="px-4 py-2">Complete circle</td>
                   </tr>
                   <tr>
                     <td class="px-4 py-2">Acute Angle</td>
-                    <td class="px-4 py-2">&lt; 90°</td>
+                    <td class="px-4 py-2">&lt; 90ï¿½</td>
                     <td class="px-4 py-2">Less than a right angle</td>
                   </tr>
                 </tbody>
@@ -87,10 +86,7 @@ tool_data_var: "ANGLE_CONVERTER_DATA"
             </div>
           </div>
         </div>
-      </div>
-    </section>
-
-<script>
+      <script>
     // Initialize Lucide icons
     lucide.createIcons();
 

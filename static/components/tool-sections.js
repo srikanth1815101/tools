@@ -15,16 +15,16 @@ function renderToolSections(toolDataName) {
       <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-3 animate-fade-in">
         <span class="gradient-logo-text">${data.hero.title}</span>
       </h1>
-      <p class="text-xl text-gray-600 max-w-2xl mx-auto mb-6 animate-fade-in">
+      <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-6 animate-fade-in">
         ${data.hero.subtitle}
       </p>
-      <div class="flex flex-col sm:flex-row justify-center gap-4 mt-4">
+      <div class="flex flex-wrap justify-center gap-4 mt-4">
         ${data.hero.features
           .map(
             (f) => `
-          <div class="flex items-center gap-2 text-gray-600 justify-center">
-            <i data-lucide="${f.icon}" class="w-6 h-6 ${f.color}"></i>
-            <span class="text-base font-medium">${f.label}</span>
+          <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300 justify-center">
+            <i data-lucide="${f.icon}" class="w-5 h-5 ${f.color}"></i>
+            <span class="text-sm md:text-base font-medium">${f.label}</span>
           </div>
         `
           )
@@ -37,15 +37,15 @@ function renderToolSections(toolDataName) {
   const whatIsSection = document.getElementById("whatIsSection");
   if (whatIsSection && data.whatIs) {
     whatIsSection.innerHTML = `
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center gap-4 mb-8">
-          <div class="w-10 md:w-12 aspect-square rounded-xl gradient-bg flex items-center justify-center flex-shrink-0">
-            <i data-lucide="info" class="w-6 h-6 text-white"></i>
+      <div class="bg-white dark:bg-[#141B3D] rounded-2xl md:rounded-3xl border border-gray-100 dark:border-gray-700/50 p-6 md:p-8 shadow-sm">
+        <div class="flex items-center gap-4 mb-6">
+          <div class="w-10 md:w-12 aspect-square rounded-xl gradient-bg flex items-center justify-center flex-shrink-0 text-white shadow-sm">
+            <i data-lucide="info" class="w-6 h-6"></i>
           </div>
-          <h2 class="text-3xl font-bold">${data.whatIs.title}</h2>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white">${data.whatIs.title}</h2>
         </div>
-        <div class="bg-gray-50 rounded-2xl p-8 shadow-sm">
-          <p class="text-gray-600 text-lg leading-relaxed">${data.whatIs.content}</p>
+        <div class="text-gray-600 dark:text-gray-300 text-base md:text-lg leading-relaxed">
+          ${data.whatIs.content}
         </div>
       </div>
     `;
@@ -53,28 +53,28 @@ function renderToolSections(toolDataName) {
 
   const whyUseSection = document.getElementById("whyUseSection");
   if (whyUseSection && data.whyUse) {
-    const bgColors = ["bg-blue-50", "bg-purple-50", "bg-green-50", "bg-yellow-50"];
-    const textColors = ["text-blue-600", "text-purple-600", "text-green-600", "text-yellow-600"];
+    const bgColors = ["bg-blue-50 dark:bg-blue-900/30", "bg-purple-50 dark:bg-purple-900/30", "bg-green-50 dark:bg-green-900/30", "bg-yellow-50 dark:bg-yellow-900/30"];
+    const textColors = ["text-blue-600 dark:text-blue-400", "text-purple-600 dark:text-purple-400", "text-green-600 dark:text-green-400", "text-yellow-600 dark:text-yellow-400"];
     const defaultIcons = ["shield", "settings", "file-type", "zap"];
 
     whyUseSection.innerHTML = `
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center gap-4 mb-8">
-          <div class="w-10 md:w-12 aspect-square rounded-xl gradient-bg flex items-center justify-center flex-shrink-0">
-            <i data-lucide="star" class="w-6 h-6 text-white"></i>
+      <div class="space-y-6">
+        <div class="flex items-center gap-4">
+          <div class="w-10 md:w-12 aspect-square rounded-xl gradient-bg flex items-center justify-center flex-shrink-0 text-white shadow-sm">
+            <i data-lucide="star" class="w-6 h-6"></i>
           </div>
-          <h2 class="text-3xl font-bold">${data.whyUse.title}</h2>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white">${data.whyUse.title}</h2>
         </div>
-        <div class="grid md:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           ${data.whyUse.items
             .map(
               (item, idx) => `
-            <div class="bg-white p-6 rounded-xl shadow-sm card-hover">
+            <div class="bg-white dark:bg-[#141B3D] p-6 rounded-2xl border border-gray-100 dark:border-gray-700/50 shadow-sm card-hover">
               <div class="w-12 h-12 rounded-xl ${bgColors[idx % 4]} flex items-center justify-center mb-4">
                 <i data-lucide="${item.icon || defaultIcons[idx % 4]}" class="w-6 h-6 ${textColors[idx % 4]}"></i>
               </div>
-              <h3 class="text-xl font-semibold mb-2">${item.title}</h3>
-              <p class="text-gray-600">${item.desc}</p>
+              <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">${item.title}</h3>
+              <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">${item.desc}</p>
             </div>
           `
             )
@@ -87,25 +87,25 @@ function renderToolSections(toolDataName) {
   const howToUseSection = document.getElementById("howToUseSection");
   if (howToUseSection && data.howToUse) {
     howToUseSection.innerHTML = `
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center gap-4 mb-8">
-          <div class="w-10 md:w-12 aspect-square rounded-xl gradient-bg flex items-center justify-center flex-shrink-0">
-            <i data-lucide="help-circle" class="w-6 h-6 text-white"></i>
+      <div class="bg-white dark:bg-[#141B3D] rounded-2xl md:rounded-3xl border border-gray-100 dark:border-gray-700/50 p-6 md:p-8 shadow-sm">
+        <div class="flex items-center gap-4 mb-6">
+          <div class="w-10 md:w-12 aspect-square rounded-xl gradient-bg flex items-center justify-center flex-shrink-0 text-white shadow-sm">
+            <i data-lucide="help-circle" class="w-6 h-6"></i>
           </div>
-          <h2 class="text-3xl font-bold">${data.howToUse.title}</h2>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white">${data.howToUse.title}</h2>
         </div>
-        <div class="space-y-6">
+        <div class="space-y-4">
           ${data.howToUse.steps
             .map(
               (step, idx) => `
-            <div class="flex gap-4 bg-gray-50 p-6 rounded-xl">
-              <div class="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-xl flex items-center justify-center font-bold text-xl">${idx + 1}</div>
-              <div>
-                <h3 class="text-xl font-semibold mb-2 flex items-center gap-2">
-                  <i data-lucide="${step.icon || (idx === 0 ? "upload" : idx === 1 ? "settings" : "wand-2")}" class="w-5 h-5 text-blue-600"></i>
+            <div class="flex gap-4 p-4 md:p-5 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700/40">
+              <div class="flex-shrink-0 w-10 h-10 bg-gradient-to-tr from-purple-600 to-blue-600 text-white rounded-xl flex items-center justify-center font-bold text-lg shadow-sm">${idx + 1}</div>
+              <div class="flex-1">
+                <h3 class="text-lg font-bold mb-1 flex items-center gap-2 text-gray-900 dark:text-white">
+                  <i data-lucide="${step.icon || (idx === 0 ? "upload" : idx === 1 ? "settings" : "wand-2")}" class="w-4 h-4 text-blue-600 dark:text-blue-400"></i>
                   ${step.title}
                 </h3>
-                <p class="text-gray-600">${step.desc}</p>
+                <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">${step.desc}</p>
               </div>
             </div>
           `
@@ -119,23 +119,23 @@ function renderToolSections(toolDataName) {
   const featuresSection = document.getElementById("featuresSection");
   if (featuresSection && data.features) {
     featuresSection.innerHTML = `
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center gap-4 mb-8">
-          <div class="w-10 md:w-12 aspect-square rounded-xl gradient-bg flex items-center justify-center flex-shrink-0">
-            <i data-lucide="list-checks" class="w-6 h-6 text-white"></i>
+      <div class="space-y-6">
+        <div class="flex items-center gap-4">
+          <div class="w-10 md:w-12 aspect-square rounded-xl gradient-bg flex items-center justify-center flex-shrink-0 text-white shadow-sm">
+            <i data-lucide="list-checks" class="w-6 h-6"></i>
           </div>
-          <h2 class="text-3xl font-bold">Features</h2>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white">Features</h2>
         </div>
-        <div class="grid md:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           ${data.features
             .map(
               (feat) => `
-            <div class="bg-white p-6 rounded-xl shadow-sm card-hover">
+            <div class="bg-white dark:bg-[#141B3D] p-5 rounded-2xl border border-gray-100 dark:border-gray-700/50 shadow-sm card-hover">
               <div class="flex items-start gap-3">
-                <div class="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0">
-                  <i data-lucide="check-circle" class="w-5 h-5 text-green-500"></i>
+                <div class="w-8 h-8 rounded-lg bg-green-50 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0 text-green-600 dark:text-green-400">
+                  <i data-lucide="check-circle" class="w-5 h-5"></i>
                 </div>
-                <span class="text-gray-600">${feat}</span>
+                <span class="text-gray-700 dark:text-gray-200 text-sm md:text-base font-medium leading-relaxed">${feat}</span>
               </div>
             </div>
           `
@@ -149,25 +149,25 @@ function renderToolSections(toolDataName) {
   const faqSection = document.getElementById("faqSection");
   if (faqSection && data.faq) {
     faqSection.innerHTML = `
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center gap-4 mb-8">
-          <div class="w-10 md:w-12 aspect-square rounded-xl gradient-bg flex items-center justify-center flex-shrink-0">
-            <i data-lucide="help-circle" class="w-6 h-6 text-white"></i>
+      <div class="bg-white dark:bg-[#141B3D] rounded-2xl md:rounded-3xl border border-gray-100 dark:border-gray-700/50 p-6 md:p-8 shadow-sm">
+        <div class="flex items-center gap-4 mb-6">
+          <div class="w-10 md:w-12 aspect-square rounded-xl gradient-bg flex items-center justify-center flex-shrink-0 text-white shadow-sm">
+            <i data-lucide="help-circle" class="w-6 h-6"></i>
           </div>
-          <h2 class="text-3xl font-bold">Frequently Asked Questions</h2>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white">Frequently Asked Questions</h2>
         </div>
         <div class="space-y-4">
           ${data.faq
             .map(
               (faq) => `
-            <div class="faq-item bg-gray-50 rounded-xl overflow-hidden">
-              <button class="w-full px-6 py-4 text-left flex items-center justify-between">
-                <h3 class="text-xl font-semibold">${faq.q}</h3>
-                <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500 faq-icon transition-transform duration-300"></i>
+            <div class="faq-item bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700/40 rounded-xl overflow-hidden transition-all">
+              <button class="w-full px-6 py-4 text-left flex items-center justify-between text-gray-900 dark:text-white font-semibold text-lg hover:text-blue-600 dark:hover:text-fuchsia-400">
+                <span>${faq.q}</span>
+                <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500 dark:text-gray-400 faq-icon transition-transform duration-300"></i>
               </button>
               <div class="faq-content overflow-hidden transition-all duration-300 ease-in-out" style="max-height: 0;">
                 <div class="px-6 pb-4">
-                  <p class="text-gray-600">${faq.a}</p>
+                  <p class="text-gray-600 dark:text-gray-300 text-sm md:text-base leading-relaxed">${faq.a}</p>
                 </div>
               </div>
             </div>

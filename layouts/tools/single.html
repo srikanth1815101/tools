@@ -1,32 +1,31 @@
 {{ define "main" }}
-<main class="flex-grow">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8 space-y-8 animate-fade-in-up">
   <!-- Hero Section -->
-  <section class="pt-28 md:pt-32 pb-8 relative overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-transparent"></div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10" id="heroSection"></div>
-  </section>
+  <div id="heroSection" class="text-center"></div>
 
   <!-- Interactive Tool Section -->
-  {{ .Content }}
+  <div id="toolInteractiveSection">
+    {{ .Content }}
+  </div>
 
   <!-- Similar Tools Section Placeholder -->
   <div id="similarToolsSection"></div>
 
   <!-- What is tool? Section -->
-  <section id="whatIsSection" class="py-16 bg-white dark:bg-gray-800/40"></section>
+  <div id="whatIsSection"></div>
 
   <!-- Why use tool? Section -->
-  <section id="whyUseSection" class="py-16"></section>
+  <div id="whyUseSection"></div>
 
   <!-- How to use tool? Section -->
-  <section id="howToUseSection" class="py-16 bg-white dark:bg-gray-800/40"></section>
+  <div id="howToUseSection"></div>
 
   <!-- Features Section -->
-  <section id="featuresSection" class="py-16"></section>
+  <div id="featuresSection"></div>
 
   <!-- FAQ Section -->
-  <section id="faqSection" class="py-16 bg-white dark:bg-gray-800/40"></section>
-</main>
+  <div id="faqSection"></div>
+</div>
 
 <script>
   if (window.tools) {
