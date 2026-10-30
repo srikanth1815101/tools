@@ -86,19 +86,7 @@
                             </div>
                         </div>
 
-                        <a href="{{ "about/" | relURL }}"
-                            class="relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 {{ if or (eq .RelPermalink "/about/") (eq .RelPermalink "/about") }}font-bold text-blue-600 dark:text-fuchsia-400{{ end }}">
-                            About
-                            <span
-                                class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left {{ if or (eq .RelPermalink "/about/") (eq .RelPermalink "/about") }}scale-x-100{{ end }}"></span>
-                        </a>
 
-                        <a href="{{ "contact/" | relURL }}"
-                            class="relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 {{ if or (eq .RelPermalink "/contact/") (eq .RelPermalink "/contact") }}font-bold text-blue-600 dark:text-fuchsia-400{{ end }}">
-                            Contact
-                            <span
-                                class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left {{ if or (eq .RelPermalink "/contact/") (eq .RelPermalink "/contact") }}scale-x-100{{ end }}"></span>
-                        </a>
                     </div>
 
                     <!-- Right Actions -->
@@ -159,14 +147,7 @@
                         <i data-lucide="shield" class="w-4 h-4 text-indigo-500"></i> Security & Encryption
                     </a>
                 </div>
-                <a href="{{ "about/" | relURL }}"
-                    class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ if or (eq .RelPermalink "/about/") (eq .RelPermalink "/about") }}bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 text-purple-700 dark:text-purple-300{{ else }}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50{{ end }}">
-                    <span>About</span>
-                </a>
-                <a href="{{ "contact/" | relURL }}"
-                    class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ if or (eq .RelPermalink "/contact/") (eq .RelPermalink "/contact") }}bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 text-purple-700 dark:text-purple-300{{ else }}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50{{ end }}">
-                    <span>Contact</span>
-                </a>
+
                 <a href="{{ "profile/" | relURL }}"
                     class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ if or (eq .RelPermalink "/profile/") (eq .RelPermalink "/profile") }}bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 text-purple-700 dark:text-purple-300{{ else }}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50{{ end }}">
                     <span>Profile</span>
