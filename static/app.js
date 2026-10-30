@@ -23,7 +23,7 @@ function renderCategories() {
   if (!container) return;
 
   container.innerHTML = `
-    <div class="container mx-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12">
         <h2 class="text-3xl md:text-4xl font-bold mb-4">Browse by Categories</h2>
         <p class="text-gray-600 max-w-2xl mx-auto">
@@ -346,7 +346,7 @@ function renderSearchResults(results, query) {
 
   showPopularTools(false);
   container.innerHTML = `
-    <div class="container mx-auto py-8 px-4">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <h2 class="text-lg font-semibold mb-4">
         ${results.length > 0 ? `Results for "${query}" (${results.length})` : `No results found for "${query}"`}
       </h2>

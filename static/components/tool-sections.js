@@ -37,7 +37,7 @@ function renderToolSections(toolDataName) {
   const whatIsSection = document.getElementById("whatIsSection");
   if (whatIsSection && data.whatIs) {
     whatIsSection.innerHTML = `
-      <div class="container mx-auto max-w-4xl">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center gap-4 mb-8">
           <div class="w-10 md:w-12 aspect-square rounded-xl gradient-bg flex items-center justify-center flex-shrink-0">
             <i data-lucide="info" class="w-6 h-6 text-white"></i>
@@ -58,7 +58,7 @@ function renderToolSections(toolDataName) {
     const defaultIcons = ["shield", "settings", "file-type", "zap"];
 
     whyUseSection.innerHTML = `
-      <div class="container mx-auto max-w-4xl">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center gap-4 mb-8">
           <div class="w-10 md:w-12 aspect-square rounded-xl gradient-bg flex items-center justify-center flex-shrink-0">
             <i data-lucide="star" class="w-6 h-6 text-white"></i>
@@ -87,7 +87,7 @@ function renderToolSections(toolDataName) {
   const howToUseSection = document.getElementById("howToUseSection");
   if (howToUseSection && data.howToUse) {
     howToUseSection.innerHTML = `
-      <div class="container mx-auto max-w-4xl">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center gap-4 mb-8">
           <div class="w-10 md:w-12 aspect-square rounded-xl gradient-bg flex items-center justify-center flex-shrink-0">
             <i data-lucide="help-circle" class="w-6 h-6 text-white"></i>
@@ -119,7 +119,7 @@ function renderToolSections(toolDataName) {
   const featuresSection = document.getElementById("featuresSection");
   if (featuresSection && data.features) {
     featuresSection.innerHTML = `
-      <div class="container mx-auto max-w-4xl">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center gap-4 mb-8">
           <div class="w-10 md:w-12 aspect-square rounded-xl gradient-bg flex items-center justify-center flex-shrink-0">
             <i data-lucide="list-checks" class="w-6 h-6 text-white"></i>
@@ -149,7 +149,7 @@ function renderToolSections(toolDataName) {
   const faqSection = document.getElementById("faqSection");
   if (faqSection && data.faq) {
     faqSection.innerHTML = `
-      <div class="container mx-auto max-w-4xl">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center gap-4 mb-8">
           <div class="w-10 md:w-12 aspect-square rounded-xl gradient-bg flex items-center justify-center flex-shrink-0">
             <i data-lucide="help-circle" class="w-6 h-6 text-white"></i>

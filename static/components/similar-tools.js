@@ -51,7 +51,7 @@
     section.id = "similarToolsSection";
     section.className = "mt-12 mb-24";
     section.innerHTML = `
-      <div class="container mx-auto max-w-4xl px-4 pb-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
         <h2 class="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-900 dark:text-white">
           <i data-lucide="sparkles" class="w-6 h-6 text-yellow-400"></i>
           Similar Tools

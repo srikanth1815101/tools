@@ -1,7 +1,9 @@
 {{ define "main" }}
-<main class="container mx-auto px-4 py-8 mt-24 md:mt-28 flex-grow">
-  <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-sm p-8">
-    {{ .Content }}
+<main class="flex-grow pt-28 md:pt-32 pb-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl md:rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 sm:p-10 md:p-12">
+      {{ .Content }}
+    </div>
   </div>
 </main>
 {{ end }}

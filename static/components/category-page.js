@@ -17,10 +17,10 @@ function initCategoryPage(categoryId, title, description, icon, color) {
   document.title = `${pageTitle} - CSRGO Tools`;
 
   const heroSection = document.createElement("section");
-  heroSection.className = "pt-28 pb-16 px-4 relative overflow-hidden";
+  heroSection.className = "pt-28 md:pt-32 pb-16 relative overflow-hidden";
   heroSection.innerHTML = `
     <div class="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-transparent"></div>
-    <div class="container mx-auto text-center relative z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
       <div class="flex justify-center mb-6">
         <div class="w-16 h-16 rounded-2xl gradient-bg flex items-center justify-center animate-float">
           <i data-lucide="${pageIcon}" class="w-10 h-10 text-white"></i>
@@ -112,10 +112,10 @@ function renderTools(categoryId) {
 function renderOtherCategories(currentCategoryId) {
   const otherCats = (window.categories || []).filter(c => c.id !== currentCategoryId);
   const section = document.createElement("section");
-  section.className = "py-20 px-4 relative overflow-hidden";
+  section.className = "py-20 relative overflow-hidden";
   section.innerHTML = `
     <div class="absolute inset-0 bg-gradient-to-b from-blue-50/30 to-transparent"></div>
-    <div class="container mx-auto relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
       <div class="text-center mb-12">
         <h2 class="text-3xl md:text-4xl font-bold mb-4">
           <span class="gradient-logo-text">Browse Other Categories</span>
