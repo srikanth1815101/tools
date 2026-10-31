@@ -81,7 +81,6 @@ html:not(.dark) body {
 body {
   font-family: var(--font-sans);
   margin: 0;
-  transition: background-color 0.3s ease, color 0.3s ease;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -93,10 +92,10 @@ html[data-theme="dark"] .bg-white {
   color: #F9FAFB !important;
 }
 
-html.dark .bg-gray-50,
-html[data-theme="dark"] .bg-gray-50,
-html.dark .bg-blue-50,
-html[data-theme="dark"] .bg-blue-50 {
+html.dark .bg-gray-50:not([class*="dark:bg-"]),
+html[data-theme="dark"] .bg-gray-50:not([class*="dark:bg-"]),
+html.dark .bg-blue-50:not([class*="dark:bg-"]),
+html[data-theme="dark"] .bg-blue-50:not([class*="dark:bg-"]) {
   background-color: #0D1333 !important;
 }
 
@@ -136,15 +135,27 @@ html[data-theme="dark"] .border-gray-300 {
 }
 
 /* Form Controls in Dark Mode */
-html.dark input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]),
-html.dark textarea,
-html.dark select,
-html[data-theme="dark"] input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]),
-html[data-theme="dark"] textarea,
-html[data-theme="dark"] select {
+html.dark input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not(.bg-transparent):not([class*="bg-transparent"]):not(#searchInput),
+html.dark textarea:not(.bg-transparent):not([class*="bg-transparent"]),
+html.dark select:not(.bg-transparent):not([class*="bg-transparent"]),
+html[data-theme="dark"] input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not(.bg-transparent):not([class*="bg-transparent"]):not(#searchInput),
+html[data-theme="dark"] textarea:not(.bg-transparent):not([class*="bg-transparent"]),
+html[data-theme="dark"] select:not(.bg-transparent):not([class*="bg-transparent"]) {
   background-color: #0D1333 !important;
   color: #F9FAFB !important;
   border-color: rgba(75, 85, 99, 0.5) !important;
+}
+
+/* Ensure transparent inputs (hero search bar & transparent inputs) match outer container */
+html.dark input.bg-transparent,
+html.dark input[class*="bg-transparent"],
+html.dark #searchInput,
+html[data-theme="dark"] input.bg-transparent,
+html[data-theme="dark"] input[class*="bg-transparent"],
+html[data-theme="dark"] #searchInput {
+  background-color: transparent !important;
+  background: transparent !important;
+  border-color: transparent !important;
 }
 
 html.dark select option,

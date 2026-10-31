@@ -1,0 +1,551 @@
+{{ define "main" }}
+<div class="min-h-screen bg-gray-50 dark:bg-[#0A0E27] font-sans pb-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 md:pt-6 space-y-6 md:space-y-8 animate-fade-in-up">
+
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- 1. HEADER CARD (DSA Inspired)                              -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <div class="relative bg-white dark:bg-[#141B3D] rounded-2xl p-6 md:p-8 border border-gray-200/80 dark:border-gray-700/50 shadow-sm overflow-hidden group">
+      <!-- Ambient Background Glows -->
+      <div class="absolute -top-32 -right-32 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-blue-500/15 transition-colors duration-700"></div>
+      <div class="absolute -bottom-32 -left-32 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-purple-500/15 transition-colors duration-700"></div>
+
+      <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div class="max-w-2xl">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white flex items-center justify-center shadow-lg shadow-blue-500/20">
+              <i data-lucide="layout-grid" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <h1 class="text-2xl sm:text-3xl md:text-4xl font-black text-gray-900 dark:text-white tracking-tight leading-tight">
+                Tools Library
+              </h1>
+            </div>
+          </div>
+          <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed">
+            Discover all <span id="hero-tool-count" class="font-bold text-gray-900 dark:text-white"></span> free online developer, media, text, math, and security utilities. 100% private, client-side, and zero installation required.
+          </p>
+        </div>
+
+        <!-- Share Button (Exact as requested) -->
+        <div class="self-start md:self-center shrink-0">
+          <button type="button" onclick="copyToolsPageUrl()" id="shareToolsBtn"
+            class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-br from-slate-600 to-slate-800 hover:from-slate-500 hover:to-slate-700 text-white font-semibold text-xs sm:text-sm shadow-md shadow-slate-500/20 hover:shadow-lg hover:-translate-y-0.5 active:scale-95 transition-all duration-300"
+            title="Share this page" aria-label="Share">
+            <i data-lucide="share-2" id="shareToolsIcon" class="w-4 h-4"></i>
+            <span id="shareToolsText">Share</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- 2. SEARCH & FILTER CONTROLS BAR                             -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <div class="space-y-4">
+      <!-- Search Input + Sort / Quick Actions -->
+      <div class="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
+        <!-- Search Field -->
+        <div class="relative flex-1 group">
+          <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400 group-focus-within:text-blue-500 transition-colors">
+            <i data-lucide="search" class="w-5 h-5"></i>
+          </div>
+          <input
+            type="text"
+            id="toolsSearchInput"
+            placeholder="Search tools by name, description, keywords (e.g. 'json', 'sha256', 'compress')..."
+            class="w-full pl-11 pr-10 py-3 bg-white dark:bg-[#141B3D] border border-gray-200/90 dark:border-gray-700/60 rounded-xl text-sm md:text-base text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 shadow-sm transition-all"
+            autocomplete="off"
+          />
+          <button
+            type="button"
+            id="clearSearchBtn"
+            class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hidden"
+            title="Clear search"
+          >
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+        <!-- Sort Select -->
+        <div class="flex items-center gap-2 shrink-0">
+          <div class="relative group">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+              <i data-lucide="arrow-up-down" class="w-4 h-4"></i>
+            </div>
+            <select
+              id="sortSelect"
+              class="pl-9 pr-8 py-3 bg-white dark:bg-[#141B3D] border border-gray-200/90 dark:border-gray-700/60 rounded-xl text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-200 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 shadow-sm cursor-pointer"
+            >
+              <option value="popular">Most Popular</option>
+              <option value="name-asc">Name (A → Z)</option>
+              <option value="name-desc">Name (Z → A)</option>
+              <option value="category">By Category</option>
+            </select>
+            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-gray-400">
+              <i data-lucide="chevron-down" class="w-4 h-4"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category Filter Pills (Horizontal Scrolling on Small Screens) -->
+      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 text-xs sm:text-sm font-semibold" id="categoryPillsContainer">
+        <button
+          type="button"
+          data-category="all"
+          class="cat-pill active px-4 py-2 rounded-xl transition-all duration-200 flex items-center gap-2 shrink-0 shadow-sm bg-gradient-to-r from-blue-600 to-indigo-600 text-white"
+        >
+          <i data-lucide="grid" class="w-4 h-4"></i>
+          <span>All Tools</span>
+          <span class="pill-count text-[11px] px-1.5 py-0.2 rounded-full bg-white/20 text-white font-bold ml-1">50</span>
+        </button>
+
+        <button
+          type="button"
+          data-category="image-tools"
+          class="cat-pill px-4 py-2 rounded-xl bg-white dark:bg-[#141B3D] text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white border border-gray-200/70 dark:border-gray-700/50 transition-all duration-200 flex items-center gap-2 shrink-0 shadow-sm"
+        >
+          <i data-lucide="image" class="w-4 h-4 text-emerald-500"></i>
+          <span>Image</span>
+        </button>
+
+        <button
+          type="button"
+          data-category="text-tools"
+          class="cat-pill px-4 py-2 rounded-xl bg-white dark:bg-[#141B3D] text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white border border-gray-200/70 dark:border-gray-700/50 transition-all duration-200 flex items-center gap-2 shrink-0 shadow-sm"
+        >
+          <i data-lucide="type" class="w-4 h-4 text-blue-500"></i>
+          <span>Text</span>
+        </button>
+
+        <button
+          type="button"
+          data-category="developer-tools"
+          class="cat-pill px-4 py-2 rounded-xl bg-white dark:bg-[#141B3D] text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white border border-gray-200/70 dark:border-gray-700/50 transition-all duration-200 flex items-center gap-2 shrink-0 shadow-sm"
+        >
+          <i data-lucide="code" class="w-4 h-4 text-orange-500"></i>
+          <span>Developer</span>
+        </button>
+
+        <button
+          type="button"
+          data-category="math-calculators"
+          class="cat-pill px-4 py-2 rounded-xl bg-white dark:bg-[#141B3D] text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white border border-gray-200/70 dark:border-gray-700/50 transition-all duration-200 flex items-center gap-2 shrink-0 shadow-sm"
+        >
+          <i data-lucide="calculator" class="w-4 h-4 text-red-500"></i>
+          <span>Math & Calc</span>
+        </button>
+
+        <button
+          type="button"
+          data-category="unit-converters"
+          class="cat-pill px-4 py-2 rounded-xl bg-white dark:bg-[#141B3D] text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white border border-gray-200/70 dark:border-gray-700/50 transition-all duration-200 flex items-center gap-2 shrink-0 shadow-sm"
+        >
+          <i data-lucide="ruler" class="w-4 h-4 text-amber-500"></i>
+          <span>Converters</span>
+        </button>
+
+        <button
+          type="button"
+          data-category="security-tools"
+          class="cat-pill px-4 py-2 rounded-xl bg-white dark:bg-[#141B3D] text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white border border-gray-200/70 dark:border-gray-700/50 transition-all duration-200 flex items-center gap-2 shrink-0 shadow-sm"
+        >
+          <i data-lucide="shield" class="w-4 h-4 text-indigo-500"></i>
+          <span>Security</span>
+        </button>
+      </div>
+
+      <!-- Live Results Counter & Active Filters Display -->
+      <div class="flex items-center justify-between text-xs sm:text-sm text-gray-500 dark:text-gray-400 px-1">
+        <div>
+          Showing <span id="visibleCount" class="font-bold text-gray-900 dark:text-white">50</span> tools
+          <span id="filterLabel" class="ml-1 text-gray-400">in All Categories</span>
+        </div>
+        <button id="resetFiltersLink" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline hidden">
+          Reset Filters
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- 3. TOOLS CARDS GRID                                         -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <div id="toolsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 min-h-[300px]">
+      <!-- Dynamically rendered by JavaScript -->
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- 4. EMPTY STATE (When no tool matches search/filter)         -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <div id="noToolsState" class="hidden bg-white dark:bg-[#141B3D] rounded-2xl border border-gray-200 dark:border-gray-700/50 p-12 text-center shadow-sm max-w-lg mx-auto">
+      <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500/10 to-indigo-600/10 text-blue-600 dark:text-blue-400 flex items-center justify-center mx-auto mb-4 shadow-inner">
+        <i data-lucide="search-x" class="w-7 h-7"></i>
+      </div>
+      <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">No tools found</h3>
+      <p class="text-sm text-gray-500 dark:text-gray-400 mb-6 leading-relaxed">
+        We couldn't find any tool matching your search query. Try different keywords or reset your filters.
+      </p>
+      <button
+        type="button"
+        id="resetEmptyBtn"
+        class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all"
+      >
+        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+        <span>Show All Tools</span>
+      </button>
+    </div>
+
+    <!-- SEO Fallback Links for Web Crawlers (Hidden visually, accessible for SEO) -->
+    <noscript>
+      <div class="mt-8 p-6 bg-white rounded-xl">
+        <h2 class="text-xl font-bold mb-4">Complete Tool Index</h2>
+        <ul class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+          {{ range .Pages }}
+          <li><a href="{{ .RelPermalink }}" class="text-blue-600 underline">{{ .Title }}</a></li>
+          {{ end }}
+        </ul>
+      </div>
+    </noscript>
+
+  </div>
+</div>
+
+<!-- Page Logic -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const tools = window.tools || [];
+  const categories = window.categories || [];
+
+  let activeCategory = 'all';
+  let searchQuery = '';
+  let sortBy = 'popular';
+  let favoriteToolIds = new Set();
+
+  const searchInput = document.getElementById('toolsSearchInput');
+  const clearBtn = document.getElementById('clearSearchBtn');
+  const sortSelect = document.getElementById('sortSelect');
+  const grid = document.getElementById('toolsGrid');
+  const noToolsState = document.getElementById('noToolsState');
+  const visibleCount = document.getElementById('visibleCount');
+  const filterLabel = document.getElementById('filterLabel');
+  const resetFiltersLink = document.getElementById('resetFiltersLink');
+  const resetEmptyBtn = document.getElementById('resetEmptyBtn');
+  const heroToolCount = document.getElementById('hero-tool-count');
+  const catPills = document.querySelectorAll('.cat-pill');
+
+  if (heroToolCount) {
+    heroToolCount.textContent = tools.length;
+  }
+
+  // Share Page URL Handler
+  window.copyToolsPageUrl = function() {
+    const url = window.location.href;
+    const updateBtnSuccess = () => {
+      const text = document.getElementById('shareToolsText');
+      const icon = document.getElementById('shareToolsIcon');
+      const btn = document.getElementById('shareToolsBtn');
+      if (text) text.textContent = 'Copied!';
+      if (icon) icon.setAttribute('data-lucide', 'check');
+      if (btn) btn.classList.add('from-emerald-600', 'to-teal-700');
+      if (window.lucide) lucide.createIcons();
+      setTimeout(() => {
+        if (text) text.textContent = 'Share';
+        if (icon) icon.setAttribute('data-lucide', 'share-2');
+        if (btn) btn.classList.remove('from-emerald-600', 'to-teal-700');
+        if (window.lucide) lucide.createIcons();
+      }, 2000);
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(updateBtnSuccess).catch(() => {
+        fallbackCopy(url, updateBtnSuccess);
+      });
+    } else {
+      fallbackCopy(url, updateBtnSuccess);
+    }
+  };
+
+  function fallbackCopy(text, callback) {
+    const input = document.createElement('input');
+    input.value = text;
+    document.body.appendChild(input);
+    input.select();
+    try {
+      document.execCommand('copy');
+      if (callback) callback();
+    } catch(err){}
+    document.body.removeChild(input);
+  }
+
+  // Load favorites from DB if available
+  async function loadFavorites() {
+    if (window.toolsDB && typeof window.toolsDB.getFavorites === 'function') {
+      try {
+        const favs = await window.toolsDB.getFavorites();
+        favoriteToolIds = new Set(favs.map(f => f.id));
+      } catch (e) {
+        console.error('Failed to load favorites', e);
+      }
+    }
+  }
+
+  // Toggle favorite helper
+  window.toggleToolFavorite = async function(e, toolId) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const tool = tools.find(t => t.id === toolId);
+    if (!tool) return;
+
+    const btn = document.getElementById(`fav-btn-${toolId}`);
+    const isFav = favoriteToolIds.has(toolId);
+
+    if (isFav) {
+      favoriteToolIds.delete(toolId);
+      if (window.toolsDB) {
+        try { await window.toolsDB.removeFavorite(toolId); } catch(err){}
+      }
+      if (btn) {
+        btn.classList.remove('text-amber-500', 'fill-amber-500');
+        btn.classList.add('text-gray-400');
+      }
+    } else {
+      favoriteToolIds.add(toolId);
+      if (window.toolsDB) {
+        try { await window.toolsDB.addFavorite(tool); } catch(err){}
+      }
+      if (btn) {
+        btn.classList.remove('text-gray-400');
+        btn.classList.add('text-amber-500', 'fill-amber-500');
+      }
+    }
+  };
+
+  const categoryBadgeColors = {
+    'image-tools': 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 border-emerald-200/50 dark:border-emerald-800/40',
+    'text-tools': 'bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 border-blue-200/50 dark:border-blue-800/40',
+    'developer-tools': 'bg-orange-50 dark:bg-orange-950/40 text-orange-600 dark:text-orange-400 border-orange-200/50 dark:border-orange-800/40',
+    'math-calculators': 'bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 border-red-200/50 dark:border-red-800/40',
+    'unit-converters': 'bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 border-amber-200/50 dark:border-amber-800/40',
+    'security-tools': 'bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 border-indigo-200/50 dark:border-indigo-800/40'
+  };
+
+  const iconTintColors = {
+    'image-tools': 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
+    'text-tools': 'bg-blue-500/10 text-blue-600 dark:text-blue-400',
+    'developer-tools': 'bg-orange-500/10 text-orange-600 dark:text-orange-400',
+    'math-calculators': 'bg-red-500/10 text-red-600 dark:text-red-400',
+    'unit-converters': 'bg-amber-500/10 text-amber-600 dark:text-amber-400',
+    'security-tools': 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400'
+  };
+
+  function renderToolsList() {
+    let filtered = tools.filter(tool => {
+      // 1. Category filter
+      if (activeCategory !== 'all' && tool.category !== activeCategory) {
+        return false;
+      }
+      // 2. Search filter
+      if (searchQuery) {
+        const query = searchQuery.toLowerCase();
+        const matchesName = tool.name && tool.name.toLowerCase().includes(query);
+        const matchesDesc = tool.description && tool.description.toLowerCase().includes(query);
+        const matchesKeywords = Array.isArray(tool.keywords) && tool.keywords.some(k => k.toLowerCase().includes(query));
+        if (!matchesName && !matchesDesc && !matchesKeywords) {
+          return false;
+        }
+      }
+      return true;
+    });
+
+    // 3. Sorting
+    if (sortBy === 'name-asc') {
+      filtered.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sortBy === 'name-desc') {
+      filtered.sort((a, b) => b.name.localeCompare(a.name));
+    } else if (sortBy === 'category') {
+      filtered.sort((a, b) => (a.category || '').localeCompare(b.category || ''));
+    }
+
+    // Update Counter
+    if (visibleCount) {
+      visibleCount.textContent = filtered.length;
+    }
+
+    if (filterLabel) {
+      if (activeCategory === 'all') {
+        filterLabel.textContent = searchQuery ? `matching "${searchQuery}"` : 'in All Categories';
+      } else {
+        const cat = categories.find(c => c.id === activeCategory);
+        filterLabel.textContent = `in ${cat ? cat.name : activeCategory}${searchQuery ? ` matching "${searchQuery}"` : ''}`;
+      }
+    }
+
+    if (resetFiltersLink) {
+      if (activeCategory !== 'all' || searchQuery) {
+        resetFiltersLink.classList.remove('hidden');
+      } else {
+        resetFiltersLink.classList.add('hidden');
+      }
+    }
+
+    // Empty state handling
+    if (filtered.length === 0) {
+      grid.innerHTML = '';
+      noToolsState.classList.remove('hidden');
+      return;
+    } else {
+      noToolsState.classList.add('hidden');
+    }
+
+    // Render cards
+    grid.innerHTML = filtered.map(tool => {
+      const cat = categories.find(c => c.id === tool.category);
+      const catName = cat ? cat.name : tool.category;
+      const catBadgeColor = categoryBadgeColors[tool.category] || 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300';
+      const iconColor = tool.color || iconTintColors[tool.category] || 'bg-gray-100 text-gray-700';
+      const isFav = favoriteToolIds.has(tool.id);
+      const href = tool.url.startsWith('/') ? tool.url : '/' + tool.url;
+
+      return `
+        <div class="group relative bg-white dark:bg-[#141B3D] rounded-2xl p-5 border border-gray-100 dark:border-gray-700/50 shadow-sm hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 hover:border-blue-500/40 dark:hover:border-blue-500/40 transition-all duration-300 flex flex-col justify-between">
+          <div>
+            <!-- Top Card Header: Icon + Category Badge + Favorite Star -->
+            <div class="flex items-center justify-between gap-2 mb-3.5">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <div class="w-10 h-10 rounded-xl ${iconColor} flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform shadow-sm">
+                  <i data-lucide="${tool.icon || 'wrench'}" class="w-5 h-5"></i>
+                </div>
+                <span class="text-[11px] font-bold px-2.5 py-1 rounded-lg border ${catBadgeColor} truncate uppercase tracking-wider">
+                  ${catName}
+                </span>
+              </div>
+              <button
+                type="button"
+                id="fav-btn-${tool.id}"
+                onclick="toggleToolFavorite(event, '${tool.id}')"
+                class="w-8 h-8 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-center transition-colors ${isFav ? 'text-amber-500 fill-amber-500' : 'text-gray-400'}"
+                title="${isFav ? 'Remove from favorites' : 'Add to favorites'}"
+                aria-label="Favorite"
+              >
+                <i data-lucide="star" class="w-4 h-4 ${isFav ? 'fill-current' : ''}"></i>
+              </button>
+            </div>
+
+            <!-- Tool Name & Description -->
+            <a href="${href}" class="block focus:outline-none">
+              <h3 class="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                ${tool.name}
+              </h3>
+              <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 line-clamp-2 mt-1.5 leading-relaxed">
+                ${tool.description}
+              </p>
+            </a>
+          </div>
+
+          <!-- Bottom Action Bar -->
+          <div class="pt-4 mt-4 border-t border-gray-100 dark:border-gray-800/80 flex items-center justify-between text-xs">
+            <span class="text-gray-400 flex items-center gap-1 font-medium">
+              <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-500"></i> Client-Side
+            </span>
+            <a href="${href}" class="text-blue-600 dark:text-blue-400 font-bold flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
+              <span>Open Tool</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+  }
+
+  // Category Pill Clicks
+  catPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      const cat = pill.getAttribute('data-category');
+      activeCategory = cat;
+
+      // Update pill classes
+      catPills.forEach(p => {
+        p.classList.remove('bg-gradient-to-r', 'from-blue-600', 'to-indigo-600', 'text-white', 'active');
+        p.classList.add('bg-white', 'dark:bg-[#141B3D]', 'text-gray-600', 'dark:text-gray-300', 'border', 'border-gray-200/70', 'dark:border-gray-700/50');
+      });
+
+      pill.classList.remove('bg-white', 'dark:bg-[#141B3D]', 'text-gray-600', 'dark:text-gray-300', 'border-gray-200/70', 'dark:border-gray-700/50');
+      pill.classList.add('bg-gradient-to-r', 'from-blue-600', 'to-indigo-600', 'text-white', 'active');
+
+      renderToolsList();
+    });
+  });
+
+  // Search Input Handler
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value.trim();
+      if (clearBtn) {
+        if (searchQuery) {
+          clearBtn.classList.remove('hidden');
+        } else {
+          clearBtn.classList.add('hidden');
+        }
+      }
+      renderToolsList();
+    });
+  }
+
+  // Clear button click
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      searchQuery = '';
+      clearBtn.classList.add('hidden');
+      renderToolsList();
+      searchInput.focus();
+    });
+  }
+
+  // Sort Select Handler
+  if (sortSelect) {
+    sortSelect.addEventListener('change', (e) => {
+      sortBy = e.target.value;
+      renderToolsList();
+    });
+  }
+
+  // Reset Filters Function
+  function resetAll() {
+    activeCategory = 'all';
+    searchQuery = '';
+    sortBy = 'popular';
+    if (searchInput) searchInput.value = '';
+    if (clearBtn) clearBtn.classList.add('hidden');
+    if (sortSelect) sortSelect.value = 'popular';
+
+    catPills.forEach(p => {
+      p.classList.remove('bg-gradient-to-r', 'from-blue-600', 'to-indigo-600', 'text-white', 'active');
+      p.classList.add('bg-white', 'dark:bg-[#141B3D]', 'text-gray-600', 'dark:text-gray-300', 'border', 'border-gray-200/70', 'dark:border-gray-700/50');
+    });
+
+    const allPill = document.querySelector('.cat-pill[data-category="all"]');
+    if (allPill) {
+      allPill.classList.remove('bg-white', 'dark:bg-[#141B3D]', 'text-gray-600', 'dark:text-gray-300', 'border-gray-200/70', 'dark:border-gray-700/50');
+      allPill.classList.add('bg-gradient-to-r', 'from-blue-600', 'to-indigo-600', 'text-white', 'active');
+    }
+
+    renderToolsList();
+  }
+
+  if (resetFiltersLink) resetFiltersLink.addEventListener('click', resetAll);
+  if (resetEmptyBtn) resetEmptyBtn.addEventListener('click', resetAll);
+
+  // Initial Load
+  loadFavorites().then(() => {
+    renderToolsList();
+  });
+});
+</script>
+{{ end }}

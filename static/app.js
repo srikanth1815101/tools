@@ -19,23 +19,7 @@ function getToolsBySearch(query) {
 }
 
 function renderCategories() {
-  const container = document.getElementById("categoriesSection");
-  if (!container) return;
-
-  container.innerHTML = `
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-gray-900 dark:text-white">Browse by Categories</h2>
-        <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-          Find the perfect tool for your task from our collection of free online utilities
-        </p>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-        ${window.categories.map(cat => renderCategoryCard(cat)).join("")}
-      </div>
-    </div>
-  `;
-
+  // Category suites with live interactive tool cards are rendered directly in HTML
   if (window.lucide) {
     lucide.createIcons();
   }
@@ -44,18 +28,18 @@ function renderCategories() {
 function renderCategoryCard(category) {
   const toolsInCategory = getToolsByCategory(category.id);
   return `
-    <div class="group relative bg-white dark:bg-[#141B3D] rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50 p-6 transition-all duration-300 hover:shadow-lg hover:border-blue-200 dark:hover:border-blue-800 h-full flex flex-col">
+    <div class="group relative bg-white dark:bg-[#141B3D] rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50 p-6 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-1.5 hover:border-blue-500/40 dark:hover:border-blue-500/40 h-full flex flex-col">
       <div class="flex justify-between items-start mb-4">
-        <div class="w-12 h-12 rounded-xl flex items-center justify-center ${category.color}">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center ${category.color} shadow-sm group-hover:scale-110 transition-transform">
           <i data-lucide="${category.icon}" class="w-6 h-6"></i>
         </div>
-        <a href="categories/${category.id}/" class="flex items-center gap-1 px-3 py-1.5 text-sm font-semibold text-blue-600 dark:text-fuchsia-400 bg-blue-50 dark:bg-blue-900/30 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors">
-          <span>View all</span>
+        <a href="/categories/${category.id}/" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 rounded-xl hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors">
+          <span>${toolsInCategory.length} tools</span>
           <span class="transform transition-transform group-hover:translate-x-0.5">→</span>
         </a>
       </div>
-      <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">${category.name}</h3>
-      <p class="text-gray-600 dark:text-gray-400 text-sm mb-6">${category.description}</p>
+      <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white group-hover/card:text-blue-600 dark:group-hover/card:text-blue-400 transition-colors">${category.name}</h3>
+      <p class="text-gray-600 dark:text-gray-400 text-sm mb-6 leading-relaxed">${category.description}</p>
       <div class="space-y-2 flex-grow">
         ${toolsInCategory.map((tool, idx) => renderToolItem(tool, idx)).join("")}
       </div>
@@ -78,11 +62,11 @@ function renderToolItem(tool, index = 0) {
   const href = tool.url.startsWith('/') ? tool.url : '/' + tool.url;
   return `
     <a href="${href}" class="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group">
-      <div class="w-8 h-8 rounded-lg flex items-center justify-center ${colors[index % colors.length]}">
+      <div class="w-8 h-8 rounded-lg flex items-center justify-center ${tool.color || colors[index % colors.length]} shrink-0 group-hover:scale-105 transition-transform">
         <i data-lucide="${tool.icon}" class="w-4 h-4"></i>
       </div>
       <div class="min-w-0 flex-1">
-        <span class="font-semibold text-sm text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-fuchsia-400 transition-colors truncate block">${tool.name}</span>
+        <span class="font-semibold text-sm text-gray-900 dark:text-white group-hover/card:text-blue-600 dark:group-hover/card:text-blue-400 transition-colors truncate block">${tool.name}</span>
         <p class="text-xs text-gray-500 dark:text-gray-400 truncate mt-0.5">${tool.description}</p>
       </div>
     </a>
@@ -101,54 +85,54 @@ window.categories = [
 
 // Global Tools Definition
 window.tools = [
-  {id:"image-to-png",name:"Image to PNG Converter",description:"Convert images to PNG format",icon:"image",url:"/tools/image-to-png-converter/",category:"image-tools"},
-  {id:"image-to-jpg",name:"Image to JPG Converter",description:"Convert images to JPG format",icon:"image",url:"/tools/image-to-jpg-converter/",category:"image-tools"},
-  {id:"image-resizer",name:"Image Resizer",description:"Resize images to desired dimensions",icon:"scaling",url:"/tools/image-resizer/",category:"image-tools"},
-  {id:"image-compressor",name:"Image Compressor",description:"Compress images without losing quality",icon:"image-upscale",url:"/tools/image-compressor/",category:"image-tools"},
-  {id:"image-cropper",name:"Image Cropper",description:"Crop images to desired size",icon:"crop",url:"/tools/image-cropper/",category:"image-tools"},
-  {id:"image-to-base64",name:"Convert Image to Base64",description:"Convert images to Base64 string",icon:"file-code",url:"/tools/convert-image-to-base64/",category:"image-tools"},
-  {id:"webp-to-png",name:"Convert WebP to PNG",description:"Convert WebP images to PNG format",icon:"image",url:"/tools/convert-webp-to-png/",category:"image-tools"},
-  {id:"gif-maker",name:"GIF Maker",description:"Create animated GIFs from images",icon:"image-play",url:"/tools/gif-maker/",category:"image-tools"},
-  {id:"qr-generator",name:"QR Code Generator",description:"Generate QR codes for any content",icon:"qr-code",url:"/tools/qr-code-generator/",category:"image-tools"},
-  {id:"screenshot-to-pdf",name:"Image to PDF Converter",description:"Convert images to PDF format",icon:"file",url:"/tools/image-to-pdf-converter/",category:"image-tools"},
-  {id:"word-counter",name:"Word Counter",description:"Count words in your text",icon:"whole-word",url:"/tools/word-counter/",category:"text-tools"},
-  {id:"white-space-removal",name:"White Space Removal",description:"Remove extra spaces, tabs, and line breaks",icon:"letter-text",url:"/tools/white-space-removal/",category:"text-tools",keywords:["white space","text cleaning","format text","remove spaces","remove tabs","remove line breaks","text formatting","clean text"]},
-  {id:"case-converter",name:"Case Converter",description:"Convert text between different cases",icon:"type",url:"/tools/case-converter/",category:"text-tools"},
-  {id:"text-to-handwriting",name:"Text to Handwriting Converter",description:"Convert your text into realistic handwriting",icon:"pen-tool",url:"/tools/text-to-handwriting/",category:"text-tools"},
-  {id:"speech-to-text",name:"Speech-to-Text",description:"Convert speech to text",icon:"mic",url:"/tools/speech-to-text/",category:"text-tools"},
-  {id:"url-encoder",name:"URL Encoder & Decoder",description:"Encode or decode URLs",icon:"link",url:"/tools/url-encoder-decoder/",category:"text-tools"},
-  {id:"random-text",name:"Random Text Generator",description:"Generate random text",icon:"shuffle",url:"/tools/random-text-generator/",category:"text-tools"},
-  {id:"json-formatter",name:"JSON Formatter",description:"Format and validate JSON",icon:"braces",url:"/tools/json-formatter/",category:"developer-tools"},
-  {id:"html-to-markdown",name:"HTML to Markdown Converter",description:"Convert HTML to Markdown",icon:"code",url:"/tools/html-to-markdown-converter/",category:"developer-tools"},
-  {id:"css-minifier",name:"CSS Minifier",description:"Minify CSS code",icon:"file-code",url:"/tools/css-minifier/",category:"developer-tools"},
-  {id:"js-minifier",name:"JavaScript Minifier",description:"Minify JavaScript code",icon:"file-code-2",url:"/tools/javascript-minifier/",category:"developer-tools"},
-  {id:"sql-formatter",name:"SQL Formatter",description:"Format SQL queries",icon:"database",url:"/tools/sql-formatter/",category:"developer-tools"},
-  {id:"htaccess-generator",name:"HTACCESS Redirect Generator",description:"Generate HTACCESS redirect rules",icon:"circle-arrow-out-up-right",url:"/tools/htaccess-redirect-generator/",category:"developer-tools"},
-  {id:"markdown-to-html",name:"Markdown to HTML Converter",description:"Convert Markdown to HTML",icon:"code-xml",url:"/tools/markdown-to-html-converter/",category:"developer-tools"},
-  {id:"color-picker",name:"Color Code Picker",description:"Pick and convert color codes",icon:"palette",url:"/tools/color-code-picker/",category:"developer-tools"},
-  {id:"base64-encoder",name:"Base64 Encoder & Decoder",description:"Encode or decode Base64",icon:"file-code",url:"/tools/base64-encoder-decoder/",category:"developer-tools"},
-  {id:"percentage-calculator",name:"Percentage Calculator",description:"Calculate percentages",icon:"percent",url:"/tools/percentage-calculator/",category:"math-calculators"},
-  {id:"age-calculator",name:"Age Calculator",description:"Calculate age from birth date",icon:"calendar",url:"/tools/age-calculator/",category:"math-calculators"},
-  {id:"bmi-calculator",name:"BMI Calculator",description:"Calculate Body Mass Index",icon:"activity",url:"/tools/bmi-calculator/",category:"math-calculators"},
-  {id:"loan-calculator",name:"Loan EMI Calculator",description:"Calculate loan EMI",icon:"credit-card",url:"/tools/loan-emi-calculator/",category:"math-calculators"},
-  {id:"scientific-calculator",name:"Scientific Calculator",description:"Advanced mathematical calculations",icon:"calculator",url:"/tools/scientific-calculator/",category:"math-calculators"},
-  {id:"discount-calculator",name:"Discount Calculator",description:"Calculate discounts",icon:"tag",url:"/tools/discount-calculator/",category:"math-calculators"},
-  {id:"binary-converter",name:"Binary to Decimal Converter",description:"Convert between binary and decimal",icon:"binary",url:"/tools/binary-to-decimal-converter/",category:"math-calculators"},
-  {id:"tip-calculator",name:"Tip Calculator",description:"Calculate tips and splits",icon:"hand-platter",url:"/tools/tip-calculator/",category:"math-calculators"},
-  {id:"length-converter",name:"Length Converter",description:"Convert between length units",icon:"ruler",url:"/tools/length-converter/",category:"unit-converters"},
-  {id:"weight-converter",name:"Weight Converter",description:"Convert between weight units",icon:"scale",url:"/tools/weight-converter/",category:"unit-converters"},
-  {id:"speed-converter",name:"Speed Converter",description:"Convert between speed units",icon:"gauge",url:"/tools/speed-converter/",category:"unit-converters"},
-  {id:"temperature-converter",name:"Temperature Converter",description:"Convert between temperature units",icon:"thermometer",url:"/tools/temperature-converter/",category:"unit-converters"},
-  {id:"volume-converter",name:"Volume Converter",description:"Convert between volume units",icon:"box",url:"/tools/volume-converter/",category:"unit-converters"},
-  {id:"data-converter",name:"Data Storage Converter",description:"Convert between data storage units",icon:"hard-drive",url:"/tools/data-storage-converter/",category:"unit-converters"},
-  {id:"energy-converter",name:"Energy Converter",description:"Convert between energy units",icon:"zap",url:"/tools/energy-converter/",category:"unit-converters"},
-  {id:"pressure-converter",name:"Pressure Converter",description:"Convert between pressure units",icon:"wind-arrow-down",url:"/tools/pressure-converter/",category:"unit-converters"},
-  {id:"fuel-converter",name:"Fuel Efficiency Converter",description:"Convert between fuel efficiency units",icon:"fuel",url:"/tools/fuel-efficiency-converter/",category:"unit-converters"},
-  {id:"angle-converter",name:"Angle Converter",description:"Convert between angle units",icon:"compass",url:"/tools/angle-converter/",category:"unit-converters"},
-  {id:"md5-generator",name:"MD5 Hash Generator",description:"Generate MD5 hashes",icon:"key",url:"/tools/md5-hash-generator/",category:"security-tools"},
-  {id:"sha256-generator",name:"SHA256 Hash Generator",description:"Generate SHA256 hashes",icon:"key-round",url:"/tools/sha256-hash-generator/",category:"security-tools"},
-  {id:"password-generator",name:"Password Generator",description:"Generate secure passwords",icon:"lock",url:"/tools/password-generator/",category:"security-tools"},
-  {id:"random-string",name:"Random String Generator",description:"Generate random strings",icon:"hash",url:"/tools/random-string-generator/",category:"security-tools"}
+  {id:"image-to-png",name:"Image to PNG Converter",description:"Convert images to PNG format",icon:"image",url:"/tools/image-to-png-converter/",category:"image-tools",color:"bg-cyan-50 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400"},
+  {id:"image-to-jpg",name:"Image to JPG Converter",description:"Convert images to JPG format",icon:"image",url:"/tools/image-to-jpg-converter/",category:"image-tools",color:"bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"},
+  {id:"image-resizer",name:"Image Resizer",description:"Resize images to desired dimensions",icon:"scaling",url:"/tools/image-resizer/",category:"image-tools",color:"bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400"},
+  {id:"image-compressor",name:"Image Compressor",description:"Compress images without losing quality",icon:"image-upscale",url:"/tools/image-compressor/",category:"image-tools",color:"bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400"},
+  {id:"image-cropper",name:"Image Cropper",description:"Crop images to desired size",icon:"crop",url:"/tools/image-cropper/",category:"image-tools",color:"bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400"},
+  {id:"image-to-base64",name:"Convert Image to Base64",description:"Convert images to Base64 string",icon:"file-code",url:"/tools/convert-image-to-base64/",category:"image-tools",color:"bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400"},
+  {id:"webp-to-png",name:"Convert WebP to PNG",description:"Convert WebP images to PNG format",icon:"image",url:"/tools/convert-webp-to-png/",category:"image-tools",color:"bg-teal-50 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400"},
+  {id:"gif-maker",name:"GIF Maker",description:"Create animated GIFs from images",icon:"image-play",url:"/tools/gif-maker/",category:"image-tools",color:"bg-fuchsia-50 dark:bg-fuchsia-900/30 text-fuchsia-600 dark:text-fuchsia-400"},
+  {id:"qr-generator",name:"QR Code Generator",description:"Generate QR codes for any content",icon:"qr-code",url:"/tools/qr-code-generator/",category:"image-tools",color:"bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400"},
+  {id:"screenshot-to-pdf",name:"Image to PDF Converter",description:"Convert images to PDF format",icon:"file",url:"/tools/image-to-pdf-converter/",category:"image-tools",color:"bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400"},
+  {id:"word-counter",name:"Word Counter",description:"Count words in your text",icon:"whole-word",url:"/tools/word-counter/",category:"text-tools",color:"bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"},
+  {id:"white-space-removal",name:"White Space Removal",description:"Remove extra spaces, tabs, and line breaks",icon:"letter-text",url:"/tools/white-space-removal/",category:"text-tools",keywords:["white space","text cleaning","format text","remove spaces","remove tabs","remove line breaks","text formatting","clean text"],color:"bg-teal-50 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400"},
+  {id:"case-converter",name:"Case Converter",description:"Convert text between different cases",icon:"type",url:"/tools/case-converter/",category:"text-tools",color:"bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400"},
+  {id:"text-to-handwriting",name:"Text to Handwriting Converter",description:"Convert your text into realistic handwriting",icon:"pen-tool",url:"/tools/text-to-handwriting/",category:"text-tools",color:"bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400"},
+  {id:"speech-to-text",name:"Speech-to-Text",description:"Convert speech to text",icon:"mic",url:"/tools/speech-to-text/",category:"text-tools",color:"bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400"},
+  {id:"url-encoder",name:"URL Encoder & Decoder",description:"Encode or decode URLs",icon:"link",url:"/tools/url-encoder-decoder/",category:"text-tools",color:"bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400"},
+  {id:"random-text",name:"Random Text Generator",description:"Generate random text",icon:"shuffle",url:"/tools/random-text-generator/",category:"text-tools",color:"bg-orange-50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400"},
+  {id:"json-formatter",name:"JSON Formatter",description:"Format and validate JSON",icon:"braces",url:"/tools/json-formatter/",category:"developer-tools",color:"bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400"},
+  {id:"html-to-markdown",name:"HTML to Markdown Converter",description:"Convert HTML to Markdown",icon:"code",url:"/tools/html-to-markdown-converter/",category:"developer-tools",color:"bg-orange-50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400"},
+  {id:"css-minifier",name:"CSS Minifier",description:"Minify CSS code",icon:"file-code",url:"/tools/css-minifier/",category:"developer-tools",color:"bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"},
+  {id:"js-minifier",name:"JavaScript Minifier",description:"Minify JavaScript code",icon:"file-code-2",url:"/tools/javascript-minifier/",category:"developer-tools",color:"bg-yellow-50 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400"},
+  {id:"sql-formatter",name:"SQL Formatter",description:"Format SQL queries",icon:"database",url:"/tools/sql-formatter/",category:"developer-tools",color:"bg-cyan-50 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400"},
+  {id:"htaccess-generator",name:"HTACCESS Redirect Generator",description:"Generate HTACCESS redirect rules",icon:"circle-arrow-out-up-right",url:"/tools/htaccess-redirect-generator/",category:"developer-tools",color:"bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400"},
+  {id:"markdown-to-html",name:"Markdown to HTML Converter",description:"Convert Markdown to HTML",icon:"code-xml",url:"/tools/markdown-to-html-converter/",category:"developer-tools",color:"bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400"},
+  {id:"color-picker",name:"Color Code Picker",description:"Pick and convert color codes",icon:"palette",url:"/tools/color-code-picker/",category:"developer-tools",color:"bg-fuchsia-50 dark:bg-fuchsia-900/30 text-fuchsia-600 dark:text-fuchsia-400"},
+  {id:"base64-encoder",name:"Base64 Encoder & Decoder",description:"Encode or decode Base64",icon:"file-code",url:"/tools/base64-encoder-decoder/",category:"developer-tools",color:"bg-teal-50 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400"},
+  {id:"percentage-calculator",name:"Percentage Calculator",description:"Calculate percentages",icon:"percent",url:"/tools/percentage-calculator/",category:"math-calculators",color:"bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400"},
+  {id:"age-calculator",name:"Age Calculator",description:"Calculate age from birth date",icon:"calendar",url:"/tools/age-calculator/",category:"math-calculators",color:"bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"},
+  {id:"bmi-calculator",name:"BMI Calculator",description:"Calculate Body Mass Index",icon:"activity",url:"/tools/bmi-calculator/",category:"math-calculators",color:"bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400"},
+  {id:"loan-calculator",name:"Loan EMI Calculator",description:"Calculate loan EMI",icon:"credit-card",url:"/tools/loan-emi-calculator/",category:"math-calculators",color:"bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400"},
+  {id:"scientific-calculator",name:"Scientific Calculator",description:"Advanced mathematical calculations",icon:"calculator",url:"/tools/scientific-calculator/",category:"math-calculators",color:"bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400"},
+  {id:"discount-calculator",name:"Discount Calculator",description:"Calculate discounts",icon:"tag",url:"/tools/discount-calculator/",category:"math-calculators",color:"bg-orange-50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400"},
+  {id:"binary-converter",name:"Binary to Decimal Converter",description:"Convert between binary and decimal",icon:"binary",url:"/tools/binary-to-decimal-converter/",category:"math-calculators",color:"bg-cyan-50 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400"},
+  {id:"tip-calculator",name:"Tip Calculator",description:"Calculate tips and splits",icon:"hand-platter",url:"/tools/tip-calculator/",category:"math-calculators",color:"bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400"},
+  {id:"length-converter",name:"Length Converter",description:"Convert between length units",icon:"ruler",url:"/tools/length-converter/",category:"unit-converters",color:"bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"},
+  {id:"weight-converter",name:"Weight Converter",description:"Convert between weight units",icon:"scale",url:"/tools/weight-converter/",category:"unit-converters",color:"bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400"},
+  {id:"speed-converter",name:"Speed Converter",description:"Convert between speed units",icon:"gauge",url:"/tools/speed-converter/",category:"unit-converters",color:"bg-orange-50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400"},
+  {id:"temperature-converter",name:"Temperature Converter",description:"Convert between temperature units",icon:"thermometer",url:"/tools/temperature-converter/",category:"unit-converters",color:"bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400"},
+  {id:"volume-converter",name:"Volume Converter",description:"Convert between volume units",icon:"box",url:"/tools/volume-converter/",category:"unit-converters",color:"bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400"},
+  {id:"data-converter",name:"Data Storage Converter",description:"Convert between data storage units",icon:"hard-drive",url:"/tools/data-storage-converter/",category:"unit-converters",color:"bg-cyan-50 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400"},
+  {id:"energy-converter",name:"Energy Converter",description:"Convert between energy units",icon:"zap",url:"/tools/energy-converter/",category:"unit-converters",color:"bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400"},
+  {id:"pressure-converter",name:"Pressure Converter",description:"Convert between pressure units",icon:"wind-arrow-down",url:"/tools/pressure-converter/",category:"unit-converters",color:"bg-teal-50 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400"},
+  {id:"fuel-converter",name:"Fuel Efficiency Converter",description:"Convert between fuel efficiency units",icon:"fuel",url:"/tools/fuel-efficiency-converter/",category:"unit-converters",color:"bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400"},
+  {id:"angle-converter",name:"Angle Converter",description:"Convert between angle units",icon:"compass",url:"/tools/angle-converter/",category:"unit-converters",color:"bg-fuchsia-50 dark:bg-fuchsia-900/30 text-fuchsia-600 dark:text-fuchsia-400"},
+  {id:"md5-generator",name:"MD5 Hash Generator",description:"Generate MD5 hashes",icon:"key",url:"/tools/md5-hash-generator/",category:"security-tools",color:"bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400"},
+  {id:"sha256-generator",name:"SHA256 Hash Generator",description:"Generate SHA256 hashes",icon:"key-round",url:"/tools/sha256-hash-generator/",category:"security-tools",color:"bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400"},
+  {id:"password-generator",name:"Password Generator",description:"Generate secure passwords",icon:"lock",url:"/tools/password-generator/",category:"security-tools",color:"bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400"},
+  {id:"random-string",name:"Random String Generator",description:"Generate random strings",icon:"hash",url:"/tools/random-string-generator/",category:"security-tools",color:"bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400"},
 ];
 
 // Popular Tool Identifiers
@@ -182,94 +166,49 @@ const popularToolIds = [
 
 function renderPopularTools() {
   const row1 = document.getElementById("popularToolsRow1");
-  const row2 = document.getElementById("popularToolsRow2");
-  if (!row1 || !row2) return;
+  if (!row1) return;
 
   const popularTools = popularToolIds
     .map(id => window.tools.find(t => t.id === id))
     .filter(Boolean);
 
-  const midpoint = Math.ceil(popularTools.length / 2);
-  const row1Tools = popularTools.slice(0, midpoint);
-  const row2Tools = popularTools.slice(midpoint);
-
   const colors = [
-    "bg-blue-50 text-blue-600",
-    "bg-green-50 text-green-600",
-    "bg-yellow-50 text-yellow-600",
-    "bg-purple-50 text-purple-600",
-    "bg-pink-50 text-pink-600",
-    "bg-orange-50 text-orange-600",
-    "bg-red-50 text-red-600",
-    "bg-indigo-50 text-indigo-600",
-    "bg-gray-50 text-gray-600"
+    "bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400",
+    "bg-green-50 text-green-600 dark:bg-green-900/30 dark:text-green-400",
+    "bg-yellow-50 text-yellow-600 dark:bg-yellow-900/30 dark:text-yellow-400",
+    "bg-purple-50 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400",
+    "bg-pink-50 text-pink-600 dark:bg-pink-900/30 dark:text-pink-400",
+    "bg-orange-50 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400",
+    "bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-400",
+    "bg-indigo-50 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400"
   ];
 
-  function setupAutoScroll(element, speed, direction) {
-    let scrollPos = 0;
-    function step() {
-      if (element.scrollWidth > element.clientWidth) {
-        scrollPos += speed * direction;
-        if (scrollPos < 0) {
-          scrollPos = element.scrollWidth - element.clientWidth;
-        }
-        if (scrollPos > element.scrollWidth - element.clientWidth) {
-          scrollPos = 0;
-        }
-        element.scrollLeft = scrollPos;
-      }
-      requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
-
-  row1.innerHTML = row1Tools
+  const itemsHtml = popularTools
     .map((tool, idx) => `
-    <a href="${tool.url}" class="min-w-[320px] max-w-xs h-32 bg-white dark:bg-[#141B3D] rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50 p-4 flex items-center gap-4 transition-all duration-300 hover:shadow-md hover:border-blue-200 dark:hover:border-blue-800 outline-none">
-      <div class="w-12 h-12 rounded-lg flex items-center justify-center ${colors[idx % colors.length]}">
-        <i data-lucide="${tool.icon}" class="w-6 h-6"></i>
+    <a href="${tool.url}" class="group/card shrink-0 inline-flex items-center gap-2 sm:gap-2.5 px-3 py-1 sm:px-4 sm:py-2 rounded-full glass-pill text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-400 dark:hover:border-blue-400/50 hover:scale-105 active:scale-95 transition-all duration-200 whitespace-nowrap shadow-sm text-left">
+      <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center ${tool.color || colors[idx % colors.length]} shrink-0 group-hover/card:scale-110 transition-transform">
+        <i data-lucide="${tool.icon}" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
       </div>
-      <div class="flex-1 min-w-0">
-        <div class="font-bold text-base text-gray-900 dark:text-white">${tool.name}</div>
-        <div class="text-gray-500 dark:text-gray-400 text-sm mt-1 line-clamp-2">${tool.description}</div>
-      </div>
+      <span class="font-semibold text-[11px] sm:text-sm text-gray-800 dark:text-gray-200 group-hover/card:text-blue-600 dark:group-hover/card:text-blue-400 transition-colors whitespace-nowrap">
+        ${tool.name}
+      </span>
     </a>
   `)
     .join("");
 
-  row2.innerHTML = row2Tools
-    .map((tool, idx) => `
-    <a href="${tool.url}" class="min-w-[320px] max-w-xs h-32 bg-white dark:bg-[#141B3D] rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50 p-4 flex items-center gap-4 transition-all duration-300 hover:shadow-md hover:border-blue-200 dark:hover:border-blue-800 outline-none">
-      <div class="w-12 h-12 rounded-lg flex items-center justify-center ${colors[idx % colors.length]}">
-        <i data-lucide="${tool.icon}" class="w-6 h-6"></i>
-      </div>
-      <div class="flex-1 min-w-0">
-        <div class="font-bold text-base text-gray-900 dark:text-white">${tool.name}</div>
-        <div class="text-gray-500 dark:text-gray-400 text-sm mt-1 line-clamp-2">${tool.description}</div>
-      </div>
-    </a>
-  `)
-    .join("");
+  // Duplicate items for continuous seamless 0% -> -50% CSS marquee loop (matching DSA / blog reference)
+  row1.innerHTML = itemsHtml + itemsHtml;
 
   if (window.lucide) {
     lucide.createIcons();
   }
-
-  setupAutoScroll(row1, 0.7, 1);
-  setupAutoScroll(row2, 0.7, -1);
 }
 
 function setupCategoryReveal() {
   const categoriesSection = document.getElementById("categoriesSection");
-  window.addEventListener("scroll", function handleScroll() {
-    const popularSection = document.getElementById("popularToolsSection");
-    if (!categoriesSection || !popularSection) return;
-
-    if (popularSection.getBoundingClientRect().bottom < 0.7 * window.innerHeight) {
-      categoriesSection.classList.remove("opacity-0", "pointer-events-none");
-      window.removeEventListener("scroll", handleScroll);
-    }
-  });
+  if (categoriesSection) {
+    categoriesSection.classList.remove("opacity-0", "pointer-events-none");
+  }
 }
 
 function showPopularTools(show) {
@@ -316,20 +255,23 @@ const colorPalette = [
 
 function renderToolCard(tool, index) {
   const category = window.categories.find(c => c.id === tool.category);
-  const color = colorPalette[index % colorPalette.length];
+  const color = tool.color || colorPalette[index % colorPalette.length];
   return `
-    <a href="${tool.url}" class="block bg-white dark:bg-[#141B3D] rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50 p-5 transition-all duration-300 hover:shadow-md hover:border-blue-200 dark:hover:border-blue-800 outline-none">
+    <a href="${tool.url}" class="block bg-white dark:bg-[#141B3D] rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50 p-5 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 hover:border-blue-500/40 dark:hover:border-blue-500/40 outline-none group/searchcard">
       <div class="flex items-center gap-4">
-        <div class="w-14 h-14 rounded-lg flex items-center justify-center ${color}">
-          <i data-lucide="${tool.icon}" class="w-7 h-7"></i>
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center ${color} shrink-0 group-hover/searchcard:scale-110 transition-transform shadow-sm">
+          <i data-lucide="${tool.icon}" class="w-6 h-6"></i>
         </div>
         <div class="flex-1 min-w-0">
-          <div class="font-bold text-lg text-gray-900 dark:text-white">${tool.name}</div>
-          <div class="text-gray-500 dark:text-gray-400 text-base mt-1">${tool.description}</div>
+          <div class="font-bold text-base text-gray-900 dark:text-white group-hover/searchcard:text-blue-600 dark:group-hover/searchcard:text-blue-400 transition-colors">${tool.name}</div>
+          <div class="text-gray-500 dark:text-gray-400 text-xs sm:text-sm mt-1 line-clamp-2 leading-relaxed">${tool.description}</div>
         </div>
       </div>
-      <hr class="my-4 border-gray-100">
-      <div class="text-sm text-gray-400">Category: ${category ? category.name : ""}</div>
+      <hr class="my-3 border-gray-100 dark:border-gray-800">
+      <div class="flex items-center justify-between text-xs text-gray-400">
+        <span>Category: <strong class="text-gray-700 dark:text-gray-300">${category ? category.name : ""}</strong></span>
+        <span class="text-blue-600 dark:text-blue-400 font-semibold flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">Open Tool →</span>
+      </div>
     </a>
   `;
 }
@@ -346,18 +288,26 @@ function renderSearchResults(results, query) {
 
   showPopularTools(false);
   container.innerHTML = `
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <h2 class="text-lg font-semibold mb-4">
-        ${results.length > 0 ? `Results for "${query}" (${results.length})` : `No results found for "${query}"`}
-      </h2>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-fade-in">
+      <div class="flex items-center justify-between mb-6 pb-3 border-b border-gray-200 dark:border-gray-800">
+        <h2 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
+          ${results.length > 0 ? `Search Results for "${query}" <span class="text-sm font-semibold text-blue-600 dark:text-blue-400 ml-2">(${results.length} found)</span>` : `No results found for "${query}"`}
+        </h2>
+      </div>
       ${
         results.length > 0
           ? `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               ${results.map((tool, idx) => renderToolCard(tool, idx)).join("")}
             </div>`
-          : `<div class="bg-white dark:bg-[#141B3D] border border-gray-100 dark:border-gray-700/50 rounded-2xl p-8 text-center">
-              <p class="text-gray-500">
-                No tools match your search. Try different keywords or browse categories below.
+          : `<div class="bg-white dark:bg-[#141B3D] border border-gray-100 dark:border-gray-700/50 rounded-2xl p-10 text-center shadow-sm">
+              <div class="w-12 h-12 rounded-2xl bg-gray-100 dark:bg-gray-800 text-gray-400 flex items-center justify-center mx-auto mb-3">
+                <i data-lucide="search-x" class="w-6 h-6"></i>
+              </div>
+              <p class="text-gray-700 dark:text-gray-200 font-bold text-base mb-1">
+                No matching tools found
+              </p>
+              <p class="text-gray-500 dark:text-gray-400 text-xs sm:text-sm max-w-md mx-auto">
+                Try searching with different keywords like "json", "image", "hash", or browse categories below.
               </p>
             </div>`
       }

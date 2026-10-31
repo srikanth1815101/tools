@@ -32,7 +32,7 @@
     ];
 
     function renderSimilarCard(tool, idx) {
-      const color = colorPalette[idx % colorPalette.length];
+      const color = tool.color || colorPalette[idx % colorPalette.length];
       let href = tool.url.startsWith('/') ? tool.url : '/' + tool.url;
       return `
         <a href="${href}" class="flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-[#141B3D] shadow-sm border border-gray-100 dark:border-gray-700/50 hover:shadow-md hover:border-blue-200 dark:hover:border-blue-800 transition-all">

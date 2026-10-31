@@ -450,3 +450,10 @@ body {
   flex-direction:column;
   justify-content:flex-start}
 
+
+
+/* Hero Search Bar Transparency */
+#searchInput {
+    background-color: transparent !important;
+    background: transparent !important;
+}

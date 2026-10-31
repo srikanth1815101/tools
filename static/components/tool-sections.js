@@ -3,7 +3,7 @@ function renderToolSections(toolDataName) {
   if (!data) return;
 
   const heroSection = document.getElementById("heroSection");
-  if (heroSection && heroSection.dataset.rendered === toolDataName) return;
+  if (heroSection && (heroSection.dataset.rendered === toolDataName || heroSection.dataset.rendered === "server")) return;
   if (heroSection) heroSection.dataset.rendered = toolDataName;
   if (data.hero && heroSection) {
     heroSection.innerHTML = `

@@ -3,7 +3,7 @@
 <head>
   {{ partial "head.html" . }}
 </head>
-<body class="min-h-screen flex flex-col font-sans selection:bg-purple-500/30 selection:text-purple-600 bg-[#F8F9FA] dark:bg-[#0A0E27] text-gray-900 dark:text-gray-100 transition-colors duration-300">
+<body class="min-h-screen flex flex-col font-sans selection:bg-purple-500/30 selection:text-purple-600 bg-[#F8F9FA] dark:bg-[#0A0E27] text-gray-900 dark:text-gray-100">
   {{ partial "header.html" . }}
 
   <main class="{{ if .IsHome }}flex-grow{{ else }}pt-24 md:pt-28 flex-grow{{ end }}">

@@ -34,6 +34,13 @@
                                 class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left {{ if or .IsHome (eq .RelPermalink "/") }}scale-x-100{{ end }}"></span>
                         </a>
 
+                        <a href="{{ "tools/" | relURL }}"
+                            class="relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 {{ if or (eq .RelPermalink "/tools/") (eq .RelPermalink "/tools") }}font-bold text-blue-600 dark:text-fuchsia-400{{ end }}">
+                            Tools
+                            <span
+                                class="absolute left-0 -bottom-1 w-full h-0.5 rounded bg-gradient-to-r from-blue-600 via-fuchsia-500 to-pink-500 transition-all duration-300 scale-x-0 origin-left {{ if or (eq .RelPermalink "/tools/") (eq .RelPermalink "/tools") }}scale-x-100{{ end }}"></span>
+                        </a>
+
                         <!-- Categories Dropdown with seamless hover bridge -->
                         <div class="relative group" id="categoriesGroup">
                             <button type="button" class="relative py-2 px-2 transition text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-fuchsia-400 flex items-center gap-1 font-medium {{ if strings.HasPrefix .RelPermalink "/categories/" }}font-bold text-blue-600 dark:text-fuchsia-400{{ end }}" id="categoriesDropdownBtn" aria-expanded="false" aria-haspopup="true">
@@ -122,6 +129,10 @@
                     class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ if or .IsHome (eq .RelPermalink "/") }}bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 text-purple-700 dark:text-purple-300{{ else }}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50{{ end }}">
                     <span>Home</span>
                 </a>
+                <a href="{{ "tools/" | relURL }}"
+                    class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ if or (eq .RelPermalink "/tools/") (eq .RelPermalink "/tools") }}bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 text-purple-700 dark:text-purple-300 font-bold{{ else }}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50{{ end }}">
+                    <span>Tools</span>
+                </a>
                 <button onclick="toggleMobileCategories()"
                     class="w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 {{ if strings.HasPrefix .RelPermalink "/categories/" }}bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 text-purple-700 dark:text-purple-300{{ else }}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50{{ end }}">
                     <span>Categories</span>
@@ -159,6 +170,15 @@
 
 <script>
     function toggleTheme() {
+        // Disable all CSS transitions during theme switch so everything flips instantly and cleanly (exact DSA pattern)
+        const css = document.createElement('style');
+        css.appendChild(
+            document.createTextNode(
+                '*, *::before, *::after { -webkit-transition: none !important; -moz-transition: none !important; -o-transition: none !important; -ms-transition: none !important; transition: none !important; }'
+            )
+        );
+        document.head.appendChild(css);
+
         const html = document.documentElement;
         const currentTheme = html.getAttribute('data-theme') || (html.classList.contains('dark') ? 'dark' : 'light');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -177,6 +197,16 @@
             themeIcon.setAttribute('data-lucide', newTheme === 'dark' ? 'sun' : 'moon');
             if (window.lucide) lucide.createIcons();
         }
+
+        // Force reflow and re-enable transitions on the next animation frame
+        void window.getComputedStyle(document.body).opacity;
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                if (css.parentNode) {
+                    document.head.removeChild(css);
+                }
+            });
+        });
     }
 
     function toggleMobileMenu() {

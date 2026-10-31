@@ -1,0 +1,395 @@
+---
+id: "gif-maker"
+title: "GIF Maker - Free Online Tool | CSRGO"
+name: "GIF Maker"
+description: "Create animated GIFs from images"
+url: "/tools/gif-maker/"
+category: "image-tools"
+icon: "image-play"
+color: "bg-fuchsia-50 dark:bg-fuchsia-900/30 text-fuchsia-600 dark:text-fuchsia-400"
+keywords:
+  - "gif maker"
+  - "gif maker online"
+  - "free gif maker"
+hero:
+  icon: "image-play"
+  iconBg: "gradient-bg"
+  title: "GIF Maker"
+  subtitle: "Create animated GIFs from your images with customizable frame timing and effects"
+  features:
+    - icon: "image"
+      color: "text-blue-500"
+      label: "Multiple Frames"
+    - icon: "clock"
+      color: "text-purple-500"
+      label: "Custom Timing"
+    - icon: "globe"
+      color: "text-green-500"
+      label: "Browser-based"
+whatIs:
+  title: "What is GIF Maker?"
+  content: "The GIF Maker is a free online tool that allows you to create animated GIFs from multiple images. GIF (Graphics Interchange Format) is a bitmap image format that supports both static and animated images, making it perfect for creating simple animations, memes, and short video clips.<br><br><strong>Creation options:</strong> You can upload multiple images as frames, adjust the duration of each frame, set the loop count, and preview your animation before creating the final GIF. The tool supports various image formats and provides instant conversion without any software installation required. All processing is done in your browser for privacy and speed."
+whyUse:
+  title: "Why Use GIF Maker?"
+  items:
+    - icon: "image"
+      title: "Easy Animation"
+      desc: "Create animated GIFs from your images with just a few clicks, no complex software required."
+    - icon: "clock"
+      title: "Custom Timing"
+      desc: "Control the duration of each frame to create smooth or dramatic animations."
+    - icon: "repeat"
+      title: "Loop Control"
+      desc: "Set how many times your GIF should loop, from once to infinite."
+    - icon: "eye"
+      title: "Live Preview"
+      desc: "Preview your animation in real-time before creating the final GIF."
+howToUse:
+  title: "How to Use GIF Maker"
+  steps:
+    - icon: "upload"
+      title: "Upload Images"
+      desc: "Click the upload area or drag and drop your image files. You can select multiple images to use as frames."
+    - icon: "settings"
+      title: "Adjust Settings"
+      desc: "Set the duration for each frame and choose how many times the GIF should loop."
+    - icon: "play"
+      title: "Preview Animation"
+      desc: "Click the \"Preview GIF\" button to see how your animation looks."
+    - icon: "image"
+      title: "Create & Download"
+      desc: "Click \"Create GIF\" to generate your animated GIF, then download it to your device."
+features:
+  - "Create GIFs from multiple image frames"
+  - "Customize frame duration for each image"
+  - "Set loop count (infinite or specific number)"
+  - "Live preview of animation"
+  - "Drag and drop image upload"
+  - "Support for various image formats"
+  - "Instant conversion process"
+  - "All processing done in your browser"
+faq:
+  - q: "What is a GIF?"
+    a: "A GIF (Graphics Interchange Format) is a bitmap image format that supports both static and animated images. It's widely used for simple animations, memes, and short video clips on the web."
+  - q: "What image formats are supported?"
+    a: "You can use various image formats including JPG, PNG, WebP, and more. The tool will convert them to GIF format."
+  - q: "How many frames can I use?"
+    a: "You can use as many frames as you need, but keep in mind that more frames will result in a larger file size."
+  - q: "Can I adjust the timing of each frame?"
+    a: "Yes, you can set a custom duration for each frame in milliseconds, allowing you to create smooth or dramatic animations."
+  - q: "Are my images secure?"
+    a: "Yes, all processing is done locally in your browser. Your images are never uploaded to our servers."
+---
+
+{{< rawhtml >}}
+<!-- Tool Interface Card -->
+        <!-- Upload Area -->
+        <div class="bg-white dark:bg-[#141B3D] border border-gray-100 dark:border-gray-700/50 rounded-2xl md:rounded-3xl shadow-sm p-6 mb-6">
+          <div id="dropZone" class="border-2 border-dashed border-gray-200 rounded-xl p-8 text-center cursor-pointer hover:border-blue-500 transition-colors">
+            <div class="flex flex-col items-center gap-4">
+              <div class="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center">
+                <i data-lucide="upload" class="w-8 h-8 text-blue-500"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-gray-900">Drop your images here</h3>
+                <p class="text-gray-500 mt-1">or click to browse</p>
+              </div>
+              <input type="file" id="fileInput" accept="image/*" multiple class="hidden">
+            </div>
+          </div>
+        </div>
+
+        <!-- Frames and Settings Area -->
+        <div id="previewArea" class="bg-white rounded-2xl shadow-sm p-6 mb-6 hidden">
+          <div class="grid md:grid-cols-2 gap-6">
+            <!-- Frames List -->
+            <div>
+              <h3 class="text-lg font-semibold mb-4">Frames</h3>
+              <div id="framesList" class="space-y-4 max-h-[400px] overflow-y-auto">
+                <!-- Frames will be added here dynamically -->
+              </div>
+            </div>
+            <!-- Settings and Preview -->
+            <div>
+              <h3 class="text-lg font-semibold mb-4">Settings</h3>
+              <!-- Animation Settings -->
+              <div class="space-y-4 mb-6">
+                <!-- Frame Duration -->
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Frame Duration (ms)</label>
+                  <input type="number" id="frameDuration" min="100" max="2000" value="500" class="w-full rounded-lg border-gray-200 focus:border-blue-500 focus:ring-blue-500">
+                </div>
+                <!-- Loop Count -->
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Loop Count</label>
+                  <input type="number" id="loopCount" min="0" value="0" class="w-full rounded-lg border-gray-200 focus:border-blue-500 focus:ring-blue-500">
+                  <p class="text-sm text-gray-500 mt-1">0 = infinite loop</p>
+                </div>
+              </div>
+              <!-- Action Buttons -->
+              <div class="flex flex-col gap-3">
+                <button id="createBtn" class="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-colors flex items-center justify-center gap-2">
+                  <i data-lucide="image" class="w-5 h-5 inline-block mr-2"></i>
+                  Create GIF
+                </button>
+                <button id="clearBtn" class="w-full px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors">
+                  <i data-lucide="x" class="w-5 h-5 inline-block mr-2"></i>
+                  Clear
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Result Area -->
+        <div id="resultArea" class="bg-white rounded-2xl shadow-sm p-6 mb-6 hidden">
+          <h3 class="text-lg font-semibold mb-4">Your GIF</h3>
+          <div class="aspect-square bg-gray-50 rounded-lg overflow-hidden max-w-md mx-auto mb-6">
+            <img id="resultGif" class="w-full h-full object-contain" alt="Created GIF">
+          </div>
+          <div class="flex justify-center">
+            <button id="downloadBtn" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-colors flex items-center justify-center gap-2">
+              <i data-lucide="download" class="w-5 h-5 inline-block mr-2"></i>
+              Download GIF
+            </button>
+          </div>
+        </div>
+      <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Initialize tool sections
+    document.addEventListener('DOMContentLoaded', () => {
+      renderToolSections('GIF_MAKER_DATA');
+    });
+
+    // Elements
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+    const framesList = document.getElementById('framesList');
+    const previewArea = document.getElementById('previewArea');
+    const settingsArea = document.getElementById('settingsArea');
+    const actionButtons = document.getElementById('actionButtons');
+    const frameDuration = document.getElementById('frameDuration');
+    const loopCount = document.getElementById('loopCount');
+    const createBtn = document.getElementById('createBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const resultArea = document.getElementById('resultArea');
+    const resultGif = document.getElementById('resultGif');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    let frames = [];
+    let currentFrame = 0;
+
+    // Handle file selection
+    function handleFileSelect(files) {
+      const imageFiles = Array.from(files).filter(file => file.type.startsWith('image/'));
+      
+      if (imageFiles.length === 0) {
+        alert('Please select image files');
+        return;
+      }
+
+      imageFiles.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          frames.push({
+            src: e.target.result,
+            duration: parseInt(frameDuration.value)
+          });
+          updateFramesList();
+        };
+        reader.readAsDataURL(file);
+      });
+
+      previewArea.classList.remove('hidden');
+      previewArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Update frames list
+    function updateFramesList() {
+      framesList.innerHTML = frames.map((frame, index) => `
+        <div class="flex items-center gap-4 p-2 bg-gray-50 rounded-lg">
+          <img src="${frame.src}" class="w-16 h-16 object-cover rounded" alt="Frame ${index + 1}">
+          <div class="flex-grow">
+            <p class="text-sm font-medium">Frame ${index + 1}</p>
+            <input type="number" value="${frame.duration}" min="100" max="2000" 
+              class="w-24 text-sm rounded border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+              onchange="updateFrameDuration(${index}, this.value)">
+          </div>
+          <button onclick="removeFrame(${index})" class="p-1 text-gray-500 hover:text-red-500">
+            <i data-lucide="trash-2" class="w-5 h-5"></i>
+          </button>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    // Update frame duration
+    window.updateFrameDuration = function(index, duration) {
+      frames[index].duration = parseInt(duration);
+    };
+
+    // Remove frame
+    window.removeFrame = function(index) {
+      frames.splice(index, 1);
+      updateFramesList();
+      if (frames.length === 0) {
+        previewArea.classList.add('hidden');
+        settingsArea.classList.add('hidden');
+        actionButtons.classList.add('hidden');
+      }
+    };
+
+    // Create GIF
+    async function createGIF() {
+      if (frames.length === 0) {
+        alert('Please add at least one frame');
+        return;
+      }
+
+      const createButton = document.getElementById('createBtn');
+      createButton.disabled = true;
+      createButton.innerHTML = '<i data-lucide="loader" class="w-5 h-5 inline-block mr-2 animate-spin"></i>Creating GIF... 0%';
+
+      try {
+        // Determine max width and height from all frames
+        let maxWidth = 0;
+        let maxHeight = 0;
+        for (const frame of frames) {
+          const img = new Image();
+          await new Promise((resolve, reject) => {
+            img.onload = () => {
+              if (img.width > maxWidth) maxWidth = img.width;
+              if (img.height > maxHeight) maxHeight = img.height;
+              resolve();
+            };
+            img.onerror = reject;
+            img.src = frame.src;
+          });
+        }
+        // Fallback if something goes wrong
+        if (maxWidth === 0 || maxHeight === 0) {
+          maxWidth = 400;
+          maxHeight = 400;
+        }
+
+        // Create a new GIF instance
+        const gif = new GIF({
+          workers: 2,
+          quality: 10,
+          width: maxWidth,
+          height: maxHeight,
+          workerScript: 'lib/gif.worker.js'
+        });
+
+        // Create a promise to handle the GIF creation
+        const gifPromise = new Promise((resolve, reject) => {
+          gif.on('finished', function(blob) {
+            resolve(blob);
+          });
+          gif.on('error', function(error) {
+            reject(error);
+          });
+          gif.on('progress', function(p) {
+            createButton.innerHTML = `<i data-lucide="loader" class="w-5 h-5 inline-block mr-2 animate-spin"></i>Creating GIF... ${Math.round(p * 100)}%`;
+            lucide.createIcons();
+          });
+        });
+
+        // Process each frame
+        for (const frame of frames) {
+          const img = new Image();
+          await new Promise((resolve, reject) => {
+            img.onload = resolve;
+            img.onerror = reject;
+            img.src = frame.src;
+          });
+
+          // Create a canvas to draw the frame
+          const canvas = document.createElement('canvas');
+          canvas.width = maxWidth;
+          canvas.height = maxHeight;
+          const ctx = canvas.getContext('2d');
+
+          // Fill with white background
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+          // Calculate dimensions to maintain aspect ratio
+          const scale = Math.min(maxWidth / img.width, maxHeight / img.height);
+          const x = (maxWidth - img.width * scale) / 2;
+          const y = (maxHeight - img.height * scale) / 2;
+
+          // Draw the image centered on the canvas
+          ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
+
+          // Add the frame to the GIF
+          gif.addFrame(canvas, { delay: frame.duration });
+        }
+
+        // Render the GIF
+        gif.render();
+
+        // Wait for the GIF to be created
+        const blob = await gifPromise;
+        
+        // Create a URL for the GIF
+        const url = URL.createObjectURL(blob);
+        
+        // Show result
+        resultGif.src = url;
+        resultArea.classList.remove('hidden');
+        resultArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // Update download button to use the blob
+        downloadBtn.className = "px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-colors flex items-center justify-center gap-2";
+        downloadBtn.onclick = () => {
+          const link = document.createElement('a');
+          link.download = 'animated.gif';
+          link.href = url;
+          link.click();
+        };
+      } catch (error) {
+        console.error('GIF creation error:', error);
+        alert('Error creating GIF: ' + error.message);
+      } finally {
+        createButton.disabled = false;
+        createButton.innerHTML = '<i data-lucide="image" class="w-5 h-5 inline-block mr-2"></i>Create GIF';
+        lucide.createIcons();
+      }
+    }
+
+    // Clear all
+    function clearAll() {
+      frames = [];
+      currentFrame = 0;
+      previewArea.classList.add('hidden');
+      settingsArea.classList.add('hidden');
+      actionButtons.classList.add('hidden');
+      resultArea.classList.add('hidden');
+      fileInput.value = '';
+      updateFramesList();
+    }
+
+    // Event Listeners
+    dropZone.addEventListener('click', () => fileInput.click());
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('border-blue-500');
+    });
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('border-blue-500');
+    });
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('border-blue-500');
+      handleFileSelect(e.dataTransfer.files);
+    });
+    fileInput.addEventListener('change', (e) => {
+      handleFileSelect(e.target.files);
+    });
+    createBtn.addEventListener('click', createGIF);
+    clearBtn.addEventListener('click', clearAll);
+  </script>
+{{< /rawhtml >}}

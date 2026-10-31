@@ -746,3 +746,31 @@ pre, code, .font-mono {
     html.dark .code-scroll-wrapper::-webkit-scrollbar-thumb:hover {
         background: rgba(255, 255, 255, 0.3) !important;
     }
+
+
+/* Hero Search Bar Transparency */
+#searchInput {
+    background-color: transparent !important;
+    background: transparent !important;
+}
+
+
+/* Edge Mask Fade for Ticker (DSA & Blog Pattern) */
+.mask-fade {
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+/* Marquee Interaction States */
+#popularToolsSection:hover .animate-marquee,
+.animate-marquee:hover,
+.animate-marquee:focus-within {
+    animation-play-state: paused !important;
+}
+
+@media (hover: none) {
+    #popularToolsSection:active .animate-marquee,
+    .animate-marquee:active {
+        animation-play-state: paused !important;
+    }
+}

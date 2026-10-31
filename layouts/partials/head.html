@@ -98,6 +98,27 @@
 </script>
 <!-- Lucide Icons CDN -->
 <script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  /* Blog Inspired Glass Pill & Marquee Edge Fade */
+  .glass-pill {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  html:not(.dark) .glass-pill,
+  html[data-theme="light"] .glass-pill {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  }
+  .mask-fade {
+    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  }
+</style>
 <!-- Core IndexedDB Storage (DSA architecture) -->
 <script src="{{ "js/db.js" | relURL }}"></script>
 <!-- Core App Scripts (Data & State) -->
